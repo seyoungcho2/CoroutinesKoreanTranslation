@@ -25,18 +25,11 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 * [Channels](channels.md)
 * [Coroutine 예외 처리](coroutine.md)
 * [Coroutine 공유 상태와 동시성](coroutine-1.md)
-* [Select expression (experimental)](select-expression-experimental.md)
 * [Tutorial: IntelliJ를 사용한 Coroutines 디버깅](tutorial-intellij-coroutines.md)
 * [Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅](tutorial-intellij-kotlin-flow.md)
 
 
 
-### 추가 참조 <a href="#additional-references" id="additional-references"></a>
-
-* Guide to UI programming with coroutines
-* Coroutines design document (KEEP)
-* Full kotlinx.coroutines API reference
-* Best practices for coroutines in Android
-* Additional Android resources for Kotlin coroutines and flow
+### &#x20;<a href="#additional-references" id="additional-references"></a>
 
 \
