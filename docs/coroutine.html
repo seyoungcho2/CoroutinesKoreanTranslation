@@ -1,0 +1,645 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Coroutine 예외 처리 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="원문 최종 수정 :  2023년 6월 16일">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="coroutine-1.html" />
+    
+    
+    <link rel="prev" href="channels.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Kotlin Coroutines 공식 문서 번역을 시작하며
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="coroutines.html">
+            
+                <a href="coroutines.html">
+            
+                    
+                    Coroutines 가이드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="coroutines-1.html">
+            
+                <a href="coroutines-1.html">
+            
+                    
+                    Coroutines 기초
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="undefined.html">
+            
+                <a href="undefined.html">
+            
+                    
+                    취소와 타임아웃
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="undefined-1.html">
+            
+                <a href="undefined-1.html">
+            
+                    
+                    일시중단 함수 구성하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="coroutine-context-dispatcher.html">
+            
+                <a href="coroutine-context-dispatcher.html">
+            
+                    
+                    Coroutine Context와 Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="flow.html">
+            
+                <a href="flow.html">
+            
+                    
+                    비동기 Flow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="channels.html">
+            
+                <a href="channels.html">
+            
+                    
+                    Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9" data-path="coroutine.html">
+            
+                <a href="coroutine.html">
+            
+                    
+                    Coroutine 예외 처리
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="coroutine-1.html">
+            
+                <a href="coroutine-1.html">
+            
+                    
+                    Coroutine 공유 상태와 동시성
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="tutorial-intellij-coroutines.html">
+            
+                <a href="tutorial-intellij-coroutines.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Coroutines 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="tutorial-intellij-kotlin-flow.html">
+            
+                <a href="tutorial-intellij-kotlin-flow.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Coroutine 예외 처리</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="coroutine-&#xC608;&#xC678;-&#xCC98;&#xB9AC;">Coroutine &#xC608;&#xC678; &#xCC98;&#xB9AC;</h1>
+<p>&#xC774; &#xC139;&#xC158;&#xC5D0;&#xC11C;&#xB294; &#xC608;&#xC678; &#xCC98;&#xB9AC;&#xC640; &#xC608;&#xC678; &#xBC1C;&#xC0DD; &#xC2DC; &#xCDE8;&#xC18C;&#xC5D0; &#xB300;&#xD574; &#xB2E4;&#xB8EC;&#xB2E4;. &#xC6B0;&#xB9AC;&#xB294; &#xCDE8;&#xC18C;&#xB41C; Coroutine&#xC774; &#xC77C;&#xC2DC;&#xC911;&#xB2E8; &#xC9C0;&#xC810;&#xC5D0;&#xC11C; CancellationException&#xC744; &#xBC1C;&#xC0DD;&#xC2DC;&#xD0A4;&#xACE0; &#xC774;&#xAC83;&#xC774; Coroutine&#xC758; &#xB3D9;&#xC791;&#xC6D0;&#xB9AC;&#xC5D0; &#xC758;&#xD574;&#xC11C; &#xBB34;&#xC2DC;&#xB418;&#xB294; &#xAC83;&#xC744; &#xC54C;&#xACE0; &#xC788;&#xB2E4;. &#xC774; &#xC7A5;&#xC5D0;&#xC11C;&#xB294; &#xCDE8;&#xC18C; &#xB3C4;&#xC911; &#xC608;&#xC678;&#xAC00; &#xBC1C;&#xC0DD;&#xB418;&#xAC70;&#xB098; &#xAC19;&#xC740; Coroutine&#xC5D0;&#xC11C; &#xBCF5;&#xC218;&#xC758; &#xC790;&#xC2DD; Coroutine&#xC774; &#xC608;&#xC678;&#xB97C; &#xBC1C;&#xC0DD;&#xC2DC;&#xD0AC; &#xACBD;&#xC6B0; &#xC5B4;&#xB5A4; &#xC77C;&#xC774; &#xC77C;&#xC5B4;&#xB098;&#xB294;&#xC9C0; &#xC0B4;&#xD3B4;&#xBCFC; &#xAC83;&#xC774;&#xB2E4;.</p>
+<h2 id="exception-&#xC804;&#xD30C;">Exception &#xC804;&#xD30C;</h2>
+<p>Coroutine &#xBE4C;&#xB354;&#xB294; &#xC790;&#xB3D9;&#xC73C;&#xB85C; &#xC608;&#xC678;&#xB97C; &#xC804;&#xD30C;(<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html" target="_blank">launch</a>&#xC640; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/actor.html" target="_blank">actor</a>)&#xD558;&#xAC70;&#xB098; &#xC0AC;&#xC6A9;&#xC790;&#xC5D0;&#xAC8C; &#xC608;&#xC678;&#xB97C; &#xB178;&#xCD9C;(<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html" target="_blank">async</a>&#xC640; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html" target="_blank">produce</a>)&#xD55C;&#xB2E4;. &#xC774; &#xBE4C;&#xB354;&#xB4E4;&#xC774; &#xB2E4;&#xB978; Coroutine&#xC758; &#xC790;&#xC2DD;&#xC774; &#xC544;&#xB2CC; root Coroutine&#xC744; &#xB9CC;&#xB4DC;&#xB294;&#xB370; &#xC0AC;&#xC6A9;&#xB420; &#xB54C;, &#xC804;&#xC790;(<code>launch</code>&#xC640; <code>actor</code>)&#xB294; Java&#xC758; <code>Thread.uncaughtExceptionHandler</code>&#xC640; &#xBE44;&#xC2B7;&#xD558;&#xAC8C; &#xC55E;&#xC758; &#xBE4C;&#xB354;&#xB4E4;&#xC740; &#xC608;&#xC678;&#xB97C; &#xC7A1;&#xD788;&#xC9C0; &#xC54A;&#xC740; &#xC608;&#xC678;&#xB85C; &#xB2E4;&#xB8EC;&#xB2E4;. &#xBC18;&#xBA74; &#xD6C4;&#xC790;(<code>async</code>&#xC640; <code>produce</code>)&#xB294; <code>await</code>&#xC774;&#xB098; <code>receive</code>&#xB97C; &#xD1B5;&#xD574; &#xC0AC;&#xC6A9;&#xC790;&#xAC00; &#xB9C8;&#xC9C0;&#xB9C9; &#xC608;&#xC678;&#xB97C; &#xC18C;&#xBE44;&#xD558;&#xB294;&#xC9C0;&#xC5D0; &#xC758;&#xC874;&#xD55C;&#xB2E4;.(<code>produce</code>&#xC640; <code>receive</code>&#xB294; <a href="channels.html">Channels</a> &#xC139;&#xC158;&#xC5D0;&#xC11C; &#xB2E4;&#xB8EC;&#xB2E4;)</p>
+<p>&#xC774;&#xB294; <code>GlobalScope</code>&#xB97C; &#xC0AC;&#xC6A9;&#xD574; root Coroutine&#xC744; &#xB9CC;&#xB4DC;&#xB294; &#xAC04;&#xB2E8;&#xD55C; &#xC608;&#xC81C;&#xB85C; &#xC124;&#xBA85;&#xB420; &#xC218; &#xC788;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4D6;  GlobalScope&#xB294; &#xC0AC;&#xC18C;&#xD558;&#xC9C0; &#xC54A;&#xC740; &#xC5ED;&#xD6A8;&#xACFC;&#xB97C; &#xB9CC;&#xB4E4; &#xC218; &#xC788;&#xB294; &#xC12C;&#xC138;&#xD558;&#xAC8C; &#xB2E4;&#xB904;&#xC838;&#xC57C; &#xD558;&#xB294; API&#xC774;&#xB2E4;. &#xBAA8;&#xB4E0; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC5D0; &#xB300;&#xD574; root Coroutine&#xC744; &#xB9CC;&#xB4DC;&#xB294; &#xAC83;&#xC740; GlobalScope&#xC758; &#xB4DC;&#xBB38; &#xC801;&#xD569;&#xD55C; &#xC0AC;&#xC6A9; &#xBC29;&#xBC95; &#xC911; &#xD558;&#xB098;&#xC774;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; @OptIn(DelicateCoroutinesApi::class)&#xC744; &#xC0AC;&#xC6A9;&#xD574; GlobalScope&#xB97C; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; opt-in &#xC2DC;&#xCF1C;&#xC57C; &#xD55C;&#xB2E4;.</p>
+</blockquote>
+<pre><code class="lang-kotlin">@OptIn(DelicateCoroutinesApi::<span class="hljs-class"><span class="hljs-keyword">class</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = GlobalScope.launch { <span class="hljs-comment">// root coroutine with launch</span>
+        println(<span class="hljs-string">&quot;Throwing exception from launch&quot;</span>)
+        <span class="hljs-keyword">throw</span> IndexOutOfBoundsException() <span class="hljs-comment">// Will be printed to the console by Thread.defaultUncaughtExceptionHandler</span>
+    }
+    job.join()
+    println(<span class="hljs-string">&quot;Joined failed job&quot;</span>)
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> deferred</span> = GlobalScope.async { <span class="hljs-comment">// root coroutine with async</span>
+        println(<span class="hljs-string">&quot;Throwing exception from async&quot;</span>)
+        <span class="hljs-keyword">throw</span> ArithmeticException() <span class="hljs-comment">// Nothing is printed, relying on user to call await</span>
+    }
+    <span class="hljs-keyword">try</span> {
+        deferred.await()
+        println(<span class="hljs-string">&quot;Unreached&quot;</span>)
+    } <span class="hljs-keyword">catch</span> (e: ArithmeticException) {
+        println(<span class="hljs-string">&quot;Caught ArithmeticException&quot;</span>)
+    }
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-01.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;(&#xB514;&#xBC84;&#xADF8; &#xC635;&#xC158;&#xC744; &#xCF1C;&#xB193;&#xC558;&#xC74C;) :</p>
+<pre><code>Throwing exception from launch
+Exception in thread &quot;DefaultDispatcher-worker-2 @coroutine#2&quot; java.lang.IndexOutOfBoundsException
+Joined failed job
+Throwing exception from async
+Caught ArithmeticException
+</code></pre><hr>
+<h2 id="coroutineexceptionhandler-&#xC0AC;&#xC6A9;&#xD574;-&#xC804;&#xD30C;&#xB41C;-&#xC608;&#xC678;-&#xCC98;&#xB9AC;&#xD558;&#xAE30;">CoroutineExceptionHandler &#xC0AC;&#xC6A9;&#xD574; &#xC804;&#xD30C;&#xB41C; &#xC608;&#xC678; &#xCC98;&#xB9AC;&#xD558;&#xAE30;</h2>
+<p>&#xC7A1;&#xD788;&#xC9C0; &#xC54A;&#xC740; &#xC608;&#xC678;&#xB97C; &#xCF58;&#xC194;&#xC5D0; &#xCD9C;&#xB825;&#xD558;&#xB3C4;&#xB85D; &#xAE30;&#xBCF8; &#xB3D9;&#xC791;&#xC744; &#xCEE4;&#xC2A4;&#xD130;&#xB9C8;&#xC774;&#xC9D5; &#xD560; &#xC218; &#xC788;&#xB2E4;. root Coroutine &#xC0C1;&#xC758; Context&#xC758; &#xC694;&#xC18C;&#xC778; <code>CoroutineExceptionHandler</code>&#xB294;, root Coroutine&#xACFC; &#xBAA8;&#xB4E0; &#xC790;&#xC2DD; Coroutine&#xB4E4;&#xC5D0; &#xB300;&#xD574; &#xCEE4;&#xC2A4;&#xD140;&#xD55C; &#xC608;&#xC678; &#xCC98;&#xB9AC;&#xAC00; &#xD544;&#xC694;&#xD55C; &#xACBD;&#xC6B0;, &#xC77C;&#xBC18; catch &#xBE14;&#xB85D;&#xC73C;&#xB85C; &#xC0AC;&#xC6A9;&#xB420; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xB294; <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#setUncaughtExceptionHandler\(java.lang.Thread.UncaughtExceptionHandler\" target="_blank">Thread.uncaughtExceptionHandler</a>)&#xC640; &#xBE44;&#xC2B7;&#xD558;&#xB2E4;. <code>CoroutineExceptionHandler</code> &#xC744; &#xC0AC;&#xC6A9;&#xD574;&#xC11C; &#xC608;&#xC678;&#xB97C; &#xBCF5;&#xAD6C; &#xD558;&#xC9C0;&#xB294; &#xBABB;&#xD55C;&#xB2E4;. Coroutine&#xC740; Handler&#xAC00; &#xD638;&#xCD9C;&#xB418;&#xC5C8;&#xC744; &#xB54C; &#xC774;&#xBBF8; &#xD574;&#xB2F9; Exception&#xC5D0; &#xB300;&#xD55C; &#xCC98;&#xB9AC;&#xB97C; &#xC644;&#xB8CC;&#xD588;&#xAE30; &#xB54C;&#xBB38;&#xC774;&#xB2E4;. &#xC77C;&#xBC18;&#xC801;&#xC73C;&#xB85C; <code>CoroutineExceptionHandler</code>&#xB294; &#xC624;&#xB958;&#xB97C; &#xB85C;&#xAE45;&#xD558;&#xAC70;&#xB098;, &#xC560;&#xB7EC; &#xBA54;&#xC138;&#xC9C0;&#xB97C; &#xBCF4;&#xC5EC;&#xC8FC;&#xAC70;&#xB098;, &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xC885;&#xB8CC;&#xD558;&#xAC70;&#xB098; &#xB2E4;&#xC2DC; &#xC2DC;&#xC791;&#xD558;&#xAE30; &#xC704;&#xD574; &#xC0AC;&#xC6A9;&#xB41C;&#xB2E4;.</p>
+<p><code>CoroutineExceptionHandler</code>&#xB294; &#xC7A1;&#xD788;&#xC9C0; &#xC54A;&#xC740; &#xC608;&#xC678;&#xC5D0; &#xB300;&#xD574;&#xC11C;&#xB9CC; &#xC2E4;&#xD589;&#xB41C;&#xB2E4; - &#xB2E4;&#xB978; &#xC5B4;&#xB5A0;&#xD55C; &#xBC29;&#xC2DD;&#xC73C;&#xB85C;&#xB3C4; &#xCC98;&#xB9AC;&#xB418;&#xC9C0; &#xC54A;&#xC740; &#xC608;&#xC678;. &#xD2B9;&#xD788;, &#xBAA8;&#xB4E0; &#xC790;&#xC2DD; Coroutine&#xB4E4;(&#xB2E4;&#xB978; Job&#xC758; Context&#xB85C; &#xB9CC;&#xB4E4;&#xC5B4;&#xC9C4; Coroutines)&#xC740; &#xADF8;&#xB4E4;&#xC758; &#xC608;&#xC678;&#xB97C; &#xBD80;&#xBAA8; Coroutine&#xC5D0;&#xC11C; &#xCC98;&#xB9AC;&#xD558;&#xB3C4;&#xB85D; &#xC704;&#xC784;&#xD558;&#xB294;&#xB370;, &#xADF8; &#xBD80;&#xBAA8; &#xB610;&#xD55C; &#xBD80;&#xBAA8;&#xC5D0;&#xAC8C; &#xC704;&#xC784;&#xD574;&#xC11C; root Coroutine&#xAE4C;&#xC9C0; &#xC62C;&#xB77C;&#xAC04;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; &#xADF8;&#xB4E4;&#xC758; Context&#xC5D0; &#xCD94;&#xAC00;&#xB41C; <code>CoroutineExceptionHandler</code>&#xB294; &#xC808;&#xB300; &#xC0AC;&#xC6A9;&#xB418;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;. &#xCD94;&#xAC00;&#xC801;&#xC73C;&#xB85C; async &#xBE4C;&#xB354;&#xB294; &#xBAA8;&#xB4E0; &#xC608;&#xC678;&#xB97C; &#xC7A1;&#xC544; Deferred &#xAC1D;&#xCCB4;&#xC5D0; &#xB098;&#xD0C0;&#xB0B4;&#xBBC0;&#xB85C;, CoroutineExceptionHandler&#xAC00; &#xC544;&#xBB34;&#xB7F0; &#xD6A8;&#xACFC;&#xAC00; &#xC5C6;&#xC74C;&#xC740; &#xB9C8;&#xCC2C;&#xAC00;&#xC9C0;&#xC774;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4D6;  Supervision Scope &#xC0C1;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xB294; Coroutine&#xC740; &#xC608;&#xC678;&#xB97C; &#xADF8;&#xB4E4;&#xC758; &#xBD80;&#xBAA8;&#xB85C; &#xC804;&#xD30C;&#xD558;&#xC9C0; &#xC54A;&#xC73C;&#xBA70;, &#xC774; &#xADDC;&#xCE59;&#xC73C;&#xB85C;&#xBD80;&#xD130; &#xC81C;&#xC678;&#xB41C;&#xB2E4;. &#xC774; &#xBB38;&#xC11C;&#xC5D0;&#xC11C; &#xC774;&#xD6C4; &#xB2E4;&#xB8F0; Supervision &#xC139;&#xC158;&#xC5D0;&#xC11C; &#xB354; &#xC790;&#xC138;&#xD788; &#xC54C;&#xB824;&#xC904; &#xAC83;&#xC774;&#xB2E4;.</p>
+</blockquote>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> handler</span> = CoroutineExceptionHandler { _, exception -&gt; 
+    println(<span class="hljs-string">&quot;CoroutineExceptionHandler got $exception&quot;</span>) 
+}
+<span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = GlobalScope.launch(handler) { <span class="hljs-comment">// root coroutine, running in GlobalScope</span>
+    <span class="hljs-keyword">throw</span> AssertionError()
+}
+<span class="hljs-variable"><span class="hljs-keyword">val</span> deferred</span> = GlobalScope.async(handler) { <span class="hljs-comment">// also root, but async instead of launch</span>
+    <span class="hljs-keyword">throw</span> ArithmeticException() <span class="hljs-comment">// Nothing will be printed, relying on user to call deferred.await()</span>
+}
+joinAll(job, deferred)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-02.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; : </p>
+<pre><code>CoroutineExceptionHandler got java.lang.AssertionError
+</code></pre><hr>
+<h2 id="cancellation&#xACFC;-exceptions">Cancellation&#xACFC; Exceptions</h2>
+<p>&#xCDE8;&#xC18C;&#xB294; &#xC608;&#xC678;&#xC640; &#xBC00;&#xC811;&#xD788; &#xC5F0;&#xAD00;&#xB418;&#xC5B4; &#xC788;&#xB2E4;. Coroutine&#xC740; &#xB0B4;&#xBD80;&#xC801;&#xC73C;&#xB85C; &#xCDE8;&#xC18C;&#xB97C; &#xC704;&#xD574; <code>CancellationException</code>&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xBA70;, &#xC774; &#xC608;&#xC678;&#xB294; &#xBAA8;&#xB4E0; Handler&#xC5D0;&#xC11C; &#xBB34;&#xC2DC;&#xB41C;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; &#xC774;&#xB4E4;&#xC740; <code>catch</code>&#xBE14;&#xB85D;&#xC73C;&#xB85C;&#xBD80;&#xD130; &#xC5BB;&#xC744; &#xC218; &#xC788;&#xB294; &#xCD94;&#xAC00;&#xC801;&#xC778; &#xB514;&#xBC84;&#xADF8; &#xC815;&#xBCF4;&#xB97C; &#xC704;&#xD574;&#xC11C;&#xB9CC; &#xC0AC;&#xC6A9;&#xB418;&#xC5B4;&#xC57C; &#xD55C;&#xB2E4;. Coroutine&#xC774; Job.cancel&#xC744; &#xC0AC;&#xC6A9;&#xD574; &#xCDE8;&#xC18C;&#xB420; &#xACBD;&#xC6B0; &#xC885;&#xB8CC;&#xB418;&#xC9C0;&#xB9CC;, &#xBD80;&#xBAA8; Coroutine&#xC758; &#xC2E4;&#xD589;&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xC9C0;&#xB294; &#xC54A;&#xB294;&#xB2E4;. </p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch {
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> child</span> = launch {
+        <span class="hljs-keyword">try</span> {
+            delay(<span class="hljs-keyword">Long</span>.MAX_VALUE)
+        } <span class="hljs-keyword">finally</span> {
+            println(<span class="hljs-string">&quot;Child is cancelled&quot;</span>)
+        }
+    }
+    yield()
+    println(<span class="hljs-string">&quot;Cancelling child&quot;</span>)
+    child.cancel()
+    child.join()
+    yield()
+    println(<span class="hljs-string">&quot;Parent is not cancelled&quot;</span>)
+}
+job.join()
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-03.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>Cancelling child
+Child is cancelled
+Parent is not cancelled
+</code></pre><p>&#xB9CC;&#xC57D; Coroutine&#xC774; <code>CancellationException</code> &#xB9D0;&#xACE0; &#xB2E4;&#xB978; &#xC608;&#xC678;&#xB97C; &#xB9CC;&#xB09C;&#xB2E4;&#xBA74;, &#xADF8; &#xC608;&#xC678;&#xB85C; &#xBD80;&#xBAA8; Coroutine&#xAE4C;&#xC9C0; &#xCDE8;&#xC18C;&#xD55C;&#xB2E4;. &#xC774; &#xB3D9;&#xC791;&#xC740; &#xC7AC;&#xC815;&#xC758;&#xD560; &#xC218; &#xC5C6;&#xC73C;&#xBA70;, &#xAD6C;&#xC870;&#xD654;&#xB41C; &#xB3D9;&#xC2DC;&#xC131;&#xC744; &#xC704;&#xD574; &#xC548;&#xC815;&#xC801;&#xC778; Coroutine &#xACC4;&#xCE35;&#xAD6C;&#xC870;&#xB97C; &#xC81C;&#xACF5;&#xD558;&#xB294;&#xB370; &#xC0AC;&#xC6A9;&#xB41C;&#xB2E4;. CoroutineExceptionHandler&#xC758; &#xAD6C;&#xD604;&#xC740; &#xC790;&#xC2DD; Coroutine&#xB4E4;&#xC744; &#xC704;&#xD574; &#xC0AC;&#xC6A9;&#xB418;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4D6;  &#xC774; &#xC608;&#xC5D0;&#xC11C;, CoroutineExceptionHandler&#xB294; &#xC5B8;&#xC81C;&#xB098; GlobalScope&#xC5D0;&#xC11C; &#xB9CC;&#xB4E4;&#xC5B4;&#xC9C4; Coroutine&#xC5D0; &#xC124;&#xCE58;&#xB41C;&#xB2E4;.  main &#xD568;&#xC218;&#xC758; runBlocking Scope&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB41C; Coroutine&#xC5D0; &#xC608;&#xC678; &#xCC98;&#xB9AC;&#xAE30;&#xB97C; &#xC124;&#xCE58;&#xD558;&#xB294; &#xAC83;&#xC740; &#xC758;&#xBBF8;&#xAC00; &#xC5C6;&#xB2E4;. &#xC124;&#xCE58;&#xB41C; CoroutineExceptionHandler&#xAC00; &#xC788;&#xB354;&#xB77C;&#xB3C4; main Coroutine&#xC740; &#xC790;&#xC2DD; Coroutine&#xB4E4;&#xC774; &#xC608;&#xC678;&#xB85C; &#xC778;&#xD574; &#xC644;&#xB8CC;&#xB418;&#xBA74; &#xC5B8;&#xC81C;&#xB098; &#xCDE8;&#xC18C;&#xB418;&#xAE30; &#xB54C;&#xBB38;&#xC774;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC608;&#xC678;&#xB294; &#xBAA8;&#xB4E0; &#xC790;&#xC2DD; Coroutine&#xC774; &#xC885;&#xB8CC;&#xB420; &#xB54C;&#xB9CC; &#xBD80;&#xBAA8;&#xC5D0; &#xC758;&#xD574; &#xCC98;&#xB9AC;&#xB418;&#xBA70;, &#xB2E4;&#xC74C; &#xC608;&#xC81C;&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4; :</p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> handler</span> = CoroutineExceptionHandler { _, exception -&gt; 
+    println(<span class="hljs-string">&quot;CoroutineExceptionHandler got $exception&quot;</span>) 
+}
+<span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = GlobalScope.launch(handler) {
+    launch { <span class="hljs-comment">// the first child</span>
+        <span class="hljs-keyword">try</span> {
+            delay(<span class="hljs-keyword">Long</span>.MAX_VALUE)
+        } <span class="hljs-keyword">finally</span> {
+            withContext(NonCancellable) {
+                println(<span class="hljs-string">&quot;Children are cancelled, but exception is not handled until all children terminate&quot;</span>)
+                delay(<span class="hljs-number">100</span>)
+                println(<span class="hljs-string">&quot;The first child finished its non cancellable block&quot;</span>)
+            }
+        }
+    }
+    launch { <span class="hljs-comment">// the second child</span>
+        delay(<span class="hljs-number">10</span>)
+        println(<span class="hljs-string">&quot;Second child throws an exception&quot;</span>)
+        <span class="hljs-keyword">throw</span> ArithmeticException()
+    }
+}
+job.join()
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-04.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>Second child throws an exception
+Children are cancelled, but exception is not handled until all children terminate
+The first child finished its non cancellable block
+CoroutineExceptionHandler got java.lang.ArithmeticException
+</code></pre><h2 id="exceptions-&#xD569;&#xCE58;&#xAE30;">Exceptions &#xD569;&#xCE58;&#xAE30;</h2>
+<p>&#xB9CC;&#xC57D; Coroutine&#xC758; &#xBCF5;&#xC218;&#xC758; &#xC790;&#xC2DD;&#xB4E4;&#xC774; &#xC608;&#xC678;&#xC640; &#xD568;&#xAED8; &#xC2E4;&#xD589;&#xC5D0; &#xC2E4;&#xD328;&#xD55C;&#xB2E4;&#xBA74;, &#xC77C;&#xBC18;&#xC801;&#xC778; &#xADDC;&#xCE59;&#xC740; &quot;&#xCCAB;&#xBC88;&#xC9F8; &#xC608;&#xC678;&#xAC00; &#xC774;&#xAE34;&#xB2E4;&quot;&#xC774;&#xBA70;, &#xB530;&#xB77C;&#xC11C; &#xCCAB; &#xC608;&#xC678;&#xB9CC; &#xCC98;&#xB9AC;&#xB41C;&#xB2E4;. &#xCCAB; &#xC608;&#xC678; &#xC774;&#xD6C4; &#xC0DD;&#xAE34; &#xBAA8;&#xB4E0; &#xCD94;&#xAC00;&#xC801;&#xC778; &#xC608;&#xC678;&#xB4E4;&#xC740; &#xCCAB;&#xBC88;&#xC9F8; &#xC608;&#xC678;&#xC5D0; suppressed&#xB85C; &#xBD99;&#xC5EC;&#xC9C4;&#xB2E4;.</p>
+<pre><code class="lang-kotlin">@OptIn(DelicateCoroutinesApi::<span class="hljs-class"><span class="hljs-keyword">class</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> handler</span> = CoroutineExceptionHandler { _, exception -&gt;
+        println(<span class="hljs-string">&quot;CoroutineExceptionHandler got $exception with suppressed ${exception.suppressed.contentToString()}&quot;</span>)
+    }
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = GlobalScope.launch(handler) {
+        launch {
+            <span class="hljs-keyword">try</span> {
+                delay(<span class="hljs-keyword">Long</span>.MAX_VALUE) <span class="hljs-comment">// it gets cancelled when another sibling fails with IOException</span>
+            } <span class="hljs-keyword">finally</span> {
+                <span class="hljs-keyword">throw</span> ArithmeticException() <span class="hljs-comment">// the second exception</span>
+            }
+        }
+        launch {
+            delay(<span class="hljs-number">100</span>)
+            <span class="hljs-keyword">throw</span> IOException() <span class="hljs-comment">// the first exception</span>
+        }
+        delay(<span class="hljs-keyword">Long</span>.MAX_VALUE)
+    }
+    job.join()  
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-05.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<p>&#x1F4D6; &#xC8FC;&#xC758;:  &#xC704; &#xCF54;&#xB4DC;&#xB294; suppressed &#xC608;&#xC678;&#xB97C; &#xC9C0;&#xC6D0;&#xD558;&#xB294; JDK7 &#xBC84;&#xC804; &#xC774;&#xC0C1;&#xC5D0;&#xC11C;&#xB9CC; &#xC815;&#xC0C1;&#xC801;&#xC73C;&#xB85C; &#xB3D9;&#xC791;&#xD55C;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC704; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;.</p>
+<pre><code>CoroutineExceptionHandler got java.io.IOException with suppressed [java.lang.ArithmeticException]
+</code></pre><p>&#xCDE8;&#xC18C; &#xC608;&#xC678;&#xB294; &#xD22C;&#xBA85;&#xD558;&#xACE0; &#xAE30;&#xBCF8;&#xC801;&#xC73C;&#xB85C; &#xAC10;&#xC2F8;&#xC9C4;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> handler</span> = CoroutineExceptionHandler { _, exception -&gt;
+    println(<span class="hljs-string">&quot;CoroutineExceptionHandler got $exception&quot;</span>)
+}
+<span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = GlobalScope.launch(handler) {
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> inner</span> = launch { <span class="hljs-comment">// all this stack of coroutines will get cancelled</span>
+        launch {
+            launch {
+                <span class="hljs-keyword">throw</span> IOException() <span class="hljs-comment">// the original exception</span>
+            }
+        }
+    }
+    <span class="hljs-keyword">try</span> {
+        inner.join()
+    } <span class="hljs-keyword">catch</span> (e: CancellationException) {
+        println(<span class="hljs-string">&quot;Rethrowing CancellationException with original cause&quot;</span>)
+        <span class="hljs-keyword">throw</span> e <span class="hljs-comment">// cancellation exception is rethrown, yet the original IOException gets to the handler  </span>
+    }
+}
+job.join()
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-06.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;.</p>
+<pre><code>Rethrowing CancellationException with original cause
+CoroutineExceptionHandler got java.io.IOException
+</code></pre><h2 id="supervision">Supervision</h2>
+<p>&#xC774;&#xC804;&#xC5D0; &#xACF5;&#xBD80;&#xD55C; &#xAC83;&#xCC98;&#xB7FC;, &#xCDE8;&#xC18C;&#xB294; Coroutine&#xC758; &#xC804;&#xCCB4; &#xACC4;&#xCE35;&#xC744; &#xD1B5;&#xD574; &#xC804;&#xD30C;&#xB418;&#xB294; &#xC591;&#xBC29;&#xD5A5; &#xAD00;&#xACC4;&#xB97C; &#xAC00;&#xC9C4;&#xB2E4;.*1 &#xB2E8;&#xBC29;&#xD5A5; &#xCDE8;&#xC18C;&#xB9CC;&#xC774; &#xD544;&#xC694;&#xD55C; &#xACBD;&#xC6B0;&#xB97C; &#xC0B4;&#xD3B4;&#xBCF4;&#xC790;.</p>
+<p>&#xC774;&#xB7EC;&#xD55C; &#xC694;&#xAD6C;&#xC0AC;&#xD56D;&#xC5D0; &#xB300;&#xD55C; &#xC88B;&#xC740; &#xC608;&#xC81C;&#xB294; Scope &#xB0B4;&#xBD80;&#xC5D0; Job&#xC774; &#xC120;&#xC5B8;&#xB41C; UI &#xAD6C;&#xC131;&#xC694;&#xC18C;&#xC774;&#xB2E4;. &#xB9CC;&#xC57D; UI&#xC758; &#xC790;&#xC2DD;&#xC758; &#xC791;&#xC5C5;&#xC774; &#xC2E4;&#xD328;&#xB418;&#xB354;&#xB77C;&#xB3C4;, &#xC5B8;&#xC81C;&#xB098; &#xBAA8;&#xB4E0; UI &#xAD6C;&#xC131;&#xC694;&#xC18C;&#xB97C; &#xCDE8;&#xC18C;(&#xD6A8;&#xACFC;&#xC801;&#xC73C;&#xB85C; &#xC885;&#xB8CC;)&#xD558;&#xB294; &#xAC83;&#xC740; &#xD544;&#xC218;&#xC801;&#xC774;&#xC9C0; &#xC54A;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, UI &#xAD6C;&#xC131;&#xC694;&#xC18C;&#xAC00; &#xD30C;&#xAD34;&#xB418;&#xBA74;(&#xADF8;&#xB9AC;&#xACE0; &#xADF8; Job&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xBA74;), &#xB354;&#xC774;&#xC0C1; &#xACB0;&#xACFC;&#xAC12;&#xC774; &#xD544;&#xC694; &#xC5C6;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xBAA8;&#xB4E0; &#xC790;&#xC2DD; Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xB294; &#xAC83;&#xC740; &#xD544;&#xC218;&#xC801;&#xC774;&#xB2E4;. </p>
+<p>&#xB2E4;&#xB978; &#xC608;&#xC2DC;&#xB294; &#xC5EC;&#xB7EC; &#xC790;&#xC2DD; Job&#xC744; &#xC0DD;&#xC131;&#xD558;&#xACE0; &#xC774;&#xB4E4;&#xC758; &#xC2E4;&#xD589;&#xC774; &#xAC10;&#xB3C5;*2&#xB418;&#xACE0; &#xADF8;&#xB4E4;&#xC758; &#xC2E4;&#xD328;&#xAC00; &#xCD94;&#xC801;&#xB418;&#xC5B4;&#xC11C; &#xC2E4;&#xD328;&#xB41C; &#xAC83;&#xB4E4;&#xB9CC; &#xC7AC;&#xC2DC;&#xC791; &#xD574;&#xC57C;&#xD558;&#xB294; &#xC11C;&#xBC84; &#xD504;&#xB85C;&#xC138;&#xC2A4;&#xC774;&#xB2E4;. </p>
+<h3 id="supervision-job">Supervision job</h3>
+<p><code>SupervisorJob</code>&#xC774; &#xC774; &#xBCF5;&#xC801;&#xC744; &#xC704;&#xD574; &#xC0AC;&#xC6A9;&#xB420; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xB294; &#xCDE8;&#xC18C;&#xAC00; &#xC544;&#xB798; &#xBC29;&#xD5A5;&#xC73C;&#xB85C; &#xC804;&#xD30C;&#xB418;&#xB294; &#xAC83;&#xB9CC; &#xC81C;&#xC678;&#xD558;&#xBA74; &#xC77C;&#xBC18;&#xC801;&#xC778; <code>Job</code>&#xACFC; &#xBE44;&#xC2B7;&#xD558;&#xB2E4;. &#xC774;&#xB294; &#xB2E4;&#xC74C; &#xC608;&#xC81C;&#xB97C; &#xD1B5;&#xD574; &#xC124;&#xBA85;&#xB420; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> supervisor</span> = SupervisorJob()
+with(CoroutineScope(coroutineContext + supervisor)) {
+    <span class="hljs-comment">// launch the first child -- its exception is ignored for this example (don&apos;t do this in practice!)</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> firstChild</span> = launch(CoroutineExceptionHandler { _, _ -&gt;  }) {
+        println(<span class="hljs-string">&quot;The first child is failing&quot;</span>)
+        <span class="hljs-keyword">throw</span> AssertionError(<span class="hljs-string">&quot;The first child is cancelled&quot;</span>)
+    }
+    <span class="hljs-comment">// launch the second child</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> secondChild</span> = launch {
+        firstChild.join()
+        <span class="hljs-comment">// Cancellation of the first child is not propagated to the second child</span>
+        println(<span class="hljs-string">&quot;The first child is cancelled: ${firstChild.isCancelled}, but the second one is still active&quot;</span>)
+        <span class="hljs-keyword">try</span> {
+            delay(<span class="hljs-keyword">Long</span>.MAX_VALUE)
+        } <span class="hljs-keyword">finally</span> {
+            <span class="hljs-comment">// But cancellation of the supervisor is propagated</span>
+            println(<span class="hljs-string">&quot;The second child is cancelled because the supervisor was cancelled&quot;</span>)
+        }
+    }
+    <span class="hljs-comment">// wait until the first child fails &amp; completes</span>
+    firstChild.join()
+    println(<span class="hljs-string">&quot;Cancelling the supervisor&quot;</span>)
+    supervisor.cancel()
+    secondChild.join()
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-01.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>The first child is failing
+The first child is cancelled: true, but the second one is still active
+Cancelling the supervisor
+The second child is cancelled because the supervisor was cancelled
+</code></pre><h3 id="supervision-scope"> Supervision Scope</h3>
+<p>&#xD2B9;&#xC815; &#xBC94;&#xC704;&#xC5D0; &#xB300;&#xD55C; &#xB3D9;&#xC2DC;&#xC131;&#xC744; &#xC801;&#xC6A9;&#xD558;&#xAE30; &#xC704;&#xD574; <code>coroutineScope</code> &#xB300;&#xC2E0; <code>supervisorScope</code>&#xC744; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xB294; &#xCDE8;&#xC18C;&#xB97C; &#xD55C; &#xBC29;&#xD5A5;&#xC73C;&#xB85C;&#xB9CC; &#xC804;&#xD30C;&#xD558;&#xBA70;, &#xADF8; &#xC790;&#xC2E0;&#xC774; &#xC2E4;&#xD328;&#xD588;&#xC744; &#xB54C;&#xB9CC; &#xC790;&#xC2DD; Coroutine&#xB4E4;&#xC744; &#xCDE8;&#xC18C;&#xD55C;&#xB2E4;. &#xB610;&#xD55C; coroutineScope &#xCC98;&#xB7FC; &#xC644;&#xB8CC;&#xB418;&#xAE30; &#xC804;&#xC5D0; &#xBAA8;&#xB4E0; &#xC790;&#xC2DD;&#xB4E4;&#xC774; &#xC644;&#xB8CC;&#xB418;&#xB294; &#xAC83;&#xC744; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">try</span> {
+    supervisorScope {
+        <span class="hljs-variable"><span class="hljs-keyword">val</span> child</span> = launch {
+            <span class="hljs-keyword">try</span> {
+                println(<span class="hljs-string">&quot;The child is sleeping&quot;</span>)
+                delay(<span class="hljs-keyword">Long</span>.MAX_VALUE)
+            } <span class="hljs-keyword">finally</span> {
+                println(<span class="hljs-string">&quot;The child is cancelled&quot;</span>)
+            }
+        }
+        <span class="hljs-comment">// Give our child a chance to execute and print using yield </span>
+        yield()
+        println(<span class="hljs-string">&quot;Throwing an exception from the scope&quot;</span>)
+        <span class="hljs-keyword">throw</span> AssertionError()
+    }
+} <span class="hljs-keyword">catch</span>(e: AssertionError) {
+    println(<span class="hljs-string">&quot;Caught an assertion error&quot;</span>)
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-02.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>The child is sleeping
+Throwing an exception from the scope
+The child is cancelled
+Caught an assertion error
+</code></pre><h4 id="supervise&#xAC00;-&#xC0AC;&#xC6A9;&#xB41C;--coroutine&#xC5D0;&#xC11C;&#xC758;-&#xC608;&#xC678;"><strong>Supervise&#xAC00; &#xC0AC;&#xC6A9;&#xB41C;  Coroutine&#xC5D0;&#xC11C;&#xC758; &#xC608;&#xC678;</strong></h4>
+<p>Job&#xACFC; SupervisorJob&#xC758; &#xB610;&#xB2E4;&#xB978; &#xC911;&#xC694;&#xD55C; &#xCC28;&#xC774;&#xB294; &#xC608;&#xC678; &#xCC98;&#xB9AC;&#xC774;&#xB2E4;. &#xBAA8;&#xB4E0; &#xC790;&#xC2DD;&#xC740; &#xC790;&#xC2E0;&#xC758; &#xC608;&#xC678;&#xB97C; &#xC608;&#xC678; &#xCC98;&#xB9AC; &#xBA54;&#xCEE4;&#xC9C0;&#xB2C8;&#xC998;&#xC5D0; &#xB530;&#xB77C; &#xC9C1;&#xC811; &#xCC98;&#xB9AC;&#xD574;&#xC57C; &#xD55C;&#xB2E4;. &#xC774; &#xB2E4;&#xB978;&#xC810;&#xC740; &#xC790;&#xC2DD;&#xC758; &#xC2E4;&#xD328;&#xAC00; &#xBD80;&#xBAA8;&#xC5D0;&#xAC8C; &#xC804;&#xD30C;&#xB418;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;&#xB294; &#xC810;&#xC774;&#xB2E4;. &#xC774;&#xB294; <code>supervisorScope</code> &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xC9C1;&#xC811; &#xC2E4;&#xD589;&#xB41C; Coroutine&#xC740; root Coroutine&#xACFC; &#xBE44;&#xC2B7;&#xD558;&#xAC8C; &#xADF8;&#xB4E4;&#xC758; Scope&#xB0B4;&#xBD80;&#xC5D0; &#xC124;&#xCE58;&#xB41C; <code>CoroutineExceptionHandler</code>&#xB97C; &#xC4F0;&#xB294; &#xAC83;&#xC744; &#xB73B;&#xD55C;&#xB2E4;.(&#xC790;&#xC138;&#xD55C; &#xAC83;&#xC740; <a href="https://translatordev.com/66" target="_blank">CoroutineExceptionHandler</a> &#xC139;&#xC158;&#xC744; &#xCC38;&#xC870;)  </p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> handler</span> = CoroutineExceptionHandler { _, exception -&gt; 
+    println(<span class="hljs-string">&quot;CoroutineExceptionHandler got $exception&quot;</span>) 
+}
+supervisorScope {
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> child</span> = launch(handler) {
+        println(<span class="hljs-string">&quot;The child throws an exception&quot;</span>)
+        <span class="hljs-keyword">throw</span> AssertionError()
+    }
+    println(<span class="hljs-string">&quot;The scope is completing&quot;</span>)
+}
+println(<span class="hljs-string">&quot;The scope is completed&quot;</span>)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-03.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>The scope is completing
+The child throws an exception
+CoroutineExceptionHandler got java.lang.AssertionError
+The scope is completed
+</code></pre><p>\</p>
+<p>\</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="channels.html" class="navigation navigation-prev " aria-label="Previous page: Channels">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="coroutine-1.html" class="navigation navigation-next " aria-label="Next page: Coroutine 공유 상태와 동시성">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"원문 최종 수정 :  2023년 6월 16일","title":"Coroutine 예외 처리","level":"1.9","depth":1,"next":{"title":"Coroutine 공유 상태와 동시성","level":"1.10","depth":1,"path":"coroutine-1.md","ref":"coroutine-1.md","articles":[]},"previous":{"title":"Channels","level":"1.8","depth":1,"path":"channels.md","ref":"channels.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"coroutine.md","mtime":"2023-06-20T13:36:58.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-20T14:47:47.193Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

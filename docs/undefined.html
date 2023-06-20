@@ -1,0 +1,650 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>취소와 타임아웃 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="원문 최종 수정 :  2023년 6월 16일">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="undefined-1.html" />
+    
+    
+    <link rel="prev" href="coroutines-1.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Kotlin Coroutines 공식 문서 번역을 시작하며
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="coroutines.html">
+            
+                <a href="coroutines.html">
+            
+                    
+                    Coroutines 가이드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="coroutines-1.html">
+            
+                <a href="coroutines-1.html">
+            
+                    
+                    Coroutines 기초
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="undefined.html">
+            
+                <a href="undefined.html">
+            
+                    
+                    취소와 타임아웃
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="undefined-1.html">
+            
+                <a href="undefined-1.html">
+            
+                    
+                    일시중단 함수 구성하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="coroutine-context-dispatcher.html">
+            
+                <a href="coroutine-context-dispatcher.html">
+            
+                    
+                    Coroutine Context와 Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="flow.html">
+            
+                <a href="flow.html">
+            
+                    
+                    비동기 Flow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="channels.html">
+            
+                <a href="channels.html">
+            
+                    
+                    Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="coroutine.html">
+            
+                <a href="coroutine.html">
+            
+                    
+                    Coroutine 예외 처리
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="coroutine-1.html">
+            
+                <a href="coroutine-1.html">
+            
+                    
+                    Coroutine 공유 상태와 동시성
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="tutorial-intellij-coroutines.html">
+            
+                <a href="tutorial-intellij-coroutines.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Coroutines 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="tutorial-intellij-kotlin-flow.html">
+            
+                <a href="tutorial-intellij-kotlin-flow.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >취소와 타임아웃</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xCDE8;&#xC18C;&#xC640;-&#xD0C0;&#xC784;&#xC544;&#xC6C3;">&#xCDE8;&#xC18C;&#xC640; &#xD0C0;&#xC784;&#xC544;&#xC6C3;</h1>
+<p>&#xC774; &#xC139;&#xC158;&#xC740; &#xCF54;&#xB8E8;&#xD2F4; Cancellation&#xACFC; Timeout&#xC5D0; &#xB300;&#xD574; &#xB2E4;&#xB8F9;&#xB2C8;&#xB2E4;.</p>
+<h2 id="coroutine-&#xC2E4;&#xD589;-&#xCDE8;&#xC18C;&#xD558;&#xAE30;">Coroutine &#xC2E4;&#xD589; &#xCDE8;&#xC18C;&#xD558;&#xAE30;</h2>
+<p>&#xAE34; &#xC2DC;&#xAC04;&#xB3D9;&#xC548; &#xC2E4;&#xD589;&#xB418;&#xB294; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC5D0;&#xC11C; &#xBC31;&#xADF8;&#xB77C;&#xC6B4;&#xB4DC;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xB294; Coroutine&#xC5D0; &#xB300;&#xD55C; &#xC138;&#xBC00;&#xD55C; &#xC81C;&#xC5B4;&#xAC00; &#xD544;&#xC694;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4;, &#xC720;&#xC800;&#xAC00; Coroutine&#xC744; &#xC2E4;&#xD589;&#xC2DC;&#xD0A8; &#xD398;&#xC774;&#xC9C0;&#xB97C; &#xB2EB;&#xC544; &#xACB0;&#xACFC;&#xAC00; &#xB354; &#xC774;&#xC0C1; &#xD544;&#xC694;&#xD558;&#xC9C0; &#xC54A;&#xC544; &#xC791;&#xC5C5;&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xC5B4;&#xB3C4; &#xB418;&#xB294; &#xACBD;&#xC6B0;&#xC774;&#xB2E4;. <code>launch</code> &#xD568;&#xC218;&#xB294; &#xC2E4;&#xD589;&#xC911;&#xC778; &#xCF54;&#xB8E8;&#xD2F4;&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xB294; &#xB370; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB294; <code>Job</code> &#xAC1D;&#xCCB4;&#xB97C; &#xBC18;&#xD658;&#xD55C;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch {
+        repeat(<span class="hljs-number">1000</span>) { i -&gt;
+            println(<span class="hljs-string">&quot;job: I&apos;m sleeping $i ...&quot;</span>)
+            delay(<span class="hljs-number">500</span>L)
+        }
+    }
+    delay(<span class="hljs-number">1300</span>L) <span class="hljs-comment">// &#xC57D;&#xAC04;&#xC758; &#xC2DC;&#xAC04; &#xB3D9;&#xC548; delay &#xD55C;&#xB2E4;.</span>
+    println(<span class="hljs-string">&quot;main: I&apos;m tired of waiting!&quot;</span>)
+    job.cancel() <span class="hljs-comment">// Job&#xC744; cancel&#xD55C;&#xB2E4;.</span>
+    job.join() <span class="hljs-comment">// Job&#xC758; &#xC2E4;&#xD589;&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;. </span>
+    println(<span class="hljs-string">&quot;main: Now I can quit.&quot;</span>)    
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-01.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774;&#xB294; &#xB2E4;&#xC74C; &#xACB0;&#xACFC;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.</p>
+<pre><code>job: I&apos;m sleeping 0 ...
+job: I&apos;m sleeping 1 ...
+job: I&apos;m sleeping 2 ...
+main: I&apos;m tired of waiting!
+main: Now I can quit.
+</code></pre><p>main &#xD568;&#xC218;&#xAC00; <code>job.cancel</code>&#xC744; &#xD638;&#xCD9C;&#xD558;&#xBA74;, Job&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xC5C8;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xB2E4;&#xB978; &#xCF54;&#xB8E8;&#xD2F4;&#xC758; &#xCD9C;&#xB825;&#xC744; &#xD655;&#xC778;&#xD560; &#xC218; &#xC5C6;&#xB2E4;. Job&#xC758; &#xD655;&#xC7A5; &#xD568;&#xC218;&#xB85C; <code>cancel</code>&#xACFC; <code>join</code> &#xD638;&#xCD9C;&#xC744; &#xACB0;&#xD569;&#xD55C; <code>cancelAndJoin</code>&#xB3C4; &#xC788;&#xB2E4;.</p>
+<h2 id="coroutines-&#xCDE8;&#xC18C;&#xB294;-&#xD611;&#xB825;&#xC801;&#xC774;&#xB2E4;-">Coroutines &#xCDE8;&#xC18C;&#xB294; &#xD611;&#xB825;&#xC801;&#xC774;&#xB2E4; <a href="#cancellation-is-cooperative" id="cancellation-is-cooperative"></a></h2>
+<p>Coroutine&#xC758; &#xCDE8;&#xC18C;&#xB294; <strong>&#xD611;&#xB825;&#xC801;</strong>&#xC774;&#xB2E4;. Coroutine &#xCF54;&#xB4DC;&#xB294; &#xCDE8;&#xC18C; &#xAC00;&#xB2A5;&#xD558;&#xB3C4;&#xB85D; &#xD611;&#xB825;&#xD574;&#xC57C; &#xD55C;&#xB2E4;. <code>kotlinx.coroutines</code> &#xD328;&#xD0A4;&#xC9C0;&#xC758; &#xBAA8;&#xB4E0; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xB4E4;&#xC740; <strong>&#xCDE8;&#xC18C; &#xAC00;&#xB2A5;</strong>&#xD558;&#xB2E4;. &#xADF8;&#xB4E4;&#xC740; Coroutine&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xC5C8;&#xB294;&#xC9C0; &#xD655;&#xC778;&#xD558;&#xACE0; &#xCDE8;&#xC18C;&#xB418;&#xC5C8;&#xC744; &#xACBD;&#xC6B0; <code>CancellationException</code>&#xC744; &#xBC1C;&#xC0DD;&#xC2DC;&#xD0A8;&#xB2E4;. &#xB9CC;&#xC57D; &#xCF54;&#xB8E8;&#xD2F4;&#xC774; &#xACC4;&#xC0B0; &#xC791;&#xC5C5; &#xC911;&#xC774;&#xACE0; &#xCDE8;&#xC18C;&#xB97C; &#xD655;&#xC778;&#xD558;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;&#xBA74;, &#xB2E4;&#xC74C;&#xC758; &#xC608;&#xC2DC;&#xCC98;&#xB7FC; &#xCDE8;&#xC18C;&#xB420; &#xC218; &#xC5C6;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> startTime</span> = System.currentTimeMillis()
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch(Dispatchers.Default) {
+        <span class="hljs-variable"><span class="hljs-keyword">var</span> nextPrintTime</span> = startTime
+        <span class="hljs-variable"><span class="hljs-keyword">var</span> i</span> = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">while</span> (i <span class="hljs-type">&lt; 5) { // &#xACC4;&#xC0B0; &#xB8E8;&#xD504;, CPU&#xB97C; &#xB0AD;&#xBE44;&#xD55C;&#xB2E4;
+            // 1&#xCD08;&#xC5D0; &#xB450; &#xBC88; &#xBA54;&#xC138;&#xC9C0;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.
+            if (System.currentTimeMillis() &gt;</span>= nextPrintTime) {
+                println(<span class="hljs-string">&quot;job: I&apos;m sleeping ${i++} ...&quot;</span>)
+                nextPrintTime += <span class="hljs-number">500</span>L
+            }
+        }
+    }
+    delay(<span class="hljs-number">1300</span>L) <span class="hljs-comment">// &#xC57D;&#xAC04;&#xC758; &#xC2DC;&#xAC04; &#xB3D9;&#xC548; delay &#xD55C;&#xB2E4;</span>
+    println(<span class="hljs-string">&quot;main: I&apos;m tired of waiting!&quot;</span>)
+    job.cancelAndJoin() <span class="hljs-comment">// Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xACE0; &#xC2E4;&#xD589;&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;.</span>
+    println(<span class="hljs-string">&quot;main: Now I can quit.&quot;</span>)    
+}
+</code></pre>
+<blockquote>
+<p>&#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-02.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589;&#xD558;&#xC5EC; &#xCDE8;&#xC18C;&#xAC00; &#xC2E4;&#xD589;&#xB41C; &#xC774;&#xD6C4;&#xC5D0;&#xB3C4; &#xB2E4;&#xC12F;&#xBC88;&#xC758; &#xBC18;&#xBCF5; &#xD6C4;&#xC5D0; Job&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &quot;I&apos;m sleeping&quot;&#xC774; &#xACC4;&#xC18D;&#xD574;&#xC11C; &#xD504;&#xB9B0;&#xD2B8; &#xB418;&#xB294; &#xAC83;&#xC744; &#xBCF4;&#xC790;. </p>
+<p>&#xC704;&#xC640; &#xAC19;&#xC740; &#xBB38;&#xC81C;&#xAC00; <code>CancellationException</code>&#xC744; catch &#xD558;&#xACE0; &#xB2E4;&#xC2DC; throw &#xD558;&#xC9C0; &#xC54A;&#xB294; &#xACBD;&#xC6B0;&#xC5D0;&#xB3C4; &#xC0DD;&#xAE34;&#xB2E4;.</p>
+<pre><code>import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val job = launch(Dispatchers.Default) {
+        repeat(5) { i -&gt;
+            try {
+                // 1&#xCD08;&#xC5D0; &#xB450; &#xBC88; &#xBA54;&#xC138;&#xC9C0;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.
+                println(&quot;job: I&apos;m sleeping $i ...&quot;)
+                delay(500)
+            } catch (e: Exception) {
+                // &#xC608;&#xC678;&#xB97C; &#xB85C;&#xAE45;&#xD55C;&#xB2E4;.
+                println(e)
+            }
+        }
+    }
+    delay(1300L) // &#xC57D;&#xAC04;&#xC758; &#xC2DC;&#xAC04; &#xB3D9;&#xC548; delay &#xD55C;&#xB2E4;.
+    println(&quot;main: I&apos;m tired of waiting!&quot;)
+    job.cancelAndJoin() // Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xACE0; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;.
+    println(&quot;main: Now I can quit.&quot;)    
+}
+</code></pre><blockquote>
+<p>&#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-03.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p><code>Exception</code>&#xC744; catch &#xD558;&#xB294; &#xAC83;&#xC740; &#xC548;&#xD2F0; &#xD328;&#xD134;&#xC774;&#xC9C0;&#xB9CC;, &#xC774; &#xBB38;&#xC81C;&#xB294; <code>CancellationException</code>&#xC744; &#xB2E4;&#xC2DC; throw &#xD558;&#xC9C0; &#xC54A;&#xB294; <code>runCatching</code> &#xD568;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xACBD;&#xC6B0;&#xC640; &#xAC19;&#xC774; &#xBBF8;&#xBB18;&#xD55C; &#xACBD;&#xC6B0;&#xC5D0;&#xB3C4; &#xC77C;&#xC5B4;&#xB0A0; &#xC218; &#xC788;&#xB2E4;.</p>
+<h2 id="coroutine&#xC758;-computation-&#xCF54;&#xB4DC;&#xB97C;-&#xCDE8;&#xC18C;-&#xAC00;&#xB2A5;&#xD558;&#xAC8C;-&#xB9CC;&#xB4E4;&#xAE30;">Coroutine&#xC758; Computation &#xCF54;&#xB4DC;&#xB97C; &#xCDE8;&#xC18C; &#xAC00;&#xB2A5;&#xD558;&#xAC8C; &#xB9CC;&#xB4E4;&#xAE30;</h2>
+<p>computation code&#xB97C; &#xCDE8;&#xC18C; &#xAC00;&#xB2A5;&#xD558;&#xAC8C; &#xB9CC;&#xB4DC;&#xB294; &#xB450;&#xAC00;&#xC9C0; &#xC811;&#xADFC; &#xBC29;&#xC2DD;&#xC774; &#xC788;&#xB2E4;. &#xCCAB; &#xC9F8;&#xB294; &#xC8FC;&#xAE30;&#xC801;&#xC73C;&#xB85C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xB97C; &#xC2E4;&#xD589;&#xC2DC;&#xCF1C;&#xC11C; &#xCDE8;&#xC18C;&#xB418;&#xC5C8;&#xB294;&#xC9C0; &#xD655;&#xC778;&#xD558;&#xB3C4;&#xB85D; &#xD558;&#xB294; &#xAC83;&#xC774;&#xB2E4;. &#xC774; &#xBAA9;&#xC801;&#xC744; &#xC704;&#xD574; &#xC88B;&#xC740; &#xBC29;&#xC2DD;&#xC778; <code>yield</code> &#xD568;&#xC218;&#xAC00; &#xC788;&#xB2E4;. &#xB2E4;&#xB978; &#xD558;&#xB098;&#xB294; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xCDE8;&#xC18C; &#xC0C1;&#xD0DC;&#xB97C; &#xD655;&#xC778;&#xD558;&#xB3C4;&#xB85D; &#xD558;&#xB294; &#xAC83;&#xC774;&#xB2E4;. &#xD6C4;&#xC790;&#xC758; &#xC811;&#xADFC; &#xBC29;&#xC2DD;&#xC744; &#xC2DC;&#xB3C4;&#xD574;&#xBCF4;&#xB3C4;&#xB85D; &#xD558;&#xC790;.</p>
+<p>&#xC774;&#xC804; &#xC608;&#xC2DC;&#xC758; <code>while (i &lt; 5)</code>&#xB97C; <code>while (isActive)</code>&#xB85C; &#xBCC0;&#xACBD;&#xD55C; &#xD6C4; &#xB2E4;&#xC2DC; &#xC2E4;&#xD589; &#xC2DC;&#xCF1C;&#xBCF4;&#xB3C4;&#xB85D; &#xD558;&#xC790;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> startTime</span> = System.currentTimeMillis()
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch(Dispatchers.Default) {
+        <span class="hljs-variable"><span class="hljs-keyword">var</span> nextPrintTime</span> = startTime
+        <span class="hljs-variable"><span class="hljs-keyword">var</span> i</span> = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">while</span> (isActive) { <span class="hljs-comment">// &#xCDE8;&#xC18C; &#xAC00;&#xB2A5;&#xD55C; computation loop</span>
+            <span class="hljs-comment">// 1&#xCD08;&#xC5D0; &#xB450; &#xBC88; &#xBA54;&#xC138;&#xC9C0;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.</span>
+            <span class="hljs-keyword">if</span> (System.currentTimeMillis() &gt;= nextPrintTime) {
+                println(<span class="hljs-string">&quot;job: I&apos;m sleeping ${i++} ...&quot;</span>)
+                nextPrintTime += <span class="hljs-number">500</span>L
+            }
+        }
+    }
+    delay(<span class="hljs-number">1300</span>L) <span class="hljs-comment">// &#xC57D;&#xAC04;&#xC758; &#xC2DC;&#xAC04; &#xB3D9;&#xC548; delay &#xD55C;&#xB2E4;</span>
+    println(<span class="hljs-string">&quot;main: I&apos;m tired of waiting!&quot;</span>)
+    job.cancelAndJoin() <span class="hljs-comment">// Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xACE0; &#xC2E4;&#xD589;&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;.</span>
+    println(<span class="hljs-string">&quot;main: Now I can quit.&quot;</span>)    
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-04.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774;&#xC81C; &#xC774; loop&#xAC00; &#xCDE8;&#xC18C;&#xB418;&#xB294; &#xAC83;&#xC744; &#xBCFC; &#xC218; &#xC788;&#xB2E4;. <code>isActive</code>&#xB294; <code>CoroutineScope</code> &#xAC1D;&#xCCB4;&#xB97C; &#xD1B5;&#xD574; Coroutine &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB294; &#xD655;&#xC7A5; &#xD504;&#xB85C;&#xD37C;&#xD2F0;&#xC774;&#xB2E4;.</p>
+<h2 id="finally-&#xC0AC;&#xC6A9;&#xD574;-&#xB9AC;&#xC18C;&#xC2A4;-&#xB2EB;&#xAE30;">finally &#xC0AC;&#xC6A9;&#xD574; &#xB9AC;&#xC18C;&#xC2A4; &#xB2EB;&#xAE30;</h2>
+<p>&#xCDE8;&#xC18C; &#xAC00;&#xB2A5;&#xD55C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xB294; &#xCDE8;&#xC18C; &#xC2DC;&#xC5D0; <code>CancellationException</code>&#xC744; throw&#xD558;&#xBA70;, &#xC774;&#xB294; &#xC77C;&#xBC18;&#xC801;&#xC778; &#xBC29;&#xC2DD;&#xC73C;&#xB85C; &#xCC98;&#xB9AC;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4; <code>try { ... }</code> &#xC640; <code>finally { ... }</code> &#xAD6C;&#xBB38;&#xC774;&#xB098;, Kotlin&#xC758; <code>use</code> &#xD568;&#xC218;&#xB294; Coroutine&#xC774; &#xCDE8;&#xC18C;&#xB420; &#xB54C; &#xC815;&#xC0C1;&#xC801;&#xC73C;&#xB85C; &#xC885;&#xB8CC; &#xC791;&#xC5C5;&#xC744; &#xC218;&#xD589;&#xD55C;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch {
+        <span class="hljs-keyword">try</span> {
+            repeat(<span class="hljs-number">1000</span>) { i -&gt;
+                println(<span class="hljs-string">&quot;job: I&apos;m sleeping $i ...&quot;</span>)
+                delay(<span class="hljs-number">500</span>L)
+            }
+        } <span class="hljs-keyword">finally</span> {
+            println(<span class="hljs-string">&quot;job: I&apos;m running finally&quot;</span>)
+        }
+    }
+    delay(<span class="hljs-number">1300</span>L) <span class="hljs-comment">// &#xC7A0;&#xC2DC; &#xAE30;&#xB2E4;&#xB9AC;&#xAE30;</span>
+    println(<span class="hljs-string">&quot;main: I&apos;m tired of waiting!&quot;</span>)
+    job.cancelAndJoin() <span class="hljs-comment">// Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xACE0; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9AC;&#xAE30;</span>
+    println(<span class="hljs-string">&quot;main: Now I can quit.&quot;</span>)    
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-05.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>join&#xACFC; cancelAndJoin &#xBAA8;&#xB450; &#xC885;&#xB8CC; &#xC791;&#xC5C5;&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; &#xC704;&#xC758; &#xC608;&#xC2DC;&#xB294; &#xB2E4;&#xC74C;&#xC758; &#xACB0;&#xACFC;&#xB97C; &#xC0DD;&#xC131;&#xD55C;&#xB2E4;.</p>
+<pre><code>job: I&apos;m sleeping 0 ...
+job: I&apos;m sleeping 1 ...
+job: I&apos;m sleeping 2 ...
+main: I&apos;m tired of waiting!
+job: I&apos;m running finally
+main: Now I can quit.
+</code></pre><h2 id="&#xC2E4;&#xD589;-&#xCDE8;&#xC18C;&#xAC00;-&#xBD88;&#xAC00;&#xB2A5;&#xD55C;-&#xBE14;&#xB85D;-&#xC2E4;&#xD589;&#xD558;&#xAE30;">&#xC2E4;&#xD589; &#xCDE8;&#xC18C;&#xAC00; &#xBD88;&#xAC00;&#xB2A5;&#xD55C; &#xBE14;&#xB85D; &#xC2E4;&#xD589;&#xD558;&#xAE30;</h2>
+<p>&#xC774;&#xC804; &#xC608;&#xC81C;&#xC5D0;&#xC11C; <code>finally</code> &#xBE14;&#xB85D; &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB824;&#xACE0; &#xD558;&#xBA74;, &#xC774; &#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589; &#xC911;&#xC778; &#xCF54;&#xB8E8;&#xD2F4;&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; <code>CancellationException</code>&#xC774; &#xBC1C;&#xC0DD;&#xD55C;&#xB2E4;. &#xC798; &#xC791;&#xB3D9;&#xD558;&#xB294; &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xB2EB;&#xB294; &#xC791;&#xC5C5;&#xB4E4;(&#xD30C;&#xC77C; &#xB2EB;&#xAE30;, Job &#xCDE8;&#xC18C;&#xD558;&#xAE30; &#xB610;&#xB294; &#xBAA8;&#xB4E0; &#xC885;&#xB958;&#xC758; &#xD1B5;&#xC2E0; &#xCC44;&#xB110;&#xC744; &#xB2EB;&#xAE30;)&#xC740; &#xBCF4;&#xD1B5; Blocking&#xC774; &#xBC1C;&#xC0DD;&#xD558;&#xC9C0; &#xC54A;&#xB294; &#xC791;&#xC5C5;&#xB4E4;&#xC774;&#xBA70;, &#xBCF4;&#xD1B5; &#xC5B4;&#xB5A0;&#xD55C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xB4E4;&#xB3C4; &#xD3EC;&#xD568;&#xD558;&#xACE0; &#xC788;&#xC9C0; &#xC54A;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xBB38;&#xC81C;&#xAC00; &#xB418;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, &#xB4DC;&#xBB3C;&#xAC8C; &#xCDE8;&#xC18C;&#xB41C; Coroutine&#xC5D0; &#xB300;&#xD574; &#xC77C;&#xC2DC; &#xC911;&#xB2E8;&#xC744; &#xD574;&#xC57C; &#xD558;&#xB294; &#xACBD;&#xC6B0; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xC774; <code>withContext</code>&#xD568;&#xC218;&#xC5D0; <code>NonCancellable</code> Context&#xB97C; &#xC804;&#xB2EC;&#xD558;&#xC5EC; &#xC0AC;&#xC6A9;&#xD558;&#xB294; <code>withContext(NonCancellable) { ... }</code> &#xB97C; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch {
+    <span class="hljs-keyword">try</span> {
+        repeat(<span class="hljs-number">1000</span>) { i -&gt;
+            println(<span class="hljs-string">&quot;job: I&apos;m sleeping $i ...&quot;</span>)
+            delay(<span class="hljs-number">500</span>L)
+        }
+    } <span class="hljs-keyword">finally</span> {
+        withContext(NonCancellable) {
+            println(<span class="hljs-string">&quot;job: I&apos;m running finally&quot;</span>)
+            delay(<span class="hljs-number">1000</span>L)
+            println(<span class="hljs-string">&quot;job: And I&apos;ve just delayed for 1 sec because I&apos;m non-cancellable&quot;</span>)
+        }
+    }
+}
+delay(<span class="hljs-number">1300</span>L) <span class="hljs-comment">// delay a bit</span>
+println(<span class="hljs-string">&quot;main: I&apos;m tired of waiting!&quot;</span>)
+job.cancelAndJoin() <span class="hljs-comment">// cancels the job and waits for its completion</span>
+println(<span class="hljs-string">&quot;main: Now I can quit.&quot;</span>)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-06.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<h2 id="timeout">Timeout</h2>
+<p>Coroutine&#xC758; &#xC2E4;&#xD589;&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xB294; &#xAC00;&#xC7A5; &#xBA85;&#xBC31;&#xD558;&#xACE0; &#xC2E4;&#xC6A9;&#xC801;&#xC778; &#xC774;&#xC720;&#xB294; &#xC2E4;&#xD589; &#xC2DC;&#xAC04;&#xC774; Timeout&#xC73C;&#xB85C; &#xC124;&#xC815;&#xD55C; &#xC2DC;&#xAC04;&#xC744; &#xB118;&#xC5B4;&#xC130;&#xAE30; &#xB54C;&#xBB38;&#xC774;&#xB2E4;. &#xD574;&#xB2F9; <code>Job</code>&#xC5D0; &#xB300;&#xD55C; &#xCC38;&#xC870;&#xB97C; &#xB9CC;&#xB4E4;&#xACE0; &#xC0C8;&#xB85C;&#xC6B4; &#xBCC4;&#xB3C4;&#xC758; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD574;&#xC11C; &#xC77C;&#xC815; &#xC2DC;&#xAC04; &#xC774;&#xD6C4;&#xC5D0; &#xCC38;&#xC870;&#xB41C; Job&#xC744; &#xCDE8;&#xC18C;&#xD558;&#xB294; &#xACFC;&#xC815;&#xC744; &#xAC70;&#xCE60; &#xC218; &#xC788;&#xC9C0;&#xB9CC;, &#xC774;&#xB7EC;&#xD55C; &#xB3D9;&#xC791;&#xC744; &#xC218;&#xD589;&#xD558;&#xB294; <code>withTimeout</code>&#xAC00; &#xC774;&#xBBF8; &#xB9CC;&#xB4E4;&#xC5B4;&#xC838; &#xC788;&#xB2E4;. &#xB2E4;&#xC74C; &#xC608;&#xB97C; &#xBCF4;&#xC790;:</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    withTimeout(<span class="hljs-number">1300</span>L) {
+        repeat(<span class="hljs-number">1000</span>) { i -&gt;
+            println(<span class="hljs-string">&quot;I&apos;m sleeping $i ...&quot;</span>)
+            delay(<span class="hljs-number">500</span>L)
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-07.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC704; &#xCF54;&#xB4DC;&#xB294; &#xB2E4;&#xC74C;&#xC744; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.</p>
+<pre><code>I&apos;m sleeping 0 ...
+I&apos;m sleeping 1 ...
+I&apos;m sleeping 2 ...
+Exception in thread &quot;main&quot; kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 1300 ms
+</code></pre><p><code>withTimeout</code>&#xC5D0; &#xC758;&#xD574; throw&#xB418;&#xB294; <code>TimeoutCancellationException</code>&#xC740; <code>CancellationException</code>&#xC758; &#xC11C;&#xBE0C;&#xD074;&#xB798;&#xC2A4;&#xC774;&#xB2E4;. &#xC6B0;&#xB9AC;&#xB294; &#xC774;&#xC804;&#xC5D0; &#xC774;&#xB7EC;&#xD55C; &#xC2A4;&#xD0DD; &#xCD94;&#xC801;&#xAC12;&#xC774; &#xC778;&#xC1C4;&#xB41C; &#xAC83;&#xC744; &#xBCF4;&#xC9C0; &#xBABB;&#xD588;&#xB2E4;. &#xC774;&#xB294; CancellationException&#xC774; Coroutine&#xC774; &#xC644;&#xB8CC;&#xB418;&#xAE30; &#xC704;&#xD55C; &#xC77C;&#xBC18;&#xC801;&#xC778; &#xC6D0;&#xC778;&#xC73C;&#xB85C; &#xAC04;&#xC8FC;&#xB418;&#xAE30; &#xB54C;&#xBB38;&#xC774;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, &#xC704; &#xC608;&#xC5D0;&#xC11C;&#xB294; <code>withTimeout</code>&#xC744; <code>main</code> &#xD568;&#xC218; &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xC0AC;&#xC6A9;&#xD588;&#xB2E4;.</p>
+<p>&#xCDE8;&#xC18C;&#xB294; &#xB2E8;&#xC21C;&#xD55C; Exception&#xC774;&#xAE30; &#xB54C;&#xBB38;&#xC5D0;, &#xBAA8;&#xB4E0; &#xB9AC;&#xC18C;&#xC2A4;&#xB4E4;&#xC740; &#xC77C;&#xBC18;&#xC801;&#xC778; &#xBC29;&#xC2DD;&#xC73C;&#xB85C; &#xB2EB;&#xD78C;&#xB2E4;. &#xB9CC;&#xC57D; &#xC2DC;&#xAC04; &#xCD08;&#xACFC;&#xB97C; &#xC77C;&#xC73C;&#xD0A4;&#xB294; &#xB3D9;&#xC791;&#xB4E4;&#xC774;&#xB098;, <code>withTimeout</code>&#xACFC; &#xBE44;&#xC2B7;&#xD558;&#xC9C0;&#xB9CC; &#xC2DC;&#xAC04; &#xCD08;&#xACFC;&#xAC00; &#xC77C;&#xC5B4;&#xB09C;&#xB2E4;&#xBA74; <code>null</code>&#xC774; return&#xB418;&#xB294; <code>withTimeoutOrNull</code> &#xD568;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD574;&#xC57C; &#xD55C;&#xB2E4;&#xBA74;, <code>try {...} catch (e: TimeoutCancellationException) {...}</code> &#xBE14;&#xB85D;&#xC73C;&#xB85C; &#xCF54;&#xB4DC;&#xB97C; &#xAC10;&#xC2F8;&#xB294; &#xBC29;&#xC2DD;&#xC744; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;:</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> result</span> = withTimeoutOrNull(<span class="hljs-number">1300</span>L) {
+        repeat(<span class="hljs-number">1000</span>) { i -&gt;
+            println(<span class="hljs-string">&quot;I&apos;m sleeping $i ...&quot;</span>)
+            delay(<span class="hljs-number">500</span>L)
+        }
+        <span class="hljs-string">&quot;Done&quot;</span> <span class="hljs-comment">// will get cancelled before it produces this result</span>
+    }
+    println(<span class="hljs-string">&quot;Result is $result&quot;</span>)
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-08.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589;&#xD560; &#xB54C; &#xB354;&#xC774;&#xC0C1; &#xC608;&#xC678;&#xAC00; &#xBC1C;&#xC0DD;&#xD558;&#xC9C0; &#xC54A;&#xB294; &#xAC83;&#xC744; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code>I&apos;m sleeping 0 ...
+I&apos;m sleeping 1 ...
+I&apos;m sleeping 2 ...
+Result is null
+</code></pre><h2 id="&#xBE44;&#xB3D9;&#xAE30;-timeout&#xACFC;-&#xB9AC;&#xC18C;&#xC2A4;">&#xBE44;&#xB3D9;&#xAE30; Timeout&#xACFC; &#xB9AC;&#xC18C;&#xC2A4;</h2>
+<p><code>withTimeout</code>&#xC73C;&#xB85C; &#xBC1C;&#xC0DD;&#xB418;&#xB294; Timeout &#xC774;&#xBCA4;&#xD2B8;&#xB294; &#xD604;&#xC7AC; &#xC2E4;&#xD589;&#xC911;&#xC778; &#xBE14;&#xB85D;&#xC758; &#xCF54;&#xB4DC;&#xC640; &#xBE44;&#xB3D9;&#xAE30;&#xC801;&#xC73C;&#xB85C; &#xC77C;&#xC5B4;&#xB098;&#xBA70; &#xC5B8;&#xC81C;&#xB4E0;&#xC9C0; &#xC77C;&#xC5B4;&#xB0A0; &#xC218; &#xC788;&#xB2E4;, &#xC2EC;&#xC9C0;&#xC5B4; Timeout &#xBE14;&#xB85D;&#xC5D0;&#xC11C; return&#xC774; &#xC77C;&#xC5B4;&#xB098;&#xAE30; &#xC9C1;&#xC804;&#xC5D0;&#xC11C;&#xB3C4; &#xC77C;&#xC5B4;&#xB0A0; &#xC218; &#xC788;&#xB2E4;.*1 &#xB9CC;&#xC57D; &#xBE14;&#xB85D; &#xC678;&#xBD80;&#xC5D0;&#xC11C; &#xB2EB;&#xAC70;&#xB098; &#xD574;&#xC81C;&#xB418;&#xC5B4;&#xC57C; &#xD558;&#xB294; &#xC77C;&#xBD80; &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xBE14;&#xB85D; &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xC5F4;&#xAC70;&#xB098; &#xD68D;&#xB4DD;&#xD574;&#xC57C; &#xD558;&#xB294; &#xACBD;&#xC6B0; &#xC774; &#xC810;&#xC744; &#xC5FC;&#xB450;&#xC5D0; &#xB450;&#xC5B4;&#xC57C; &#xD55C;&#xB2E4;.</p>
+<p>&#xB2EB;&#xC744; &#xC218; &#xC788;&#xB294; &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; <code>Resouce</code> &#xD074;&#xB798;&#xC2A4;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xBAA8;&#xBC29;&#xD574;&#xBCF4;&#xC790;. &#xC774; &#xD074;&#xB798;&#xC2A4;&#xB294; &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xD654; &#xB420; &#xB54C; <code>acquired</code> &#xC758; &#xC22B;&#xC790;&#xB97C; &#xC99D;&#xAC00;&#xC2DC;&#xD0A4;&#xACE0; <code>close</code> &#xD568;&#xC218;&#xB97C; &#xD1B5;&#xD574; &#xC774; &#xC22B;&#xC790;&#xB97C; &#xAC10;&#xC18C;&#xC2DC;&#xD0B4;&#xC73C;&#xB85C;&#xC368;, &#xC5BC;&#xB9C8;&#xB098; &#xB9CE;&#xC740; &#xC218;&#xC758; &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xAC00; &#xC0DD;&#xC131;&#xB418;&#xC5C8;&#xB294;&#xC9C0;&#xB97C; &#xCD94;&#xC801;&#xD55C;&#xB2E4;. &#xC774;&#xC81C; withTimeout &#xB9C8;&#xC9C0;&#xB9C9;&#xC5D0; Resource&#xB97C; &#xC0DD;&#xC131;&#xD558;&#xB294; &#xB9CE;&#xC740; Coroutine&#xC744; &#xC0DD;&#xC131;&#xD558;&#xC790;. &#xC57D;&#xAC04;&#xC758; &#xC9C0;&#xC5F0;(delay)&#xB97C; &#xCD94;&#xAC00;&#xD568;&#xC73C;&#xB85C;&#xC368; <code>withTimeout</code> &#xBE14;&#xB85D;&#xC774; &#xC774;&#xBBF8; &#xB05D;&#xB0AC;&#xC744; &#xB54C; &#xC2E4;&#xD589;&#xB418;&#xB3C4;&#xB85D; &#xB9CC;&#xB4E4;&#xC5B4; &#xB9AC;&#xC18C;&#xC2A4; &#xB204;&#xC218;&#xAC00; &#xC77C;&#xC5B4;&#xB098;&#xB3C4;&#xB85D; &#xD55C;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-variable"><span class="hljs-keyword">var</span> acquired</span> = <span class="hljs-number">0</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Resource</span> </span>{
+    init { acquired++ } <span class="hljs-comment">// &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xD68D;&#xB4DD;&#xD55C;&#xB2E4;.</span>
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> { acquired-- } <span class="hljs-comment">// &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xD574;&#xC81C;&#xD55C;&#xB2E4;.</span></span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> {</span>
+    runBlocking {
+        repeat(<span class="hljs-number">10</span>_000) { <span class="hljs-comment">// 10&#xB9CC;&#xAC1C;&#xC758; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD55C;&#xB2E4;.</span>
+            launch { 
+                <span class="hljs-variable"><span class="hljs-keyword">val</span> resource</span> = withTimeout(<span class="hljs-number">60</span>) { <span class="hljs-comment">// Timeout &#xAE30;&#xC900;&#xC2DC;&#xAC04;&#xC744; 60ms&#xB85C; &#xC124;&#xC815;&#xD55C;&#xB2E4;.</span>
+                    delay(<span class="hljs-number">50</span>) <span class="hljs-comment">// 50ms &#xB3D9;&#xC548; delay&#xD55C;&#xB2E4;.</span>
+                    Resource() <span class="hljs-comment">// &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xD68D;&#xB4DD;&#xD558;&#xACE0; withTimeout &#xBE14;&#xB85D;&#xC758; return &#xAC12;&#xC73C;&#xB85C; &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xBC18;&#xD658;&#xD55C;&#xB2E4;.</span>
+                }
+                resource.close() <span class="hljs-comment">// &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xD574;&#xC81C;&#xD55C;&#xB2E4;.</span>
+            }
+        }
+    }
+    <span class="hljs-comment">// runBlocking &#xBC14;&#xAE65;&#xC740; &#xBAA8;&#xB4E0; Coroutine &#xB4E4;&#xC774; &#xC644;&#xB8CC;&#xB41C; &#xB2E4;&#xC74C; &#xC2E4;&#xD589;&#xD690;&#xB2E4;.</span>
+    println(acquired) <span class="hljs-comment">// &#xD68D;&#xB4DD;&#xB418;&#xACE0; &#xD574;&#xC81C;&#xB418;&#xC9C0; &#xC54A;&#xC740; &#xB9AC;&#xC18C;&#xC2A4;&#xB4E4;&#xC758; &#xAC1C;&#xC218;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;.</span>
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-09.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC704; &#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589;&#xD558;&#xBA74;, &#xCEF4;&#xD4E8;&#xD130;&#xC758; &#xD0C0;&#xC774;&#xBC0D;&#xC5D0; &#xB530;&#xB77C; &#xB2E4;&#xB97C; &#xC218; &#xC788;&#xC9C0;&#xB9CC; &#xD56D;&#xC0C1; 0&#xC744; &#xD504;&#xB9B0;&#xD2B8; &#xD558;&#xC9C0;&#xB294; &#xC54A;&#xB294; &#xAC83;&#xC744; &#xBCFC; &#xC218; &#xC788;&#xB2E4;. 0&#xC774; &#xC544;&#xB2CC; &#xAC12;&#xC744; &#xD655;&#xC778;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294; &#xC774; &#xC608;&#xC81C;&#xC5D0;&#xC11C; &#xC2DC;&#xAC04; &#xCD08;&#xACFC; &#xC2DC;&#xAC04;&#xC744; &#xC870;&#xC815;&#xD574;&#xC57C; &#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4CC; &#xC774; &#xC608;&#xC81C;&#xC5D0;&#xC11C; 1&#xB9CC;&#xAC1C;&#xC758; Coroutine&#xC73C;&#xB85C; acquired counter&#xC744; &#xC99D;&#xAC00; &#xC2DC;&#xD0A4;&#xACE0; &#xAC10;&#xC18C; &#xC2DC;&#xD0A4;&#xB294; &#xAC83;&#xC740;, <code>runblocking</code> &#xC5D0; &#xC758;&#xD574; &#xAC19;&#xC740; Thread&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xC644;&#xC804;&#xD788; Safe&#xD558;&#xB2E4;. &#xC774;&#xC640; &#xAD00;&#xB828;&#xB41C; &#xCD94;&#xAC00;&#xC801;&#xC778; &#xC124;&#xBA85;&#xC740; Coroutine Context&#xC5D0; &#xB300;&#xD574; &#xB2E4;&#xB8E8;&#xB294; Chapter&#xC5D0;&#xC11C; &#xC124;&#xBA85;&#xD560; &#xAC83;&#xC774;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774;&#xB7EC;&#xD55C; &#xBB38;&#xC81C;&#xB97C; &#xD574;&#xACB0;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294; &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; withTimeout &#xBE14;&#xB85D;&#xC5D0;&#xC11C; &#xBC18;&#xD658;&#xD558;&#xB294; &#xB300;&#xC2E0; &#xB9AC;&#xC18C;&#xC2A4;&#xC5D0; &#xB300;&#xD55C; &#xCC38;&#xC870;&#xB97C; &#xBCC0;&#xC218;&#xC5D0; &#xC800;&#xC7A5;&#xD558;&#xB294; &#xBC29;&#xBC95;&#xC744; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code>import kotlinx.coroutines.*
+
+var acquired = 0
+
+class Resource {
+    init { acquired++ } // Acquire the resource
+    fun close() { acquired-- } // Release the resource
+}
+
+fun main() {
+    runBlocking {
+        repeat(10_000) { // 1&#xB9CC;&#xAC1C;&#xC758; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD55C;&#xB2E4;.
+            launch { 
+                var resource: Resource? = null // &#xC544;&#xC9C1; &#xD68D;&#xB4DD;&#xB418;&#xC9C0; &#xC54A;&#xC558;&#xB2E4;.
+                try {
+                    withTimeout(60) { // Timeout &#xAE30;&#xC900;&#xC2DC;&#xAC04;&#xC744; 60 ms&#xB85C; &#xC124;&#xC815;&#xD55C;&#xB2E4;.
+                        delay(50) // 50ms &#xB3D9;&#xC548; delay &#xD55C;&#xB2E4;.
+                        resource = Resource() // &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xD68D;&#xB4DD;&#xD558;&#xC600;&#xC73C;&#xBA74; &#xC800;&#xC7A5;&#xD55C;&#xB2E4;.      
+                    }
+                    // &#xC5EC;&#xAE30;&#xC5D0;&#xC11C; &#xB9AC;&#xC18C;&#xC2A4;&#xC5D0; &#xB300;&#xD55C; &#xCD94;&#xAC00;&#xC801;&#xC778; &#xC791;&#xC5C5;&#xC744; &#xD560; &#xC218; &#xC788;&#xB2E4;.
+                } finally {  
+                    resource?.close() // &#xB9AC;&#xC18C;&#xC2A4;&#xB97C; &#xC5BB;&#xC5C8;&#xC73C;&#xBA74; &#xD574;&#xC81C;&#xD55C;&#xB2E4;.
+                }
+            }
+        }
+    }
+    // Outside of runBlocking all coroutines have completed
+    println(acquired) // Print the number of resources still acquired
+}
+</code></pre><blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-10.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xC608;&#xC2DC;&#xB294; &#xC5B8;&#xC81C;&#xB098; 0&#xC744; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;. &#xB9AC;&#xC18C;&#xC2A4;&#xAC00; &#xB204;&#xC218;&#xB418;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;.\</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="coroutines-1.html" class="navigation navigation-prev " aria-label="Previous page: Coroutines 기초">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="undefined-1.html" class="navigation navigation-next " aria-label="Next page: 일시중단 함수 구성하기">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"원문 최종 수정 :  2023년 6월 16일","title":"취소와 타임아웃","level":"1.4","depth":1,"next":{"title":"일시중단 함수 구성하기","level":"1.5","depth":1,"path":"undefined-1.md","ref":"undefined-1.md","articles":[]},"previous":{"title":"Coroutines 기초","level":"1.3","depth":1,"path":"coroutines-1.md","ref":"coroutines-1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"undefined.md","mtime":"2023-06-20T13:36:58.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-20T14:47:47.193Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
