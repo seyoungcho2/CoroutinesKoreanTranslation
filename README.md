@@ -30,6 +30,10 @@ GitHub: [https://github.com/seyoungcho2/CoroutinesKoreanTranslation](https://git
 
 > 이 번역은 [번역 기여 가이드라인](https://kotlinlang.org/docs/contribute.html#translate-documentation-to-other-languages)에 따라 번역되었습니다.
 
+### **추가 번역**
+
+Coroutines에 대한 배경 지식이 없는 분들을 위해 [역주가 포함된 버전](https://simplecode.kr/24)을 별도로 제작하였습니다.&#x20;
+
 ### **번역자 정보**
 
 [GitHub](https://github.com/seyoungcho2)
