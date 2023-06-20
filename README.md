@@ -20,6 +20,14 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 
 
+### 오픈소스
+
+위 번역은 아래 GitHub에서 관리되고 있습니다. 오역이나 오타에 대한 Pull Request는 언제나 환영합니다.
+
+GitHub: [https://github.com/seyoungcho2/CoroutinesKoreanTranslation](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)
+
+
+
 ### 원문 정보
 
 원문 링크 : [https://kotlinlang.org/docs/coroutines-guide.html](https://kotlinlang.org/docs/coroutines-guide.html)
