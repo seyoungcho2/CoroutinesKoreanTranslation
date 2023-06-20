@@ -101,10 +101,7 @@ fun main() = runBlocking<Unit> {
 
 IntelliJ IDEA 디버거를 사용하면, 코드를 디버그 하기 위해 각 Coroutine을 깊게 팔 수 있다.
 
-\
-
-
-### Optimized-out variables
+## Optimized-out variables
 
 만약 디버거에서 suspend 함수를 사용한다면, 변수 이름 뒤에 "was optimized out" 문자가 붙은 것을 볼 수 있을 것이다.&#x20;
 
@@ -113,5 +110,3 @@ IntelliJ IDEA 디버거를 사용하면, 코드를 디버그 하기 위해 각 C
 이 문자는 변수가 더이상 메모리 상에 없다는 것을 뜻한다. 이 변수에 대한 값을 볼 수 없기 때문에 optimized 변수들을 포함한 코드를 디버그 하는 것은 어렵다. 컴파일러 옵션에 `-Xdebug`를 추가함으로써 이러한 동작을 비활성화 할 수 있다.
 
 > ⚠ 이 플래그를 제품에 절대로 사용하지 마세요. `-Xdebug`는 메모리 누수를 일으킬 수 있습니다.
-
-\

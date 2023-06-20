@@ -134,7 +134,6 @@ fun main() = runBlocking<Unit> {
 
 3\. **Build Project**를 클릭해 코드를 빌드한다.
 
-\
 
 
 ## 두 개의 Coroutine을 가진 Kotlin Flow를 디버깅하기

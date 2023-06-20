@@ -1,7 +1,3 @@
----
-layout: editorial
----
-
 # Kotlin Coroutines 공식 문서 번역을 시작하며
 
 Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안드로이드 실무에서는 한동안 높은 점유율을 자랑한 RxJava를 Coroutines가 대체하고 있으며, 새로 시작하는 프로젝트들은 모두 Coroutines를 사용하고 있다. 그 이유는 Coroutines의 성능과 간결성, 가독성에 있다. Coroutines는 기존 스레드 모델들과 다른 경량 스레드(Light Weight Thread)라는 개념을 도입하여 불필요한 Thread Blocking을 방지할 수 있도록 하였으며, 직관적인 키워드를 통해 가독성을 높였다.
@@ -26,7 +22,7 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 GitHub: [https://github.com/seyoungcho2/CoroutinesKoreanTranslation](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)
 
-
+⭐ [Stargazers](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)가 되어 오픈소스 프로젝트를 지지해주세요&#x20;
 
 ### 원문 정보
 
