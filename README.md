@@ -25,8 +25,12 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 
 
-**번역자 정보**
+### **번역자 정보**
 
 [GitHub](https://github.com/seyoungcho2)
 
+[Google Dev Library](https://devlibrary.withgoogle.com/authors/seyoungcho2)
+
 [LinkedIn](https://www.linkedin.com/in/seyoungcho/)
+
+Email : seyoungcho2@gmail.com
