@@ -71,17 +71,17 @@ fun main() = runBlocking {
 
 6\. Build Project를 눌러서 코드를 빌드한다.
 
-<figure><img src=".gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-build-project.png" alt=""><figcaption></figcaption></figure>
 
 ## Coroutine 디버그하기
 
 1\. `emit()` 함수가 호출되는 곳에 브레이크포인트를 설정한다:
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-breakpoint.png" alt=""><figcaption></figcaption></figure>
 
 2\. 화면 상단의 Run 구성 옆의 **Debug**를 클릭해서 코드를 디버그모드에서 실행한다.&#x20;
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-debug-project.png" alt=""><figcaption></figcaption></figure>
 
 **디버그** 툴 윈도우는 다음과 같이 나타난다:
 
@@ -89,23 +89,21 @@ fun main() = runBlocking {
 * **Variable** 탭은 현재 Context 속의 변수를 포함한다. 이는 Flow가 첫 값을 방출한다는 것을 보여준다.
 * **Coroutines** 탭은 실행중이거나 일시중단된 Coroutine에 대한 정보를 포함한다.&#x20;
 
-<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-debug-1.png" alt=""><figcaption></figcaption></figure>
 
 3\. 디버그 툴 윈도우의 **Resume Program**을 눌러서 Debugger 세션을 재개한다. 프로그램은 같은 브레이크포인트에서 중단된다.
 
-<figure><img src=".gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-resume-debug.png" alt=""><figcaption></figcaption></figure>
 
 이제 Flow는 두번째 값을 방출한다.
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
-
-
+<figure><img src="https://kotlinlang.org/docs/images/flow-debug-2.png" alt=""><figcaption></figcaption></figure>
 
 ### Optimized-out variables
 
 만약 디버거에서 suspend 함수를 사용한다면, 변수 이름 뒤에 "was optimized out" 문자가 붙은 것을 볼 수 있을 것이다.&#x20;
 
-<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/variable-optimised-out.png" alt=""><figcaption></figcaption></figure>
 
 이 문자는 변수가 더이상 메모리 상에 없다는 것을 뜻한다. 이 변수에 대한 값을 볼 수 없기 때문에 optimized 변수들을 포함한 코드를 디버그 하는 것은 어렵다. 컴파일러 옵션에 `-Xdebug`를 추가함으로써 이러한 동작을 비활성화 할 수 있다.
 
@@ -145,7 +143,7 @@ fun main() = runBlocking<Unit> {
 
 2\. 화면 상단의 Run 옆에 있는 **Debug**를 클릭해서 디버그 모드로 코드를 실행한다.
 
-<figure><img src=".gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-debug-3.png" alt=""><figcaption></figcaption></figure>
 
 디버그 툴 윈도우는 다음과 같이 나타난다.
 
@@ -153,7 +151,7 @@ fun main() = runBlocking<Unit> {
 
 3\. 디버그 툴 윈도우의 **Resume Program**을 눌러서 디버거 세션을 재개한다.
 
-<figure><img src=".gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/flow-debug-4.png" alt=""><figcaption></figcaption></figure>
 
 이제 수집기 Coroutine은 **RUNNING** 상태를 가지는 반면 방출기 Coroutine은 **SUSPENDED** 상태를 가진다.
 

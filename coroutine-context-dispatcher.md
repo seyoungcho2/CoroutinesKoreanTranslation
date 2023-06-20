@@ -100,7 +100,7 @@ Kotlin Plugin인 Coroutine Debugger은 Intellij IDEA에서 Coroutines 디버깅�
 
 **Debug** tool window는 **Coroutines** 탭을 포함한다. 이 탭에서 현재 실행 중이거나 일시 중단된 Coroutine 모두에 대한 정보를 확인할 수 있다. Coroutines 는 실행 중인 Dispatcher에 따라 그룹화된다.
 
-<figure><img src=".gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="https://kotlinlang.org/docs/images/coroutine-idea-debugging-1.png" alt=""><figcaption></figcaption></figure>
 
 Coroutine Debugger을 사용해서 이런 것들을 할 수 있다 :
 
