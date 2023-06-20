@@ -1,0 +1,383 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Kotlin Coroutines 공식 문서 번역을 시작하며 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="coroutines.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Kotlin Coroutines 공식 문서 번역을 시작하며
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="coroutines.html">
+            
+                <a href="coroutines.html">
+            
+                    
+                    Coroutines 가이드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="coroutines-1.html">
+            
+                <a href="coroutines-1.html">
+            
+                    
+                    Coroutines 기초
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="undefined.html">
+            
+                <a href="undefined.html">
+            
+                    
+                    취소와 타임아웃
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="undefined-1.html">
+            
+                <a href="undefined-1.html">
+            
+                    
+                    일시중단 함수 구성하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="coroutine-context-dispatcher.html">
+            
+                <a href="coroutine-context-dispatcher.html">
+            
+                    
+                    Coroutine Context와 Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="flow.html">
+            
+                <a href="flow.html">
+            
+                    
+                    비동기 Flow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="channels.html">
+            
+                <a href="channels.html">
+            
+                    
+                    Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="coroutine.html">
+            
+                <a href="coroutine.html">
+            
+                    
+                    Coroutine 예외 처리
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="coroutine-1.html">
+            
+                <a href="coroutine-1.html">
+            
+                    
+                    Coroutine 공유 상태와 동시성
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="tutorial-intellij-coroutines.html">
+            
+                <a href="tutorial-intellij-coroutines.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Coroutines 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="tutorial-intellij-kotlin-flow.html">
+            
+                <a href="tutorial-intellij-kotlin-flow.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Kotlin Coroutines 공식 문서 번역을 시작하며</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kotlin-coroutines-&#xACF5;&#xC2DD;-&#xBB38;&#xC11C;-&#xBC88;&#xC5ED;&#xC744;-&#xC2DC;&#xC791;&#xD558;&#xBA70;">Kotlin Coroutines &#xACF5;&#xC2DD; &#xBB38;&#xC11C; &#xBC88;&#xC5ED;&#xC744; &#xC2DC;&#xC791;&#xD558;&#xBA70;</h1>
+<p>Kotlin Coroutines&#xB294; Kotlin&#xC744; &#xC704;&#xD55C; &#xAC15;&#xB825;&#xD55C; &#xBE44;&#xB3D9;&#xAE30; &#xC194;&#xB8E8;&#xC158;&#xC774;&#xB2E4;. &#xC548;&#xB4DC;&#xB85C;&#xC774;&#xB4DC; &#xC2E4;&#xBB34;&#xC5D0;&#xC11C;&#xB294; &#xD55C;&#xB3D9;&#xC548; &#xB192;&#xC740; &#xC810;&#xC720;&#xC728;&#xC744; &#xC790;&#xB791;&#xD55C; RxJava&#xB97C; Coroutines&#xAC00; &#xB300;&#xCCB4;&#xD558;&#xACE0; &#xC788;&#xC73C;&#xBA70;, &#xC0C8;&#xB85C; &#xC2DC;&#xC791;&#xD558;&#xB294; &#xD504;&#xB85C;&#xC81D;&#xD2B8;&#xB4E4;&#xC740; &#xBAA8;&#xB450; Coroutines&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xACE0; &#xC788;&#xB2E4;. &#xADF8; &#xC774;&#xC720;&#xB294; Coroutines&#xC758; &#xC131;&#xB2A5;&#xACFC; &#xAC04;&#xACB0;&#xC131;, &#xAC00;&#xB3C5;&#xC131;&#xC5D0; &#xC788;&#xB2E4;. Coroutines&#xB294; &#xAE30;&#xC874; &#xC2A4;&#xB808;&#xB4DC; &#xBAA8;&#xB378;&#xB4E4;&#xACFC; &#xB2E4;&#xB978; &#xACBD;&#xB7C9; &#xC2A4;&#xB808;&#xB4DC;(Light Weight Thread)&#xB77C;&#xB294; &#xAC1C;&#xB150;&#xC744; &#xB3C4;&#xC785;&#xD558;&#xC5EC; &#xBD88;&#xD544;&#xC694;&#xD55C; Thread Blocking&#xC744; &#xBC29;&#xC9C0;&#xD560; &#xC218; &#xC788;&#xB3C4;&#xB85D; &#xD558;&#xC600;&#xC73C;&#xBA70;, &#xC9C1;&#xAD00;&#xC801;&#xC778; &#xD0A4;&#xC6CC;&#xB4DC;&#xB97C; &#xD1B5;&#xD574; &#xAC00;&#xB3C5;&#xC131;&#xC744; &#xB192;&#xC600;&#xB2E4;.</p>
+<p> &#xC774;&#xB7EC;&#xD55C; &#xC7A5;&#xC810;&#xC73C;&#xB85C; &#xB9CE;&#xC740; &#xAC1C;&#xBC1C;&#xC790;&#xB4E4;&#xC774; &#xC2E4;&#xBB34;&#xC5D0;&#xC11C; Coroutines&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xAE30; &#xC2DC;&#xC791;&#xD588;&#xC9C0;&#xB9CC;, &#xACF5;&#xBD80;&#xB97C; &#xC704;&#xD55C; &#xC790;&#xB8CC;&#xAC00; &#xB9CE;&#xC774; &#xBD80;&#xC871;&#xD558;&#xBA70;, &#xB9CE;&#xC740; &#xBC30;&#xACBD; &#xC9C0;&#xC2DD;&#xB4E4;&#xC744; &#xC694;&#xAD6C;&#xD558;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xC811;&#xADFC;&#xD558;&#xAE30; &#xC704;&#xD55C; &#xD5C8;&#xB4E4;&#xC774; &#xB192;&#xB2E4;. &#xB098; &#xB610;&#xD55C; &#xD55C;&#xAE00;&#xB85C; &#xB41C; &#xC81C;&#xB300;&#xB85C; &#xB41C; &#xC790;&#xB8CC;&#xAC00; &#xC874;&#xC7AC;&#xD558;&#xC9C0; &#xC54A;&#xB294; &#xC0C1;&#xD669;&#xC5D0;&#xC11C; &#xAC01;&#xC885; &#xC601;&#xC5B4;&#xB85C;&#xB41C; &#xBB38;&#xC11C;, &#xC601;&#xC0C1;, &#xCC45; &#xB4F1;&#xC744; &#xCC3E;&#xC544; &#xBAA8;&#xB974;&#xB294; &#xBD80;&#xBD84;&#xC744; &#xD574;&#xACB0;&#xD558;&#xC600;&#xACE0;, &#xC601;&#xC5B4;&#xC5D0; &#xC775;&#xC219;&#xD55C; &#xB098;&#xC870;&#xCC28; &#xCF54;&#xB8E8;&#xD2F4;&#xC744; &#xC774;&#xD574;&#xD558;&#xAE30; &#xC704;&#xD574; &#xBA87; &#xB2EC; &#xC774;&#xC0C1;&#xC758; &#xC2DC;&#xAC04;&#xC774; &#xAC78;&#xB838;&#xB2E4;. \
+ &#xB098;&#xB294; &#xC774;&#xAC83;&#xC774; &#xBB38;&#xC81C;&#xB77C;&#xACE0; &#xC0DD;&#xAC01;&#xD574; &#xB9CE;&#xC740; &#xD55C;&#xAD6D;&#xC778; &#xAC1C;&#xBC1C;&#xC790;&#xB4E4;&#xC774; &#xCF54;&#xB8E8;&#xD2F4;&#xC5D0; &#xC811;&#xADFC;&#xD558;&#xAE30; &#xC27D;&#xB3C4;&#xB85D; &#xD558;&#xAE30; &#xC704;&#xD574; &#xCC45;&#xACFC; &#xAC15;&#xC758; &#xACF5;&#xC2DD;&#xBB38;&#xC11C; &#xADF8;&#xB9AC;&#xACE0; Google IO &#xB4F1;&#xC744; &#xBCF4;&#xBA74;&#xC11C; &#xC815;&#xB9AC;&#xD55C; &#xAC83;&#xC744; <a href="http://kotlinworld.com/139" target="_blank">18&#xAC1C;&#xC758; &#xAE00;</a>&#xB85C; &#xB9CC;&#xB4E4;&#xC5C8;&#xACE0;, &#xC774;&#xC5D0; &#xB300;&#xD55C; &#xBC18;&#xC751;&#xC774; &#xB9E4;&#xC6B0; &#xC88B;&#xC558;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC; &#xC774; &#xAE00;&#xB4E4;&#xC740; &#xB0B4;&#xAC00; &#xB098;&#xB984;&#xB300;&#xB85C; &#xC8FC;&#xB2C8;&#xC5B4; &#xAC1C;&#xBC1C;&#xC790;&#xBD80;&#xD130; &#xC2DC;&#xB2C8;&#xC5B4; &#xAC1C;&#xBC1C;&#xC790;&#xAE4C;&#xC9C0; &#xC774;&#xD574;&#xD558;&#xAE30; &#xD3B8;&#xD558;&#xAC8C; &#xC815;&#xB9AC;&#xD55C; &#xAC83;&#xC77C; &#xBFD0; Coroutines&#xC5D0; &#xB300;&#xD55C; &#xBAA8;&#xB4E0; &#xAC83;&#xC744; &#xB2E4;&#xB8E8;&#xC9C0;&#xB294; &#xC54A;&#xB294;&#xB2E4;. </p>
+<p>&#xC774;&#xC5D0; &#xB530;&#xB77C; &#xC774;&#xBC88;&#xC5D0;&#xB294; Coroutines &#xC5D0; &#xB300;&#xD55C; &#xAE4A;&#xC740; &#xBD80;&#xBD84;&#xAE4C;&#xC9C0; &#xB2E4;&#xB8E8;&#xAE30; &#xC704;&#xD574; &#xACF5;&#xC2DD; &#xBB38;&#xC11C;&#xC758; &#xBC88;&#xC5ED;&#xC774;&#xB77C;&#xB294; &#xC0C8;&#xB85C;&#xC6B4; &#xC2DC;&#xB3C4;&#xB97C; &#xD558;&#xACE0;&#xC790; &#xD55C;&#xB2E4;. &#xC774;&#xBC88; &#xBC88;&#xC5ED; &#xC791;&#xC5C5;&#xC744; &#xD1B5;&#xD574; &#xBC88;&#xC5ED;&#xC758; &#xC644;&#xC131;&#xB3C4;&#xC640; &#xAC00;&#xB3C5;&#xC131;&#xC744; &#xBAA8;&#xB450; &#xC7A1;&#xC740; &#xACF5;&#xC2DD; &#xBB38;&#xC11C; &#xAC00;&#xC774;&#xB4DC;&#xAC00; &#xB098;&#xC62C; &#xC218; &#xC788;&#xC5C8;&#xC73C;&#xBA74; &#xBC14;&#xB77C;&#xB294; &#xB9C8;&#xC74C;&#xC73C;&#xB85C; &#xBE14;&#xB85C;&#xADF8;&#xB97C; &#xC5F4;&#xC5B4; &#xBC88;&#xC5ED;&#xC744; &#xC2DC;&#xC791;&#xD55C;&#xB2E4;. </p>
+<p> &#xBD80;&#xB514; &#xC774; &#xBC88;&#xC5ED; &#xC791;&#xC5C5;&#xC774; &#xB9CE;&#xC740; &#xBD84;&#xB4E4;&#xAED8; &#xB3C4;&#xC6C0;&#xC774; &#xB418;&#xC5C8;&#xC73C;&#xBA74; &#xC88B;&#xACA0;&#xB2E4;. &#xC544;&#xB798;&#xC5D0;&#xC11C; &#xBC14;&#xB85C; &#xBC88;&#xC5ED;&#xC744; &#xC2DC;&#xC791;&#xD55C;&#xB2E4;.</p>
+<p> &#xC548;&#xB4DC;&#xB85C;&#xC774;&#xB4DC; &#xAC1C;&#xBC1C;&#xC790; &#xC870;&#xC138;&#xC601; </p>
+<blockquote>
+<p>&#xC774; &#xBC88;&#xC5ED;&#xC740; <a href="https://kotlinlang.org/docs/contribute.html#translate-documentation-to-other-languages" target="_blank">&#xBC88;&#xC5ED; &#xAE30;&#xC5EC; &#xAC00;&#xC774;&#xB4DC;&#xB77C;&#xC778;</a>&#xC5D0; &#xB530;&#xB77C; &#xBC88;&#xC5ED;&#xB418;&#xC5C8;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<figure><img src=".gitbook/assets/&#x1109;&#x1173;&#x110F;&#x1173;&#x1105;&#x1175;&#x11AB;&#x1109;&#x1163;&#x11BA; 2023-06-20 &#x110B;&#x1169;&#x1112;&#x116E; 10.51.44.png" alt="" width="563"><figcaption></figcaption></figure>
+
+
+
+<p><strong>&#xBC88;&#xC5ED;&#xC790; &#xC815;&#xBCF4;</strong></p>
+<p><a href="https://github.com/seyoungcho2" target="_blank">GitHub</a></p>
+<p><a href="https://www.linkedin.com/in/seyoungcho/" target="_blank">LinkedIn</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="coroutines.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Coroutines 가이드">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"layout":"editorial","title":"Kotlin Coroutines 공식 문서 번역을 시작하며","level":"1.1","depth":1,"next":{"title":"Coroutines 가이드","level":"1.2","depth":1,"path":"coroutines.md","ref":"coroutines.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2023-06-20T13:57:12.211Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-20T13:57:17.292Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,686 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Coroutine Context와 Dispatcher · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="원문 최종 수정 :  2023년 6월 16일">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="flow.html" />
+    
+    
+    <link rel="prev" href="undefined-1.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Kotlin Coroutines 공식 문서 번역을 시작하며
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="coroutines.html">
+            
+                <a href="coroutines.html">
+            
+                    
+                    Coroutines 가이드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="coroutines-1.html">
+            
+                <a href="coroutines-1.html">
+            
+                    
+                    Coroutines 기초
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="undefined.html">
+            
+                <a href="undefined.html">
+            
+                    
+                    취소와 타임아웃
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="undefined-1.html">
+            
+                <a href="undefined-1.html">
+            
+                    
+                    일시중단 함수 구성하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="coroutine-context-dispatcher.html">
+            
+                <a href="coroutine-context-dispatcher.html">
+            
+                    
+                    Coroutine Context와 Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="flow.html">
+            
+                <a href="flow.html">
+            
+                    
+                    비동기 Flow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="channels.html">
+            
+                <a href="channels.html">
+            
+                    
+                    Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="coroutine.html">
+            
+                <a href="coroutine.html">
+            
+                    
+                    Coroutine 예외 처리
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="coroutine-1.html">
+            
+                <a href="coroutine-1.html">
+            
+                    
+                    Coroutine 공유 상태와 동시성
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="tutorial-intellij-coroutines.html">
+            
+                <a href="tutorial-intellij-coroutines.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Coroutines 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="tutorial-intellij-kotlin-flow.html">
+            
+                <a href="tutorial-intellij-kotlin-flow.html">
+            
+                    
+                    Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Coroutine Context와 Dispatcher</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="coroutine-context&#xC640;-dispatcher">Coroutine Context&#xC640; Dispatcher</h1>
+<p>Coroutines&#xB294; &#xC5B8;&#xC81C;&#xB098; Kotlin &#xD45C;&#xC900; &#xB77C;&#xC774;&#xBE0C;&#xB7EC;&#xB9AC;&#xC5D0; &#xC815;&#xC758;&#xB41C; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/" target="_blank">CoroutineContext</a> &#xD0C0;&#xC785; &#xAC12;&#xC73C;&#xB85C; &#xD45C;&#xD604;&#xB418;&#xB294; &#xC77C;&#xBD80; Context &#xC0C1;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB41C;&#xB2E4;. Coroutine&#xC758; Context&#xB294; &#xB2E4;&#xC591;&#xD55C; &#xC694;&#xC18C;&#xC758; &#xC9D1;&#xD569;&#xC774;&#xB2E4;. &#xC8FC;&#xC694; &#xC694;&#xC18C;&#xB294; &#xC774;&#xC804; &#xC139;&#xC158;&#xC5D0;&#xC11C; &#xBCF8; Coroutine&#xC758; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html" target="_blank">Job</a>&#xACFC; &#xC774;&#xBC88; &#xC139;&#xC158;&#xC5D0;&#xC11C; &#xB2E4;&#xB8F0; Dispatcher&#xC774;&#xB2E4;.</p>
+<h2 id="dispatchers&#xC640;-threads">Dispatchers&#xC640; Threads</h2>
+<p>Coroutine Context&#xC5D0;&#xB294; &#xD574;&#xB2F9; Coroutine&#xC758; &#xC2E4;&#xD589;&#xC5D0; &#xC0AC;&#xC6A9;&#xB418;&#xB294; &#xB2E8;&#xC77C; &#xC2A4;&#xB808;&#xB4DC;&#xB098; &#xBCF5;&#xC218;&#xC758; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xACB0;&#xC815;&#xD558;&#xB294; <strong>Coroutine Dispatcher</strong>(<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/" target="_blank">CoroutineDispatcher</a> &#xBB38;&#xC11C;&#xB97C; &#xD655;&#xC778;)&#xAC00; &#xD3EC;&#xD568; &#xB41C;&#xB2E4;. Coroutine Dispatcher&#xC740; Coroutine&#xC758; &#xC2E4;&#xD589;&#xB420; &#xC0AC;&#xC6A9;&#xB420; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xD2B9;&#xC815; &#xC2A4;&#xB808;&#xB4DC;&#xB85C; &#xC81C;&#xD55C;&#xD558;&#xAC70;&#xB098; &#xC2A4;&#xB808;&#xB4DC;&#xD480;&#xC5D0; &#xBD84;&#xBC30;&#xD558;&#xAC70;&#xB098;, &#xC81C;&#xD55C; &#xC5C6;&#xC774; &#xC2E4;&#xD589; &#xB418;&#xB3C4;&#xB85D; &#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<p><code>launch</code>&#xB098; <code>async</code> &#xAC19;&#xC740; &#xBAA8;&#xB4E0; Coroutine Builder&#xB4E4;&#xC740; &#xC0C8;&#xB85C;&#xC6B4; Coroutine&#xC744; &#xC704;&#xD574; Dispatcher&#xB098; &#xB2E4;&#xB978; Context &#xC694;&#xC18C;&#xB4E4;&#xC744; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xC9C0;&#xC815;&#xD558;&#xB294;&#xB370; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB294; <code>CoroutineContext</code> &#xD30C;&#xB77C;&#xBBF8;&#xD130;&#xB97C; &#xC120;&#xD0DD;&#xC801;&#xC73C;&#xB85C; &#xBC1B;&#xC744; &#xC218; &#xC788;&#xB2E4;. </p>
+<p>&#xB2E4;&#xC74C;&#xC758; &#xC608;&#xB97C; &#xC2E4;&#xD589;&#xD574;&#xBCF4;&#xC790;.</p>
+<pre><code class="lang-kotlin">launch { <span class="hljs-comment">// context of the parent, main runBlocking coroutine</span>
+    println(<span class="hljs-string">&quot;main runBlocking      : I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+}
+launch(Dispatchers.Unconfined) { <span class="hljs-comment">// not confined -- will work with main thread</span>
+    println(<span class="hljs-string">&quot;Unconfined            : I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+}
+launch(Dispatchers.Default) { <span class="hljs-comment">// will get dispatched to DefaultDispatcher </span>
+    println(<span class="hljs-string">&quot;Default               : I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+}
+launch(newSingleThreadContext(<span class="hljs-string">&quot;MyOwnThread&quot;</span>)) { <span class="hljs-comment">// will get its own new thread</span>
+    println(<span class="hljs-string">&quot;newSingleThreadContext: I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-01.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774;&#xB294; &#xB2E4;&#xC74C;&#xC758; &#xACB0;&#xACFC;&#xB97C; &#xCD9C;&#xB825;&#xD55C;&#xB2E4;(&#xC21C;&#xC11C;&#xAC00; &#xB2E4;&#xB97C; &#xC218; &#xC788;&#xC74C;) :</p>
+<pre><code>Unconfined            : I&apos;m working in thread main
+Default               : I&apos;m working in thread DefaultDispatcher-worker-1
+newSingleThreadContext: I&apos;m working in thread MyOwnThread
+main runBlocking      : I&apos;m working in thread main
+</code></pre><p><code>launch { ... }</code>&#xAC00; &#xD30C;&#xB77C;&#xBBF8;&#xD130; &#xC5C6;&#xC774; &#xC0AC;&#xC6A9;&#xB41C;&#xB2E4;&#xBA74;, &#xC2E4;&#xD589;&#xB418;&#xB294; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" target="_blank">CoroutineScope</a>&#xC73C;&#xB85C; &#xBD80;&#xD130; Context&#xB97C; &#xC0C1;&#xC18D; &#xBC1B;&#xB294;&#xB2E4;(Dispatcher&#xB3C4; &#xAC19;&#xC774;). &#xC774;&#xB7F0; &#xACBD;&#xC6B0; main &#xD568;&#xC218;&#xC758; <code>runBlocking</code> Coroutine&#xC73C;&#xB85C;&#xBD80;&#xD130; Context&#xB97C; &#xC0C1;&#xC18D; &#xBC1B;&#xC544; &#xBA54;&#xC778; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xAC8C; &#xB41C;&#xB2E4;. </p>
+<p><code>Dispatchers.Unconfined</code> &#xB610;&#xD55C; &#xBA54;&#xC778; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xB294; &#xD2B9;&#xBCC4;&#xD55C; Dispatcher&#xC774;&#xC9C0;&#xB9CC;, &#xC2E4;&#xC81C;&#xB85C;&#xB294; &#xB098;&#xC911;&#xC5D0; &#xC124;&#xBA85;&#xB420; &#xB2E4;&#xB978; &#xB3D9;&#xC791;&#xBC29;&#xC2DD;&#xC5D0; &#xAE30;&#xC778;&#xD55C;&#xB2E4;.</p>
+<p>Default Dispatcher&#xC740; Scope&#xB0B4;&#xC5D0;&#xC11C; &#xB2E4;&#xB978; Dispatcher&#xC744; &#xC0AC;&#xC6A9;&#xC774; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xC9C0;&#xC815;&#xB418;&#xC9C0; &#xC54A;&#xC558;&#xC744; &#xB54C; &#xC0AC;&#xC6A9;&#xB41C;&#xB2E4;. <code>Dispatchers.Default</code>&#xB85C; &#xD45C;&#xAE30;&#xB418;&#xBA70;, &#xC2A4;&#xB808;&#xB4DC;&#xB4E4;&#xC774; &#xACF5;&#xC720;&#xD558;&#xB294; Background Pool&#xC744; &#xC0AC;&#xC6A9;&#xD55C;&#xB2E4;.</p>
+<p><code>newSingleThreadContext</code>&#xB294; Coroutine&#xC774; &#xC2E4;&#xD589;&#xB418;&#xAE30; &#xC704;&#xD55C; &#xC0C8;&#xB85C;&#xC6B4; &#xB2E8;&#xC77C; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xC0DD;&#xC131;&#xD55C;&#xB2E4;. &#xC804;&#xC6A9; &#xC2A4;&#xB808;&#xB4DC;&#xB294; &#xB9E4;&#xC6B0; &#xBE44;&#xC2FC; &#xB9AC;&#xC18C;&#xC2A4;&#xC774;&#xB2E4;. &#xC2E4;&#xC81C; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC5D0;&#xC11C; &#xB354; &#xC774;&#xC0C1; &#xD544;&#xC694;&#xD558;&#xC9C0; &#xC54A;&#xC744; &#xB54C; <code>close</code> &#xD568;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD574; &#xD574;&#xC81C;&#xB418;&#xC5B4;&#xC57C; &#xD558;&#xBA70;, &#xCD5C;&#xC0C1;&#xC704; &#xB808;&#xBCA8;&#xC758; &#xBCC0;&#xC218;&#xC5D0; &#xC800;&#xC7A5;&#xD558;&#xC5EC; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC774; &#xC2E4;&#xD589;&#xB418;&#xB294; &#xB3D9;&#xC548; &#xC7AC;&#xC0AC;&#xC6A9; &#xB420; &#xC218; &#xC788;&#xB3C4;&#xB85D; &#xD574;&#xC57C; &#xD55C;&#xB2E4;. </p>
+<hr>
+<h2 id="unconfined-vs-confined-dispatcher">Unconfined vs confined dispatcher</h2>
+<p>Coroutine Dispatcher&#xC778; <code>Dispatchers.Unconfined</code>&#xB294; &#xCC98;&#xC74C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xB418;&#xAE30; &#xC804;&#xAE4C;&#xC9C0;&#xB9CC; &#xD638;&#xCD9C; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; Coroutine&#xC744; &#xC2DC;&#xC791;&#xD55C;&#xB2E4;. &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xC774;&#xD6C4;&#xC5D0;&#xB294; &#xC2E4;&#xD589;&#xB41C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8; &#xD568;&#xC218;&#xC5D0; &#xC758;&#xD574; &#xC644;&#xC804;&#xD788; &#xACB0;&#xC815;&#xB41C; &#xC2A4;&#xB808;&#xB4DC; &#xC0C1;&#xC5D0;&#xC11C; Coroutine&#xC744; &#xC7AC;&#xAC1C;&#xD55C;&#xB2E4;. Unconfined Dispatcher&#xC740; &#xD2B9;&#xC815;&#xD55C; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xC218;&#xD589;&#xB418;&#xC5B4;&#xC57C; &#xD558;&#xB294; CPU &#xC2DC;&#xAC04;&#xC774;&#xB098; &#xACF5;&#xC720;&#xB418;&#xB294; &#xB370;&#xC774;&#xD130;(UI &#xB370;&#xC774;&#xD130;&#xC640; &#xAC19;&#xC740;)&#xB97C; &#xC5C5;&#xB370;&#xC774;&#xD2B8; &#xD558;&#xC9C0; &#xC54A;&#xB294; Coroutines&#xC5D0; &#xC801;&#xD569;&#xD558;&#xB2E4;.</p>
+<p>&#xBC18;&#xBA74;&#xC5D0;, Dispatcher&#xC740; &#xAE30;&#xBCF8;&#xC801;&#xC73C;&#xB85C; &#xBC14;&#xAE65; <code>CoroutineScope</code>&#xC5D0; &#xC758;&#xD574; &#xC0C1;&#xC18D; &#xB41C;&#xB2E4;. &#xD2B9;&#xD788; <code>runBlocking</code> Coroutine&#xC5D0; &#xB300;&#xD55C; &#xAE30;&#xBCF8; Dispatcher&#xB294; &#xD638;&#xCD9C; &#xC2A4;&#xB808;&#xB4DC;&#xB85C; &#xC81C;&#xD55C;&#xB418;&#xBBC0;&#xB85C;, &#xC774;&#xB97C; &#xC0C1;&#xC18D;&#xD558;&#xBA74; &#xC608;&#xCE21; &#xAC00;&#xB2A5;&#xD55C; FIFO &#xC2A4;&#xCF00;&#xC974;&#xB9C1;&#xC73C;&#xB85C; &#xC774; &#xC2A4;&#xB808;&#xB4DC;&#xC758; &#xC2E4;&#xD589;&#xC744; &#xC81C;&#xD55C;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code class="lang-kotlin">launch(Dispatchers.Unconfined) { <span class="hljs-comment">// not confined -- will work with main thread</span>
+    println(<span class="hljs-string">&quot;Unconfined      : I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+    delay(<span class="hljs-number">500</span>)
+    println(<span class="hljs-string">&quot;Unconfined      : After delay in thread ${Thread.currentThread().name}&quot;</span>)
+}
+launch { <span class="hljs-comment">// context of the parent, main runBlocking coroutine</span>
+    println(<span class="hljs-string">&quot;main runBlocking: I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+    delay(<span class="hljs-number">1000</span>)
+    println(<span class="hljs-string">&quot;main runBlocking: After delay in thread ${Thread.currentThread().name}&quot;</span>)
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-02.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC704;&#xB294; &#xB2E4;&#xC74C;&#xC758; &#xACB0;&#xACFC;&#xB97C; &#xB9CC;&#xB4E0;&#xB2E4;.</p>
+<pre><code>Unconfined      : I&apos;m working in thread main
+main runBlocking: I&apos;m working in thread main
+Unconfined      : After delay in thread kotlinx.coroutines.DefaultExecutor
+main runBlocking: After delay in thread main
+</code></pre><p><code>runBlocking { ... }</code> &#xC744; &#xC0C1;&#xC18D;&#xBC1B;&#xC740; Context&#xB97C; &#xAC00;&#xC9C4; Coroutine&#xC740; &#xBA54;&#xC778; &#xC2A4;&#xB808;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xC9C0;&#xB9CC;, Unconfined&#xB97C; &#xAC00;&#xC9C4; Coroutine&#xC740; delay &#xD568;&#xC218;&#xAC00; &#xC0AC;&#xC6A9;&#xD558;&#xB294; Default Executor Thread&#xC5D0;&#xC11C; &#xC7AC;&#xAC1C;&#xB41C;&#xB2E4;. </p>
+<blockquote>
+<p>&#x1F4D6; Unconfined Dispatcher&#xC740; Coroutine&#xC758; &#xC77C;&#xBD80; &#xC791;&#xC5C5;&#xC774; &#xC989;&#xC2DC; &#xC2E4;&#xD589;&#xB418;&#xC5B4;&#xC57C; &#xD558;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xB098;&#xC911;&#xC5D0; &#xC218;&#xD589;&#xD558;&#xAE30; &#xC704;&#xD574; Coroutine&#xC744; Dispatch &#xD560; &#xD544;&#xC694;&#xAC00; &#xC5C6;&#xAC70;&#xB098;, &#xC6D0;&#xD558;&#xC9C0; &#xC54A;&#xB294; &#xBD80;&#xC218;&#xD6A8;&#xACFC;&#xB97C; &#xC0DD;&#xC131;&#xD558;&#xB294; &#xD2B9;&#xC815;&#xD55C; &#xACBD;&#xC6B0;&#xC5D0; &#xB3C4;&#xC6C0;&#xB420; &#xC218; &#xC788;&#xB294; &#xACE0;&#xAE09; &#xBA54;&#xCEE4;&#xB2C8;&#xC998;&#xC774;&#xB2E4;. &#xC77C;&#xBC18;&#xC801;&#xC778; &#xCF54;&#xB4DC;&#xC5D0;&#xC11C; Unconfined Dispatcher&#xC740; &#xC0AC;&#xC6A9;&#xB418;&#xC9C0; &#xB9D0;&#xC544;&#xC57C; &#xD55C;&#xB2E4;.</p>
+</blockquote>
+<h2 id="coroutines&#xC640;-threads-&#xB514;&#xBC84;&#xAE45;-&#xD558;&#xAE30;">Coroutines&#xC640; Threads &#xB514;&#xBC84;&#xAE45; &#xD558;&#xAE30;</h2>
+<p>Coroutines&#xB294; &#xD558;&#xB098;&#xC758; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8;&#xD55C; &#xB2E4;&#xC74C; &#xB2E4;&#xB978; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xC7AC;&#xAC1C;&#xB420; &#xC218; &#xC788;&#xB2E4;. &#xC2F1;&#xAE00; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xAC00;&#xC9C4; Dispatcher&#xC5D0;&#xC11C;&#xB3C4; &#xD2B9;&#xBCC4;&#xD55C; &#xB3C4;&#xAD6C;&#xAC00; &#xC5C6;&#xC73C;&#xBA74; Coroutine&#xC774; &#xC5B8;&#xC81C;, &#xC5B4;&#xB514;&#xC11C; &#xBB34;&#xC5C7;&#xC744; &#xD558;&#xB294;&#xC9C0; &#xC54C;&#xAE30; &#xC5B4;&#xB835;&#xB2E4;.</p>
+<h3 id="idea&#xB97C;-&#xC0AC;&#xC6A9;&#xD574;-&#xB514;&#xBC84;&#xAE45;-&#xD558;&#xAE30;">IDEA&#xB97C; &#xC0AC;&#xC6A9;&#xD574; &#xB514;&#xBC84;&#xAE45; &#xD558;&#xAE30;</h3>
+<p>Kotlin Plugin&#xC778; Coroutine Debugger&#xC740; Intellij IDEA&#xC5D0;&#xC11C; Coroutines &#xB514;&#xBC84;&#xAE45;&#xC744; &#xAC04;&#xB2E8;&#xD558;&#xAC8C; &#xD560; &#xC218; &#xC788;&#xB3C4;&#xB85D; &#xD55C;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4CD; &#xB514;&#xBC84;&#xAE45;&#xC740; <code>kotlinx-coroutines-core 1.3.8</code> &#xD639;&#xC740; &#xADF8; &#xC774;&#xD6C4; &#xBC84;&#xC804;&#xC5D0;&#xC11C;&#xBD80;&#xD130;&#xB9CC; &#xB3D9;&#xC791;&#xD55C;&#xB2E4;.</p>
+</blockquote>
+<p><strong>Debug</strong> tool window&#xB294; <strong>Coroutines</strong> &#xD0ED;&#xC744; &#xD3EC;&#xD568;&#xD55C;&#xB2E4;. &#xC774; &#xD0ED;&#xC5D0;&#xC11C; &#xD604;&#xC7AC; &#xC2E4;&#xD589; &#xC911;&#xC774;&#xAC70;&#xB098; &#xC77C;&#xC2DC; &#xC911;&#xB2E8;&#xB41C; Coroutine &#xBAA8;&#xB450;&#xC5D0; &#xB300;&#xD55C; &#xC815;&#xBCF4;&#xB97C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;. Coroutines &#xB294; &#xC2E4;&#xD589; &#xC911;&#xC778; Dispatcher&#xC5D0; &#xB530;&#xB77C; &#xADF8;&#xB8F9;&#xD654;&#xB41C;&#xB2E4;.</p>
+<figure><img src="https://blog.kakaocdn.net/dn/eHdnIy/btrYTpnHr9i/t1uVSlgUhigwASrv4WWXPK/img.png" alt=""><figcaption></figcaption></figure>
+
+<p>Coroutine Debugger&#xC744; &#xC0AC;&#xC6A9;&#xD574;&#xC11C; &#xC774;&#xB7F0; &#xAC83;&#xB4E4;&#xC744; &#xD560; &#xC218; &#xC788;&#xB2E4; :</p>
+<ul>
+<li>&#xAC01; Coroutine&#xC5D0; &#xB300;&#xD55C; &#xC0C1;&#xD0DC;&#xB97C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;.</li>
+<li>&#xC2E4;&#xD589; &#xC911;&#xC774;&#xAC70;&#xB098; &#xC77C;&#xC2DC; &#xC911;&#xB2E8;&#xB41C; Coroutines&#xC5D0; &#xB300;&#xD55C; &#xC9C0;&#xC5ED; &#xBCC0;&#xC218;&#xB098; &#xCEA1;&#xCC98;&#xB41C; &#xBCC0;&#xC218;&#xC758; &#xAC12;&#xB4E4;&#xC744; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;..</li>
+<li>Coroutine &#xC0DD;&#xC131; &#xC2A4;&#xD0DD;&#xBFD0;&#xB9CC; &#xC544;&#xB2C8;&#xB77C;, Coroutine &#xB0B4;&#xBD80;&#xC758; &#xCF5C;&#xC2A4;&#xD0DD;&#xC5D0; &#xB300;&#xD55C; &#xD655;&#xC778; &#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC2A4;&#xD0DD;&#xC740; &#xC77C;&#xBC18;&#xC801;&#xC778; &#xB514;&#xBC84;&#xAE45;&#xC5D0;&#xC11C; &#xC190;&#xC2E4;&#xB418;&#xB294; &#xD504;&#xB808;&#xC784;&#xC744; &#xD3EC;&#xD568;&#xD55C; &#xC804;&#xCCB4; &#xD504;&#xB808;&#xC784;&#xB4E4;&#xC5D0; &#xB300;&#xD55C; &#xBCC0;&#xC218;&#xC758; &#xAC12;&#xB4E4;&#xC744; &#xD3EC;&#xD568;&#xD55C;&#xB2E4;.</li>
+<li>&#xAC01; Coroutine&#xC758; &#xC0C1;&#xD0DC;&#xC640; &#xADF8; &#xC2A4;&#xD0DD;&#xB4E4;&#xC744; &#xD3EC;&#xD568;&#xD558;&#xB294; &#xC804;&#xCCB4; &#xB9AC;&#xD3EC;&#xD2B8;&#xB97C; &#xAC00;&#xC838;&#xC62C; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xAC83;&#xC744; &#xC5BB;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294; <strong>Coroutines</strong> Tab&#xC744; &#xB9C8;&#xC6B0;&#xC2A4; &#xC6B0;&#xD074;&#xB9AD; &#xD6C4;, <strong>Get Coroutines Dump</strong>&#xB97C; &#xD074;&#xB9AD;&#xD558;&#xBA74; &#xB41C;&#xB2E4;.</li>
+</ul>
+<p>Coroutine &#xB514;&#xBC84;&#xAE45;&#xC744; &#xC2DC;&#xC791;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294;, Breakpoint&#xB4E4;&#xC744; &#xC124;&#xC815;&#xD558;&#xACE0; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xB514;&#xBC84;&#xADF8; &#xBAA8;&#xB4DC;&#xB85C; &#xC2E4;&#xD589;&#xD558;&#xBA74; &#xB41C;&#xB2E4;.</p>
+<p>Coroutine &#xB514;&#xBC84;&#xAE45;&#xC5D0; &#xB300;&#xD574; <a href="https://kotlinlang.org/docs/debug-coroutines-with-idea.html" target="_blank">&#xD29C;&#xD1A0;&#xB9AC;&#xC5BC;</a>&#xC5D0;&#xC11C; &#xB354; &#xC54C;&#xC544;&#xBCFC; &#xC218; &#xC788;&#xB2E4;.</p>
+<h3 id="&#xB85C;&#xAE45;&#xC744;-&#xD1B5;&#xD574;-&#xB514;&#xBC84;&#xAE45;-&#xD558;&#xAE30;">&#xB85C;&#xAE45;&#xC744; &#xD1B5;&#xD574; &#xB514;&#xBC84;&#xAE45; &#xD558;&#xAE30;</h3>
+<p>Coroutine Debugger &#xC5C6;&#xC774; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xB514;&#xBC84;&#xAE45;&#xD558;&#xB294; &#xBC29;&#xBC95;&#xC740; &#xAC01; &#xB85C;&#xADF8; &#xAD6C;&#xBB38;&#xC5D0; &#xC2A4;&#xB808;&#xB4DC; &#xC774;&#xB984;&#xC744; &#xB123;&#xC5B4;, &#xB85C;&#xADF8; &#xD30C;&#xC77C;&#xC5D0; &#xC2A4;&#xB808;&#xB4DC; &#xC774;&#xB984;&#xC744; &#xC778;&#xC1C4;&#xD558;&#xB294; &#xAC83;&#xC774;&#xB2E4;. &#xC774; &#xAE30;&#xB2A5;&#xC740; &#xB85C;&#xAE45; &#xD504;&#xB808;&#xC784;&#xC6CC;&#xD06C;&#xB4E4;&#xC5D0;&#xC11C; &#xBCF4;&#xD3B8;&#xC801;&#xC73C;&#xB85C; &#xC9C0;&#xC6D0;&#xD55C;&#xB2E4;. Coroutines&#xB97C; &#xC0AC;&#xC6A9;&#xD560; &#xB54C; &#xC2A4;&#xB808;&#xB4DC; &#xC774;&#xB984;&#xB9CC;&#xC73C;&#xB85C;&#xB294;  Context&#xC5D0; &#xB300;&#xD55C; &#xB9CE;&#xC740; &#xC815;&#xBCF4;&#xB4E4;&#xC744; &#xC81C;&#xACF5;&#xD558;&#xC9C0; &#xC54A;&#xC73C;&#xBBC0;&#xB85C;, <code>kotlinx.coroutines</code> &#xB294; &#xB514;&#xBC84;&#xAE45;&#xC744; &#xC27D;&#xAC8C; &#xD558;&#xAE30; &#xC704;&#xD55C; &#xB9CE;&#xC740; &#xAE30;&#xB2A5;&#xB4E4;&#xC744; &#xD3EC;&#xD568;&#xD55C;&#xB2E4;. </p>
+<p>JVM &#xC635;&#xC158;&#xC5D0; <code>-Dkotlinx.coroutines.debug</code> &#xB97C; &#xD3EC;&#xD568;&#xD55C; &#xCC44;&#xB85C; &#xB2E4;&#xC74C; &#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589;&#xD574;&#xBCF4;&#xC790;. </p>
+<pre><code class="lang-kotlin"><span class="hljs-keyword">import</span> kotlinx.coroutines.*
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">log</span><span class="hljs-params">(msg: <span class="hljs-type">String</span>)</span> = <span class="hljs-title">println</span><span class="hljs-params">(&quot;[${Thread.currentThread()</span>.name}] $msg&quot;)</span>
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> = runBlocking<span class="hljs-type">&lt;Unit&gt;</span> {</span>
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> a</span> = async {
+        log(<span class="hljs-string">&quot;I&apos;m computing a piece of the answer&quot;</span>)
+        <span class="hljs-number">6</span>
+    }
+    <span class="hljs-variable"><span class="hljs-keyword">val</span> b</span> = async {
+        log(<span class="hljs-string">&quot;I&apos;m computing another piece of the answer&quot;</span>)
+        <span class="hljs-number">7</span>
+    }
+    log(<span class="hljs-string">&quot;The answer is ${a.await() * b.await()}&quot;</span>)    
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-03.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xCF54;&#xB4DC;&#xC5D0;&#xB294; 3 &#xAC1C;&#xC758; Coroutine&#xC774; &#xC788;&#xB2E4;. <code>runBlocking</code> &#xC18D;&#xC758; main Coroutine(#1)&#xACFC; &#xC9C0;&#xC5F0;&#xB41C; &#xAC12; <code>a</code>(#2)&#xC640; <code>b</code>(#3)&#xB97C; &#xACC4;&#xC0B0;&#xD558;&#xB294; &#xB450; Coroutine&#xB4E4;&#xC774;&#xB2E4;. &#xC774;&#xB4E4;&#xC740; &#xBAA8;&#xB450; <code>runBlocking</code>&#xC758; Context&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xBA70;, &#xC774;&#xB4E4;&#xC740; &#xBAA8;&#xB450; Main Thread&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xB3C4;&#xB85D; &#xC81C;&#xD55C;&#xB41C;&#xB2E4;. &#xC774; &#xCF54;&#xB4DC;&#xC758; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>[main @coroutine#2] I&apos;m computing a piece of the answer
+[main @coroutine#3] I&apos;m computing another piece of the answer
+[main @coroutine#1] The answer is 42
+</code></pre><p><code>log</code> &#xD568;&#xC218;&#xB294; &#xB300;&#xAD04;&#xD638;&#xB4E4; &#xB0B4;&#xBD80;&#xC758; &#xC2A4;&#xB808;&#xB4DC;&#xC758; &#xC774;&#xB984;&#xC744; &#xCD9C;&#xB825;&#xD558;&#xBA70;, &#xD604;&#xC7AC; &#xC2E4;&#xD589;&#xC911;&#xC778; Coroutine&#xC5D0; &#xCD94;&#xAC00;&#xB41C; &#xC2DD;&#xBCC4;&#xC790;&#xB294; &#xBA54;&#xC778; &#xC2A4;&#xB808;&#xB4DC;&#xC784;&#xC744; &#xC54C; &#xC218; &#xC788;&#xB2E4;. &#xC774; &#xC2DD;&#xBCC4;&#xC790;&#xB294; &#xB514;&#xBC84;&#xAE45; &#xBAA8;&#xB4DC;&#xAC00; &#xCF1C;&#xC838; &#xC788;&#xC744; &#xB54C; &#xC0DD;&#xC131;&#xB41C; &#xBAA8;&#xB4E0; Coroutine&#xB4E4;&#xC5D0; &#xC5F0;&#xC18D;&#xC801;&#xC73C;&#xB85C; &#xD560;&#xB2F9;&#xB41C;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4D6; &#xB514;&#xBC84;&#xAE45; &#xBAA8;&#xB4DC;&#xB294; JVM&#xC774; <code>-ea</code> &#xC635;&#xC158;&#xC774; &#xD3EC;&#xD568;&#xB41C; &#xCC44;&#xB85C; &#xC2E4;&#xD589;&#xB420; &#xB54C; &#xCF1C;&#xC9C4;&#xB2E4;. &#xB514;&#xBC84;&#xAE45; &#xAE30;&#xB2A5;&#xB4E4;&#xC5D0; &#xB300;&#xD55C; &#xCD94;&#xAC00;&#xC801;&#xC778; &#xAC83;&#xB4E4;&#xC740; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-d-e-b-u-g\_-p-r-o-p-e-r-t-y\_-n-a-m-e.html" target="_blank">DEBUG_PROPERTY_NAME</a> &#xD504;&#xB85C;&#xD37C;&#xD2F0;&#xC5D0; &#xB300;&#xD55C; &#xBB38;&#xC11C;&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+</blockquote>
+<p>\</p>
+<h2 id="thread-&#xC804;&#xD658;-&#xD558;&#xAE30;">Thread &#xC804;&#xD658; &#xD558;&#xAE30;</h2>
+<p>&#xB2E4;&#xC74C; &#xCF54;&#xB4DC;&#xB97C; JVM option&#xC5D0; <code>-Dkotlinx.coroutines.debug</code>&#xB97C; &#xB123;&#xC5B4; &#xC2E4;&#xD589;&#xC2DC;&#xCF1C;&#xBCF4;&#xC790;(<a href="https://translatordev.com/29" target="_blank">debug</a> &#xD655;&#xC778;). </p>
+<pre><code class="lang-kotlin">newSingleThreadContext(<span class="hljs-string">&quot;Ctx1&quot;</span>).use { ctx1 -&gt;
+    newSingleThreadContext(<span class="hljs-string">&quot;Ctx2&quot;</span>).use { ctx2 -&gt;
+        runBlocking(ctx1) {
+            log(<span class="hljs-string">&quot;Started in ctx1&quot;</span>)
+            withContext(ctx2) {
+                log(<span class="hljs-string">&quot;Working in ctx2&quot;</span>)
+            }
+            log(<span class="hljs-string">&quot;Back to ctx1&quot;</span>)
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-04.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774;&#xB294; &#xBA87;&#xAC00;&#xC9C0; &#xC0C8;&#xB85C;&#xC6B4; &#xAE30;&#xC220;&#xB4E4;&#xC744; &#xBCF4;&#xC5EC;&#xC900;&#xB2E4;. &#xD558;&#xB098;&#xB294; <code>runBlocking</code>&#xC744; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xAD6C;&#xCCB4;&#xD654;&#xB41C; Context&#xC640; &#xD568;&#xAED8; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC774;&#xACE0;, &#xB2E4;&#xB978; &#xD558;&#xB098;&#xB294; &#xC544;&#xB798; &#xCD9C;&#xB825; &#xC5D0;&#xC11C; &#xBCFC; &#xC218; &#xC788;&#xB4EF;&#xC774; <code>withContext</code> &#xD568;&#xC218;&#xB97C; &#xAC19;&#xC740; Coroutine&#xC5D0; &#xACC4;&#xC18D; &#xC788;&#xC73C;&#xBA74;&#xC11C; Context&#xB97C; &#xBC14;&#xAFB8;&#xB294;&#xB370; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC774;&#xB2E4;.</p>
+<pre><code>[Ctx1 @coroutine#1] Started in ctx1
+[Ctx2 @coroutine#1] Working in ctx2
+[Ctx1 @coroutine#1] Back to ctx1
+</code></pre><p>&#xB610;&#xD55C; &#xC774; &#xC608;&#xC81C;&#xC5D0;&#xC11C;&#xB294; Kotlin &#xD45C;&#xC900; &#xB77C;&#xC774;&#xBE0C;&#xB7EC;&#xB9AC;&#xC758; <code>use</code> &#xD568;&#xC218;&#xB97C; <code>newSingleThreadContext</code>&#xC5D0; &#xC758;&#xD574; &#xC0DD;&#xC131;&#xB41C; &#xC2A4;&#xB808;&#xB4DC;&#xB4E4;&#xC774; &#xB354;&#xC774;&#xC0C1; &#xD544;&#xC694;&#xD558;&#xC9C0; &#xC54A;&#xC744; &#xB54C; &#xD574;&#xC81C;&#xD558;&#xB294;&#xB370; &#xC0AC;&#xC6A9;&#xD55C;&#xB2E4;.</p>
+<h2 id="context-&#xB0B4;&#xBD80;&#xC758;-job">Context &#xB0B4;&#xBD80;&#xC758; Job</h2>
+<p>Coroutines&#xC758; Job&#xC740; Context&#xC758; &#xAD6C;&#xC131;&#xC694;&#xC18C;&#xC774;&#xACE0;, <code>coroutineContext[Job]</code> &#xD45C;&#xD604;&#xC2DD;&#xC73C;&#xB85C;&#xBD80;&#xD130; &#xAC00;&#xC838;&#xC62C; &#xC218; &#xC788;&#xB2E4;. </p>
+<pre><code>fun main() = runBlocking&lt;Unit&gt; {
+    println(&quot;My job is ${coroutineContext[Job]}&quot;)    
+}
+</code></pre><blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-05.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xB514;&#xBC84;&#xADF8; &#xBAA8;&#xB4DC;&#xC5D0;&#xC11C; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;.</p>
+<pre><code>My job is &quot;coroutine#1&quot;:BlockingCoroutine{Active}@6d311334
+</code></pre><p>CoroutineScope&#xC758; isActive&#xB294; <code>coroutineContext[Job]?.isActive == true</code> &#xB97C; &#xD3B8;&#xB9AC;&#xD558;&#xAC8C; &#xC0AC;&#xC6A9;&#xD558;&#xAE30; &#xC704;&#xD55C; &#xCD95;&#xC57D;&#xC5B4;&#xC784;&#xC744; &#xCC38;&#xACE0;&#xD558;&#xC790;.</p>
+<hr>
+<h2 id="coroutine&#xC758;-&#xC790;&#xC2DD;&#xB4E4;">Coroutine&#xC758; &#xC790;&#xC2DD;&#xB4E4;</h2>
+<p>Coroutine&#xC774; &#xB2E4;&#xB978; Coroutine&#xC758; CoroutineScope&#xB0B4;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB418;&#xBA74; Context&#xB97C; CoroutineScope.coroutineContext&#xB97C; &#xD1B5;&#xD574; &#xC0C1;&#xC18D; &#xBC1B;&#xACE0; &#xC0C8;&#xB85C;&#xC6B4; Coroutine&#xC758; Job&#xC740; &#xBD80;&#xBAA8; Coroutine&#xC758; Job&#xC758; &#xC790;&#xC2DD;&#xC774; &#xB41C;&#xB2E4;. &#xBD80;&#xBAA8; Coroutine&#xC774; &#xCDE8;&#xC18C;&#xB418;&#xBA74;, &#xC790;&#xC2DD; Coroutine&#xB4E4; &#xB610;&#xD55C; &#xC7AC;&#xADC0;&#xC801;&#xC73C;&#xB85C; &#xCDE8;&#xC18C;&#xB41C;&#xB2E4;.</p>
+<p>&#xD558;&#xC9C0;&#xB9CC;, &#xBD80;&#xBAA8;-&#xC790;&#xC2DD; &#xAD00;&#xACC4;&#xB294; &#xB450;&#xAC00;&#xC9C0; &#xBC29;&#xBC95;&#xC73C;&#xB85C; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xC7AC;&#xC815;&#xC758; &#xB420; &#xC218; &#xC788;&#xB2E4;.</p>
+<ul>
+<li>Coroutine&#xC744; &#xC2E4;&#xD589;&#xD560; &#xB54C; &#xB450; &#xAC1C;&#xC758; &#xB2E4;&#xB978; Scope&#xC774; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xC124;&#xC815;&#xD558;&#xB294; &#xACBD;&#xC6B0;(&#xC608;&#xB97C; &#xB4E4;&#xC5B4;, <code>GlobalScope.launch</code>), &#xBD80;&#xBAA8; Scope&#xC73C;&#xB85C;&#xBD80;&#xD130; Job&#xC744; &#xC0C1;&#xC18D; &#xBC1B;&#xC9C0; &#xC54A;&#xB294;&#xB2E4;.</li>
+<li>&#xC0C8;&#xB85C;&#xC6B4; Coroutine&#xC744; &#xC704;&#xD574; &#xB2E4;&#xB978; <code>Job</code>&#xC774; Context&#xB85C; &#xC804;&#xB2EC;&#xB418;&#xB294; &#xACBD;&#xC6B0;(&#xC544;&#xB798; &#xC608;&#xC2DC;&#xC640; &#xAC19;&#xC774;) &#xBD80;&#xBAA8; Scope&#xC758; <code>Job</code>&#xC744; &#xC7AC;&#xC815;&#xC758;&#xD55C;&#xB2E4;.</li>
+</ul>
+<p>&#xB450; &#xACBD;&#xC6B0; &#xBAA8;&#xB450; &#xC2E4;&#xD589;&#xB41C; Coroutine&#xC740; &#xC2E4;&#xD589;&#xB41C; Scope&#xC5D0; &#xBB36;&#xC5EC;&#xC788;&#xC9C0; &#xC54A;&#xACE0; &#xB3C5;&#xB9BD;&#xC801;&#xC73C;&#xB85C; &#xB3D9;&#xC791;&#xD55C;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-comment">// launch a coroutine to process some kind of incoming request</span>
+<span class="hljs-variable"><span class="hljs-keyword">val</span> request</span> = launch {
+    <span class="hljs-comment">// it spawns two other jobs</span>
+    launch(Job()) { 
+        println(<span class="hljs-string">&quot;job1: I run in my own Job and execute independently!&quot;</span>)
+        delay(<span class="hljs-number">1000</span>)
+        println(<span class="hljs-string">&quot;job1: I am not affected by cancellation of the request&quot;</span>)
+    }
+    <span class="hljs-comment">// and the other inherits the parent context</span>
+    launch {
+        delay(<span class="hljs-number">100</span>)
+        println(<span class="hljs-string">&quot;job2: I am a child of the request coroutine&quot;</span>)
+        delay(<span class="hljs-number">1000</span>)
+        println(<span class="hljs-string">&quot;job2: I will not execute this line if my parent request is cancelled&quot;</span>)
+    }
+}
+delay(<span class="hljs-number">500</span>)
+request.cancel() <span class="hljs-comment">// cancel processing of the request</span>
+println(<span class="hljs-string">&quot;main: Who has survived request cancellation?&quot;</span>)
+delay(<span class="hljs-number">1000</span>) <span class="hljs-comment">// delay the main thread for a second to see what happens</span>
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-06.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xCF54;&#xB4DC;&#xB97C; &#xC2E4;&#xD589;&#xD55C; &#xACB0;&#xACFC;&#xB294; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;.</p>
+<pre><code>job1: I run in my own Job and execute independently!
+job2: I am a child of the request coroutine
+main: Who has survived request cancellation?
+job1: I am not affected by cancellation of the request
+</code></pre><h2 id="&#xBD80;&#xBAA8;&#xC758;-&#xCC45;&#xC784;">&#xBD80;&#xBAA8;&#xC758; &#xCC45;&#xC784;</h2>
+<p>&#xBD80;&#xBAA8; Coroutine&#xC740; &#xC5B8;&#xC81C;&#xB098; &#xC790;&#xC2DD;&#xB4E4;&#xC774; &#xC644;&#xB8CC;&#xB420; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9B0;&#xB2E4;. &#xBD80;&#xBAA8;&#xB294; &#xBAA8;&#xB4E0; &#xC790;&#xC2DD;&#xB4E4;&#xC758; &#xC2E4;&#xD589;&#xC744; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xCD94;&#xC801;&#xD558;&#xC9C0; &#xBABB;&#xD558;&#xACE0;, &#xADF8;&#xB4E4;&#xC774; &#xBAA8;&#xB450; &#xB05D;&#xB0A0; &#xB54C;&#xAE4C;&#xC9C0; &#xAE30;&#xB2E4;&#xB9AC;&#xAE30; &#xC704;&#xD574; <code>Job.join</code>&#xC744; &#xC0AC;&#xC6A9;&#xD560; &#xD544;&#xC694;&#xAC00; &#xC5C6;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-comment">// launch a coroutine to process some kind of incoming request</span>
+<span class="hljs-variable"><span class="hljs-keyword">val</span> request</span> = launch {
+    repeat(<span class="hljs-number">3</span>) { i -&gt; <span class="hljs-comment">// launch a few children jobs</span>
+        launch  {
+            delay((i + <span class="hljs-number">1</span>) * <span class="hljs-number">200</span>L) <span class="hljs-comment">// variable delay 200ms, 400ms, 600ms</span>
+            println(<span class="hljs-string">&quot;Coroutine $i is done&quot;</span>)
+        }
+    }
+    println(<span class="hljs-string">&quot;request: I&apos;m done and I don&apos;t explicitly join my children that are still active&quot;</span>)
+}
+request.join() <span class="hljs-comment">// wait for completion of the request, including all its children</span>
+println(<span class="hljs-string">&quot;Now processing of the request is complete&quot;</span>)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-07.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xACB0;&#xACFC;&#xB294; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>request: I&apos;m done and I don&apos;t explicitly join my children that are still active
+Coroutine 0 is done
+Coroutine 1 is done
+Coroutine 2 is done
+Now processing of the request is complete
+</code></pre><p>\</p>
+<h2 id="&#xB514;&#xBC84;&#xAE45;&#xC744;-&#xC704;&#xD574;-coroutines&#xC5D0;-&#xC774;&#xB984;-&#xC9D3;&#xAE30;">&#xB514;&#xBC84;&#xAE45;&#xC744; &#xC704;&#xD574; Coroutines&#xC5D0; &#xC774;&#xB984; &#xC9D3;&#xAE30;</h2>
+<p>&#xC790;&#xB3D9;&#xC73C;&#xB85C; &#xC124;&#xC815;&#xB41C; ID&#xB4E4;&#xC740; Coroutine&#xB4E4;&#xC774; &#xC790;&#xC8FC; &#xB85C;&#xAE45;&#xB420; &#xB54C; &#xC720;&#xC6A9;&#xD558;&#xBA70;, &#xAC19;&#xC740; Coroutine&#xC5D0;&#xC11C; &#xC624;&#xB294; &#xC5F0;&#xAD00;&#xB41C; &#xB85C;&#xADF8; &#xAE30;&#xB85D;&#xB4E4;&#xC744; &#xC5F0;&#xAD00;&#xC9D3;&#xAE30;&#xB9CC; &#xD558;&#xBA74; &#xB41C;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, Coroutine&#xC774; &#xD2B9;&#xC815;&#xD55C; &#xC694;&#xCCAD;&#xC774;&#xB098; &#xD2B9;&#xC815;&#xD55C; &#xBC31;&#xADF8;&#xB77C;&#xC6B4;&#xB4DC; &#xC791;&#xC5C5;&#xC744; &#xD558;&#xB294; &#xACBD;&#xC6B0; &#xB514;&#xBC84;&#xAE45; &#xBAA9;&#xC801;&#xC744; &#xC704;&#xD574; &#xC774;&#xB984;&#xC744; &#xC124;&#xC815;&#xD558;&#xB294; &#xAC83;&#xC774; &#xC88B;&#xB2E4;. Context&#xC758; &#xC694;&#xC18C;&#xC778; <code>CoroutineName</code>&#xB294; &#xC2A4;&#xB808;&#xB4DC;&#xC758; &#xC774;&#xB984;&#xACFC; &#xAC19;&#xC740; &#xC6A9;&#xB3C4;&#xB85C; &#xC0AC;&#xC6A9;&#xB41C;&#xB2E4;. &#xC774;&#xB294; &#xB514;&#xBC84;&#xAE45; &#xBAA8;&#xB4DC;&#xAC00; &#xCF1C;&#xC838; &#xC788;&#xC744; &#xB54C; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD558;&#xB294; &#xC2A4;&#xB808;&#xB4DC; &#xC774;&#xB984;&#xC5D0; &#xD3EC;&#xD568;&#xB41C;&#xB2E4;.</p>
+<p>&#xB2E4;&#xC74C; &#xC608;&#xC2DC;&#xB294; &#xC774; &#xAC1C;&#xB150;&#xC5D0; &#xB300;&#xD574; &#xBCF4;&#xC5EC;&#xC900;&#xB2E4; : </p>
+<pre><code class="lang-kotlin">log(<span class="hljs-string">&quot;Started main coroutine&quot;</span>)
+<span class="hljs-comment">// run two background value computations</span>
+<span class="hljs-variable"><span class="hljs-keyword">val</span> v1</span> = async(CoroutineName(<span class="hljs-string">&quot;v1coroutine&quot;</span>)) {
+    delay(<span class="hljs-number">500</span>)
+    log(<span class="hljs-string">&quot;Computing v1&quot;</span>)
+    <span class="hljs-number">252</span>
+}
+<span class="hljs-variable"><span class="hljs-keyword">val</span> v2</span> = async(CoroutineName(<span class="hljs-string">&quot;v2coroutine&quot;</span>)) {
+    delay(<span class="hljs-number">1000</span>)
+    log(<span class="hljs-string">&quot;Computing v2&quot;</span>)
+    <span class="hljs-number">6</span>
+}
+log(<span class="hljs-string">&quot;The answer for v1 / v2 = ${v1.await() / v2.await()}&quot;</span>)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-08.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>JVM &#xC635;&#xC158;&#xC5D0; <code>-Dkotlinx.coroutines.debug</code> &#xB97C; &#xB123;&#xC740; &#xC0C1;&#xD0DC;&#xB85C; &#xC0DD;&#xC131;&#xD55C; &#xACB0;&#xACFC;&#xB294; &#xB2E4;&#xC74C;&#xACFC; &#xC720;&#xC0AC;&#xD558;&#xB2E4; : </p>
+<pre><code>[main @main#1] Started main coroutine
+[main @v1coroutine#2] Computing v1
+[main @v2coroutine#3] Computing v2
+[main @main#1] The answer for v1 / v2 = 42
+</code></pre><hr>
+<h2 id="context-&#xC694;&#xC18C;&#xB4E4;-&#xACB0;&#xD569;&#xD558;&#xAE30;">Context &#xC694;&#xC18C;&#xB4E4; &#xACB0;&#xD569;&#xD558;&#xAE30;</h2>
+<p>&#xC885;&#xC885; Coroutine Context&#xC5D0; &#xBCF5;&#xC218;&#xC758; &#xC694;&#xC18C;&#xB4E4;&#xC744; &#xC815;&#xC758;&#xD574;&#xC57C; &#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC6B0;&#xB9AC;&#xB294; &#xC774;&#xB97C; &#xC704;&#xD574; <code>+</code> &#xC5F0;&#xC0B0;&#xC790;&#xB97C; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4;, &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; Dispatcher&#xC744; &#xC9C0;&#xC815;&#xD568;&#xACFC; &#xB3D9;&#xC2DC;&#xC5D0; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xC774;&#xB984;&#xC744; &#xC9C0;&#xC815;&#xD55C; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD574;&#xC57C; &#xD560; &#xC218; &#xC788;&#xB2E4; : </p>
+<pre><code class="lang-kotlin">launch(Dispatchers.Default + CoroutineName(<span class="hljs-string">&quot;test&quot;</span>)) {
+    println(<span class="hljs-string">&quot;I&apos;m working in thread ${Thread.currentThread().name}&quot;</span>)
+}
+</code></pre>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-09.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<p>JVM Option&#xC5D0; <code>-Dkotlinx.coroutines.debug</code> &#xC744; &#xCD94;&#xAC00;&#xD55C; &#xCF54;&#xB4DC;&#xC758; &#xACB0;&#xACFC;&#xAC12;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>I&apos;m working in thread DefaultDispatcher-worker-1 @test#2
+</code></pre><p>\</p>
+<h2 id="coroutine-scope">Coroutine Scope</h2>
+<p>Context, &#xC790;&#xC2DD; &#xADF8;&#xB9AC;&#xACE0; Job&#xB4E4;&#xC5D0; &#xB300;&#xD55C; &#xC9C0;&#xC2DD;&#xC744; &#xACB0;&#xD569;&#xC2DC;&#xCF1C;&#xBCF4;&#xC790;. &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC774; Coroutine&#xC774; &#xC544;&#xB2CC; &#xC0DD;&#xBA85;&#xC8FC;&#xAE30;&#xC744; &#xAC00;&#xC9C4; &#xAC1D;&#xCCB4;&#xB97C; &#xAC00;&#xC9C0;&#xACE0; &#xC788;&#xB2E4;&#xACE0; &#xAC00;&#xC815;&#xD574;&#xBCF4;&#xC790;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4;, &#xC548;&#xB4DC;&#xB85C;&#xC774;&#xB4DC; &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xB9CC;&#xB4E4;&#xACE0; &#xC548;&#xB4DC;&#xB85C;&#xC774;&#xB4DC; Activity&#xC758; Context &#xC0C1;&#xC5D0;&#xC11C; &#xB370;&#xC774;&#xD130;&#xB97C; &#xAC00;&#xC838;&#xC624;&#xACE0; &#xC5C5;&#xB370;&#xC774;&#xD2B8; &#xC2DC;&#xD0A4;&#xAC70;&#xB098;, &#xC560;&#xB2C8;&#xBA54;&#xC774;&#xC158;&#xC744; &#xC2E4;&#xD589;&#xD558;&#xB294; &#xB4F1;&#xC758; &#xBE44;&#xB3D9;&#xAE30; &#xC791;&#xC5C5;&#xB4E4;&#xC744; &#xC218;&#xD589;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C; &#xB2E4;&#xC591;&#xD55C; Coroutine&#xB4E4;&#xC744; &#xC2E4;&#xD589;&#xC2DC;&#xD0AC; &#xC218; &#xC788;&#xB2E4;. &#xC774; Coroutine&#xB4E4;&#xC740; Activity&#xAC00; &#xD30C;&#xAD34;&#xB420; &#xB54C; &#xBA54;&#xBAA8;&#xB9AC; &#xB204;&#xC218;&#xB97C; &#xBC29;&#xC9C0;&#xD558;&#xAE30; &#xC704;&#xD574; &#xCDE8;&#xC18C;&#xB418;&#xC5B4;&#xC57C; &#xD55C;&#xB2E4;. &#xBB3C;&#xB860; Context&#xC640; Job&#xB4E4;&#xC744; &#xC9C1;&#xC811; &#xC870;&#xC791;&#xD558;&#xC5EC; Activity&#xC758; Coroutine&#xC758; &#xC0DD;&#xBA85;&#xC8FC;&#xAE30;&#xB97C; &#xACB0;&#xD569;&#xC2DC;&#xD0AC; &#xC218; &#xC788;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, <code>kotlinx.coroutines</code> &#xD328;&#xD0A4;&#xC9C0;&#xB294; <code>CoroutineScope</code>&#xC744; &#xCEA1;&#xC290;&#xD654;&#xD558;&#xB294; &#xCD94;&#xC0C1;&#xD654;&#xB97C; &#xC81C;&#xACF5;&#xD55C;&#xB2E4;.   </p>
+<p>&#xC6B0;&#xB9AC;&#xB294; Activity&#xC758; &#xC0DD;&#xBA85;&#xC8FC;&#xAE30;&#xC5D0; &#xBB36;&#xC740; <code>CoroutineScope</code>&#xC758; &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xB97C; &#xC0DD;&#xC131;&#xD574; Coroutines&#xC758; &#xC0DD;&#xBA85;&#xC8FC;&#xAE30;&#xB97C; &#xAD00;&#xB9AC;&#xD55C;&#xB2E4;. <code>CoroutineScope</code> &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xB294; <code>CoroutineScope()</code> &#xC774;&#xB098; <code>MainScope()</code> &#xAC19;&#xC740; &#xD329;&#xD1A0;&#xB9AC; &#xD568;&#xC218;&#xB4E4;&#xB85C; &#xC0DD;&#xC131;&#xB420; &#xC218; &#xC788;&#xB2E4;. &#xC804;&#xC790;&#xB294; &#xC77C;&#xBC18;&#xC801;&#xC778; &#xBAA9;&#xC801;&#xC758; Scope&#xC744; &#xC0DD;&#xC131;&#xD558;&#xBA70;, &#xD6C4;&#xC790;&#xB294; UI &#xC5B4;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xC704;&#xD55C; Scope&#xC744; &#xC0DD;&#xC131;&#xD558;&#xACE0; <code>Dispatchers.Main</code>&#xC744; &#xAE30;&#xBCF8; &#xB514;&#xC2A4;&#xD328;&#xCCD0;&#xB85C; &#xC0AC;&#xC6A9;&#xD55C;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Activity</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-variable"><span class="hljs-keyword">val</span> mainScope</span> = MainScope()
+
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">destroy</span><span class="hljs-params">()</span> {</span>
+        mainScope.cancel()
+    }
+    <span class="hljs-comment">// to be continued ...</span>
+</code></pre>
+<p>&#xC774;&#xC81C; &#xC815;&#xC758;&#xB41C; <code>scope</code>&#xC744; &#xC0AC;&#xC6A9;&#xD574; <code>Activity</code>&#xC758; Scope &#xB0B4;&#xC5D0;&#xC11C; Coroutines&#xB97C; &#xC2E4;&#xD589;&#xC2DC;&#xD0AC; &#xC218; &#xC788;&#xB2E4;. &#xB370;&#xBAA8;&#xB97C; &#xC704;&#xD574; &#xB2E4;&#xB978; &#xC2DC;&#xAC04;&#xC758; delay&#xB97C; &#xAC00;&#xC9C0;&#xB294; 10&#xAC1C;&#xC758; Coroutine&#xB4E4;&#xC744; &#xC0DD;&#xC131;&#xD558;&#xC790;:</p>
+<pre><code class="lang-kotlin"><span class="hljs-comment">// class Activity continues</span>
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-comment">// launch ten coroutines for a demo, each working for a different time</span>
+        repeat(<span class="hljs-number">10</span>) { i -&gt;
+            mainScope.launch {
+                delay((i + <span class="hljs-number">1</span>) * <span class="hljs-number">200</span>L) <span class="hljs-comment">// variable delay 200ms, 400ms, ... etc</span>
+                println(<span class="hljs-string">&quot;Coroutine $i is done&quot;</span>)
+            }
+        }
+    }
+} <span class="hljs-comment">// class Activity ends</span>
+</code></pre>
+<p>main &#xD568;&#xC218;&#xC5D0;&#xC11C; Activity&#xB97C; &#xC0DD;&#xC131;&#xD558;&#xBA70;, &#xD14C;&#xC2A4;&#xD2B8; &#xD568;&#xC218;&#xC778; <code>doSomething</code> &#xB97C; &#xD638;&#xCD9C;&#xD558;&#xACE0;, Activity&#xB97C; 500ms &#xD6C4;&#xC5D0; &#xD30C;&#xAD34;&#xD55C;&#xB2E4;. &#xC774;&#xB294; <code>doSomething</code>&#xC5D0;&#xC11C; &#xC2E4;&#xD589;&#xB41C; &#xBAA8;&#xB4E0; Coroutine&#xB4E4;&#xC744; &#xCDE8;&#xC18C;&#xD55C;&#xB2E4;. Activity&#xAC00; &#xD30C;&#xAD34;&#xB41C; &#xC774;&#xD6C4;&#xC5D0;&#xB294;, &#xC870;&#xAE08; &#xB354; &#xAE30;&#xB2E4;&#xB824;&#xB3C4; &#xC544;&#xBB34; &#xBA54;&#xC138;&#xC9C0;&#xB3C4; &#xCD9C;&#xB825;&#xB418;&#xC9C0; &#xC54A;&#xB294; &#xAC83;&#xC744; &#xD655;&#xC778; &#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> activity</span> = Activity()
+activity.doSomething() <span class="hljs-comment">// run test function</span>
+println(<span class="hljs-string">&quot;Launched coroutines&quot;</span>)
+delay(<span class="hljs-number">500</span>L) <span class="hljs-comment">// delay for half a second</span>
+println(<span class="hljs-string">&quot;Destroying activity!&quot;</span>)
+activity.destroy() <span class="hljs-comment">// cancels all coroutines</span>
+delay(<span class="hljs-number">1000</span>) <span class="hljs-comment">// visually confirm that they don&apos;t work</span>
+</code></pre>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-10.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<p>&#xC774; &#xC608;&#xC2DC;&#xC5D0; &#xB300;&#xD55C; &#xCD9C;&#xB825;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4; :</p>
+<pre><code>Launched coroutines
+Coroutine 0 is done
+Coroutine 1 is done
+Destroying activity!
+</code></pre><p>&#xCCAB; &#xB450;&#xAC1C;&#xC758; Coroutine&#xB4E4;&#xB9CC; &#xBA54;&#xC138;&#xC9C0;&#xB97C; &#xCD9C;&#xB825;&#xD558;&#xACE0; &#xB098;&#xBA38;&#xC9C0;&#xB4E4;&#xC740; <code>Activity.destory()</code>&#xC5D0;&#xC11C; <code>job.cancel()</code>&#xC774; &#xD55C; &#xBC88; &#xD638;&#xCD9C;&#xB418;&#xC5B4; &#xCDE8;&#xC18C;&#xB418;&#xB294; &#xAC83;&#xC744; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xB2E4;.</p>
+<blockquote>
+<p>&#x1F4D6;  &#xC548;&#xB4DC;&#xB85C;&#xC774;&#xB4DC;&#xB294; &#xC218;&#xBA85;&#xC8FC;&#xAE30;&#xAC00; &#xC788;&#xB294; &#xBAA8;&#xB4E0; &#xC5D4;&#xD2F0;&#xD2F0;&#xB4E4;&#xC5D0;&#xC11C; CoroutineScope&#xC5D0; &#xB300;&#xD55C; &#xC790;&#xC0AC;&#xC758; &#xC9C0;&#xC6D0;&#xC744; &#xC81C;&#xACF5;&#xD55C;&#xB2E4;. <a href="https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope" target="_blank">&#xB2E4;&#xC74C; &#xBB38;&#xC11C;</a>&#xB97C; &#xCC38;&#xC870;&#xD558;&#xC790;.</p>
+</blockquote>
+<h3 id="thread-local-&#xB370;&#xC774;&#xD130;">Thread-local &#xB370;&#xC774;&#xD130;</h3>
+<p>Thread-local &#xB370;&#xC774;&#xD130;&#xB97C; Coroutine&#xC73C;&#xB85C; &#xC804;&#xB2EC;&#xD558;&#xAC70;&#xB098;, Coroutine&#xB4E4;&#xAC04;&#xC5D0; &#xC804;&#xB2EC;&#xD558;&#xB294; &#xAE30;&#xB2A5;&#xC774; &#xC788;&#xC73C;&#xBA74; &#xD3B8;&#xB9AC;&#xD558;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, Coroutine&#xB4E4;&#xC740; &#xD2B9;&#xC815; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0; &#xBB36;&#xC5EC;&#xC788;&#xC9C0; &#xC54A;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xC774;&#xB97C; &#xC9C1;&#xC811;&#xD558;&#xAC8C; &#xB418;&#xBA74; &#xBCF4;&#xC77C;&#xB7EC; &#xD50C;&#xB808;&#xC774;&#xD2B8;&#xB97C; &#xB9CC;&#xB4E4; &#xC218; &#xC788;&#xB2E4;.</p>
+<p>&#xC774;&#xB97C; &#xD574;&#xACB0;&#xD558;&#xAE30; &#xC704;&#xD574; <code>ThreadLocal</code>&#xC744; &#xC704;&#xD55C; <code>asContextElement</code> &#xD655;&#xC7A5; &#xD568;&#xC218;&#xAC00; &#xC788;&#xB2E4;. &#xC774;&#xB294; Coroutine&#xC774; Context&#xB97C; &#xBCC0;&#xACBD;&#xD560; &#xB54C;&#xB9C8;&#xB2E4; &#xC8FC;&#xC5B4;&#xC9C4; <code>ThreadLocal</code>&#xC758; &#xAC12;&#xC744; &#xC720;&#xC9C0;&#xD558;&#xACE0; &#xBCF5;&#xC6D0;&#xD558;&#xB294; &#xCD94;&#xAC00;&#xC801;&#xC778; Context &#xAD6C;&#xC131;&#xC694;&#xC18C;&#xB97C; &#xC0DD;&#xC131;&#xD55C;&#xB2E4;.</p>
+<p>&#xC774;&#xB294; &#xC9C1;&#xC811; &#xBCF4;&#xBA74; &#xC27D;&#xAC8C; &#xC124;&#xBA85;&#xB41C;&#xB2E4; : </p>
+<pre><code class="lang-kotlin">threadLocal.<span class="hljs-keyword">set</span>(<span class="hljs-string">&quot;main&quot;</span>)
+println(<span class="hljs-string">&quot;Pre-main, current thread: ${Thread.currentThread()}, thread local value: &apos;${threadLocal.get()}&apos;&quot;</span>)
+<span class="hljs-variable"><span class="hljs-keyword">val</span> job</span> = launch(Dispatchers.Default + threadLocal.asContextElement(value = <span class="hljs-string">&quot;launch&quot;</span>)) {
+    println(<span class="hljs-string">&quot;Launch start, current thread: ${Thread.currentThread()}, thread local value: &apos;${threadLocal.get()}&apos;&quot;</span>)
+    yield()
+    println(<span class="hljs-string">&quot;After yield, current thread: ${Thread.currentThread()}, thread local value: &apos;${threadLocal.get()}&apos;&quot;</span>)
+}
+job.join()
+println(<span class="hljs-string">&quot;Post-main, current thread: ${Thread.currentThread()}, thread local value: &apos;${threadLocal.get()}&apos;&quot;</span>)
+</code></pre>
+<blockquote>
+<p>&#x1F4CC; &#xC804;&#xCCB4; &#xCF54;&#xB4DC;&#xB294; <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-11.kt" target="_blank">&#xC774;&#xACF3;</a>&#xC5D0;&#xC11C; &#xD655;&#xC778;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</blockquote>
+<p>&#xC774; &#xC608;&#xC5D0;&#xC11C; &#xC6B0;&#xB9AC;&#xB294; Dispatcher.Default&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xBC31;&#xADF8;&#xB77C;&#xC6B4;&#xB4DC; &#xC2A4;&#xB808;&#xB4DC;&#xD480;&#xC5D0;&#xC11C; &#xC0C8;&#xB85C;&#xC6B4; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD55C;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; &#xC2A4;&#xB808;&#xB4DC;&#xD480;&#xACFC; &#xB2E4;&#xB978; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xB3D9;&#xC791;&#xD558;&#xC9C0;&#xB9CC;, &#xC5B4;&#xB5A4; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0;&#xC11C; &#xB3D9;&#xC791;&#xD558;&#xB358;&#xC9C0; &#xC0C1;&#xAD00; &#xC5C6;&#xC774; <code>threadLocal.asContextElement(value = &quot;launch&quot;)</code>&#xB97C; &#xC0AC;&#xC6A9;&#xD574; &#xC9C0;&#xC815;&#xD55C; Thread-local &#xBCC0;&#xC218; &#xAC12;&#xC744; &#xAC00;&#xC9C0;&#xACE0; &#xC788;&#xB2E4;. &#xB530;&#xB77C;&#xC11C; <a href="https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html#debugging-coroutines-and-threads" target="_blank">&#xB514;&#xBC84;&#xADF8; &#xC635;&#xC158;&#xC744; &#xC801;&#xC6A9;</a>&#xD574; &#xCD9C;&#xB825;&#xD55C; &#xACB0;&#xACFC; &#xAC12;&#xC740; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xB2E4;.</p>
+<pre><code>Pre-main, current thread: Thread[main @coroutine#1,5,main], thread local value: &apos;main&apos;
+Launch start, current thread: Thread[DefaultDispatcher-worker-1 @coroutine#2,5,main], thread local value: &apos;launch&apos;
+After yield, current thread: Thread[DefaultDispatcher-worker-2 @coroutine#2,5,main], thread local value: &apos;launch&apos;
+Post-main, current thread: Thread[main @coroutine#1,5,main], thread local value: &apos;main&apos;
+</code></pre><p>&#xD574;&#xB2F9; Context &#xC694;&#xC18C;&#xB97C; &#xC124;&#xC815;&#xD558;&#xB294; &#xAC83;&#xC744; &#xC78A;&#xAE30; &#xC27D;&#xB2E4;. &#xB9CC;&#xC57D; Coroutine&#xC744; &#xC2E4;&#xD589;&#xD558;&#xB294; &#xC2A4;&#xB808;&#xB4DC;&#xAC00; &#xB2E4;&#xB974;&#xB2E4;&#xBA74; &#xC2A4;&#xB808;&#xB4DC;&#xC5D0; &#xC758;&#xD574; &#xC561;&#xC138;&#xC2A4;&#xB41C; Thread-local &#xBCC0;&#xC218;&#xB294; &#xC608;&#xCE21;&#xD560; &#xC218; &#xC5C6;&#xB294; &#xAC12;&#xC744; &#xAC00;&#xC9C8; &#xC218; &#xC788;&#xB2E4;. &#xC774;&#xB7EC;&#xD55C; &#xC0C1;&#xD669;&#xC744; &#xBC29;&#xC9C0;&#xD558;&#xAE30; &#xC704;&#xD574; <code>ensurePresent</code> &#xBA54;&#xC11C;&#xB4DC;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xACE0; &#xC798;&#xBABB;&#xB41C; &#xC0AC;&#xC6A9;&#xC774; &#xC788;&#xC744; &#xC2DC; fail-fast &#xD558;&#xB294; &#xAC83;&#xC774; &#xAD8C;&#xC7A5;&#xB41C;&#xB2E4;. </p>
+<p><code>ThreadLocal</code>&#xC740; &#xCD5C;&#xACE0;&#xC758; &#xC9C0;&#xC6D0;&#xC744; &#xC81C;&#xACF5;&#xD558;&#xBA70;, <code>kotlinx.coroutines</code> &#xD328;&#xD0A4;&#xC9C0;&#xC758; &#xBAA8;&#xB4E0; &#xC6D0;&#xC2DC; &#xC694;&#xC18C;&#xB4E4;&#xACFC; &#xD568;&#xAED8; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xADF8;&#xB7EC;&#xB098; &#xC774;&#xB294; &#xD558;&#xB098;&#xC758; &#xC8FC;&#xC694;&#xD55C; &#xC81C;&#xD55C;&#xC0AC;&#xD56D;&#xC744; &#xAC00;&#xC9C4;&#xB2E4; : &#xB9CC;&#xC57D; Thread-local&#xC774; &#xBCC0;&#xACBD;&#xB418;&#xBA74;, &#xC0C8;&#xB85C;&#xC6B4; &#xAC12;&#xC740; &#xCF54;&#xB8E8;&#xD2F4;&#xC744; &#xD638;&#xCD9C;&#xD55C; &#xACF3;&#xC5D0; &#xC804;&#xB2EC;&#xB418;&#xC9C0; &#xC54A;&#xACE0;(Context &#xC694;&#xC18C;&#xAC00; &#xBAA8;&#xB4E0; <code>ThreadLocal</code> &#xAC1D;&#xCCB4;&#xB85C;&#xC758; &#xC811;&#xADFC;&#xC744; &#xCD94;&#xC801;&#xD560; &#xC218; &#xC5C6;&#xAE30; &#xB54C;&#xBB38;&#xC5D0;), &#xBCC0;&#xACBD;&#xB41C; &#xAC12;&#xC740; &#xB2E4;&#xC74C; &#xC77C;&#xC2DC; &#xC911;&#xB2E8;&#xC2DC;&#xC810;&#xC5D0; &#xC190;&#xC2E4;&#xB41C;&#xB2E4;. Coroutine &#xB0B4;&#xC758; Thread-local&#xC744; &#xBCC0;&#xACBD;&#xD558;&#xAE30; &#xC704;&#xD574;&#xC11C;&#xB294; <code>withContext</code>&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC790;. &#xB354; &#xC790;&#xC138;&#xD55C; &#xAC83;&#xC740; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/as-context-element.html" target="_blank">asContextElement</a>&#xB97C; &#xCC38;&#xC870;.</p>
+<p>&#xB610;&#xB294; Thread-local &#xBCC0;&#xC218;&#xC5D0; <code>class Counter(var i: Int)</code> &#xC640; &#xAC19;&#xC740; &#xBCC0;&#xACBD; &#xAC00;&#xB2A5;&#xD55C; &#xBC15;&#xC2A4;&#xB97C; &#xC800;&#xC7A5;&#xD560; &#xC218; &#xC788;&#xB2E4;. &#xD558;&#xC9C0;&#xB9CC;, &#xC774; &#xACBD;&#xC6B0;  &#xBCC0;&#xACBD; &#xAC00;&#xB2A5;&#xD55C; &#xBC15;&#xC2A4;&#xC758; &#xBCC0;&#xC218;&#xAC12;&#xC774; &#xB3D9;&#xC2DC; &#xC811;&#xADFC;&#xB418;&#xC5B4; &#xBC14;&#xB00C;&#xB294; &#xAC83;&#xC5D0; &#xB300;&#xD574; &#xB3D9;&#xAE30;&#xD654;&#xD560; &#xBAA8;&#xB4E0; &#xCC45;&#xC784;&#xC774; &#xC0DD;&#xAE34;&#xB2E4;.</p>
+<p>&#xB85C;&#xAE45; MDC&#xC640;&#xC758; &#xD1B5;&#xD569;, transactional contexts, &#xD639;&#xC740; &#xB370;&#xC774;&#xD130; &#xC804;&#xB2EC;&#xC744; &#xC704;&#xD574; &#xB0B4;&#xBD80;&#xC801;&#xC73C;&#xB85C; Thread-local&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xB2E4;&#xB978; &#xB77C;&#xC774;&#xBE0C;&#xB7EC;&#xB9AC;&#xB4E4;&#xACFC; &#xAC19;&#xC740; Thread-local &#xACE0;&#xAE09; &#xC0AC;&#xC6A9;&#xBC95;&#xC740; &#xAD6C;&#xD604;&#xB418;&#xC5B4;&#xC57C; &#xD558;&#xB294; interface&#xB97C; &#xC124;&#xBA85; &#xD574;&#xB193;&#xC740; <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-thread-context-element/" target="_blank">ThreadContextElement</a> &#xBB38;&#xC11C;&#xB97C; &#xCC38;&#xACE0;&#xD558;&#xBA74; &#xB41C;&#xB2E4;.</p>
+<hr>
+<p>\</p>
+<p>\</p>
+<hr>
+<p>\</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="undefined-1.html" class="navigation navigation-prev " aria-label="Previous page: 일시중단 함수 구성하기">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="flow.html" class="navigation navigation-next " aria-label="Next page: 비동기 Flow">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"원문 최종 수정 :  2023년 6월 16일","title":"Coroutine Context와 Dispatcher","level":"1.6","depth":1,"next":{"title":"비동기 Flow","level":"1.7","depth":1,"path":"flow.md","ref":"flow.md","articles":[]},"previous":{"title":"일시중단 함수 구성하기","level":"1.5","depth":1,"path":"undefined-1.md","ref":"undefined-1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"coroutine-context-dispatcher.md","mtime":"2023-06-20T13:36:58.719Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-20T13:57:17.292Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
