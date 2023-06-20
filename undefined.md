@@ -345,8 +345,4 @@ fun main() {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-10.kt)에서 확인할 수 있습니다.
 
-이 예시는 언제나 0을 출력한다. 리소스가 누수되지 않는다.\
-
-
-
-
+이 예시는 언제나 0을 출력한다. 리소스가 누수되지 않는다.

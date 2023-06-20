@@ -459,15 +459,3 @@ Post-main, current thread: Thread[main @coroutine#1,5,main], thread local value:
 또는 Thread-local 변수에 `class Counter(var i: Int)` 와 같은 변경 가능한 박스를 저장할 수 있다. 하지만, 이 경우  변경 가능한 박스의 변수값이 동시 접근되어 바뀌는 것에 대해 동기화할 모든 책임이 생긴다.
 
 로깅 MDC와의 통합, transactional contexts, 혹은 데이터 전달을 위해 내부적으로 Thread-local을 사용하는 다른 라이브러리들과 같은 Thread-local 고급 사용법은 구현되어야 하는 interface를 설명 해놓은 [ThreadContextElement](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-thread-context-element/) 문서를 참고하면 된다.
-
-***
-
-\
-
-
-\
-
-
-***
-
-\

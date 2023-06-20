@@ -156,10 +156,3 @@ fun main() = runBlocking<Unit> {
 이제 수집기 Coroutine은 **RUNNING** 상태를 가지는 반면 방출기 Coroutine은 **SUSPENDED** 상태를 가진다.
 
 각 Coroutine을 더욱 깊게 파고들어 코드를 디버깅 할 수 있다.
-
-\
-
-
-***
-
-\

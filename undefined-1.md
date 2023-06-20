@@ -223,8 +223,3 @@ Second child throws an exception
 First child was cancelled
 Computation failed with ArithmeticException
 ```
-
-\
-
-
-\
