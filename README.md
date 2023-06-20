@@ -17,13 +17,13 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 개발자 조세영&#x20;
 
-> 이 번역은 [번역 기여 가이드라인](https://kotlinlang.org/docs/contribute.html#translate-documentation-to-other-languages)에 따라 번역되었습니다.
+
 
 ### 원문 정보
 
 원문 링크 : [https://kotlinlang.org/docs/coroutines-guide.html](https://kotlinlang.org/docs/coroutines-guide.html)
 
-
+> 이 번역은 [번역 기여 가이드라인](https://kotlinlang.org/docs/contribute.html#translate-documentation-to-other-languages)에 따라 번역되었습니다.
 
 ### **번역자 정보**
 
