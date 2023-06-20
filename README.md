@@ -6,7 +6,7 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 나는 이것이 문제라고 생각해 많은 한국인 개발자들이 코루틴에 접근하기 쉽도록 하기 위해 책과 강의 공식문서 그리고 Google IO 등을 보면서 정리한 것을 [18개의 글](http://kotlinworld.com/139)로 만들었고, 이에 대한 반응이 매우 좋았다. 하지만 이 글들은 내가 나름대로 주니어 개발자부터 시니어 개발자까지 이해하기 편하게 정리한 것일 뿐 Coroutines에 대한 모든 것을 다루지는 않는다.&#x20;
 
-이에 따라 이번에는 Coroutines 에 대한 깊은 부분까지 다루기 위해 공식 문서의 번역이라는 새로운 시도를 하고자 한다. 이번 번역 작업을 통해 번역의 완성도와 가독성을 모두 잡은 공식 문서 가이드가 나올 수 있었으면 바라는 마음으로 블로그를 열어 번역을 시작한다.&#x20;
+이에 따라 이번에는 Coroutines 에 대한 깊은 부분까지 다루기 위해 공식 문서의 번역이라는 새로운 시도를 하고자 한다. 이번 번역 작업을 통해 번역의 완성도와 가독성을 모두 잡은 공식 문서 가이드가 나올 수 있었으면 바라는 마음으로 [GitHub 오픈소스](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)를 열어 번역을 시작한다.&#x20;
 
 &#x20;부디 이 번역 작업이 많은 분들께 도움이 되었으면 좋겠다. 아래에서 바로 번역을 시작한다.
 
@@ -22,7 +22,7 @@ Kotlin Coroutines는 Kotlin을 위한 강력한 비동기 솔루션이다. 안�
 
 GitHub: [https://github.com/seyoungcho2/CoroutinesKoreanTranslation](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)
 
-⭐ [Stargazers](https://github.com/seyoungcho2/CoroutinesKoreanTranslation)가 되어 오픈소스 프로젝트를 지지해주세요&#x20;
+⭐ [Stargazers](https://github.com/seyoungcho2/CoroutinesKoreanTranslation/stargazers)가 되어 오픈소스 프로젝트를 지지해주세요&#x20;
 
 ### 원문 정보
 
