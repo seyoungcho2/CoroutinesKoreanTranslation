@@ -14,23 +14,17 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 2\. `kotlinx.coroutines` 라이브러리를 Gradle 프로젝트에서 사용하기 위해서 다음 종속성을 `build.gradle(.kts)`에 추가한다.
 
-{% tabs %}
-{% tab title="Kotlin" %}
-```kotlin
+```
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 ```
-{% endtab %}
 
-{% tab title="Groovy" %}
-```groovy
+```
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 다른 빌드 시스템을 위해서는 [kotlinx.coroutines README](https://github.com/Kotlin/kotlinx.coroutines#using-in-your-projects) 의 지침을 참조하라.
 
@@ -63,17 +57,17 @@ fun main() = runBlocking<Unit> {
 
 5\. **Build Project**를 클릭해서 코드를 빌드한다.
 
-<figure><img src="https://blog.kakaocdn.net/dn/bhKfeE/btseQDpxY9g/jQQVxnkmMkXK6xAsAMfpb0/img.png" alt="" height="207" width="660"><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 ## Coroutine 디버그 하기
 
 1\. `println()` 함수 호출부들에 브레이크 포인트를 설정한다:
 
-<figure><img src="https://blog.kakaocdn.net/dn/yOn13/btseP4urG9R/akmiBrg5kBwRVkierXtpTk/img.png" alt="" height="336" width="660"><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 2\. 화면 상단의 **Run** 옆에 있는 **Debug**를 클릭해서 디버그 모드로 코드를 실행한다.
 
-<figure><img src="https://blog.kakaocdn.net/dn/qVdbv/btseQlJsS1B/IxWMsHx2Mr0ajsKzsxGbLk/img.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 디버그 툴 윈도우는 다음과 같이 나타난다:
 
@@ -81,11 +75,11 @@ fun main() = runBlocking<Unit> {
 * **Variable** 탭은 현재 Context 속의 변수를 포함한다.
 * **Coroutines** 탭은 실행중이거나 일시중단된 Coroutine에 대한 정보를 포함한다. 이는 3개의 Coroutine이 있음을 보여준다. 첫 째는 **RUNNING** 상태를 가진다, 그리고 다른 두개는 **CREATED** 상태를 가진다.
 
-<figure><img src="https://blog.kakaocdn.net/dn/bde1ka/btseK6zzvCm/i7fFit9uH5GKvVLB3juCRk/img.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 3\. 디버그 툴 윈도우의 **Resume Program**을 눌러서 Debugger 세션을 재개한다.
 
-<figure><img src="https://blog.kakaocdn.net/dn/tQsqB/btseKe5IX5X/JtO9mlXIf5L0oPMJF8Kkp0/img.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 이제 **Coroutines** 탭은 다음을 보여준다:
 
@@ -95,7 +89,7 @@ fun main() = runBlocking<Unit> {
 
 4\. 디버그 툴 윈도우의 **Resume Program**을 눌러서 Debugger 세션을 재개한다.
 
-<figure><img src="https://blog.kakaocdn.net/dn/djpYaT/btseRhmdond/yJaTG86fJzCoWUsJUpqJBk/img.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 이제 Coroutine 탭은 다음을 보여준다:
 
@@ -112,7 +106,7 @@ IntelliJ IDEA 디버거를 사용하면, 코드를 디버그 하기 위해 각 C
 
 만약 디버거에서 suspend 함수를 사용한다면, 변수 이름 뒤에 "was optimized out" 문자가 붙은 것을 볼 수 있을 것이다.&#x20;
 
-### ![](.gitbook/assets/image.png)
+<figure><img src=".gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 이 문자는 변수가 더이상 메모리 상에 없다는 것을 뜻한다. 이 변수에 대한 값을 볼 수 없기 때문에 optimized 변수들을 포함한 코드를 디버그 하는 것은 어렵다. 컴파일러 옵션에 `-Xdebug`를 추가함으로써 이러한 동작을 비활성화 할 수 있다.
 
