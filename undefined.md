@@ -4,6 +4,10 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # 취소와 타임아웃
 
+{% hint style="info" %}
+[페이지 편집](undefined.md)
+{% endhint %}
+
 이 섹션은 코루틴 Cancellation과 Timeout에 대해 다룹니다.
 
 ## Coroutine 실행 취소하기

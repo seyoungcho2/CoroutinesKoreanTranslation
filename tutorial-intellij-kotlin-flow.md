@@ -4,6 +4,10 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
 
+{% hint style="info" %}
+[페이지 편집](tutorial-intellij-kotlin-flow.md)
+{% endhint %}
+
 이 튜토리얼은 IntelliJ IDEA를 사용해 Kotlin Flow를 생성하고 디버깅 하는 방법에 대해 설명한다.
 
 이 튜토리얼에서는 독자들이 Coroutine 개념에 대한 사전 지식이 있다고 가정한다.

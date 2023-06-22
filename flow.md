@@ -4,7 +4,11 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # 비동기 Flow
 
-o일시 중단 함수들은 비동기적으로 단일 값을 반환한다. 그렇다면 어떻게 비동기적으로 계산된 복수의 값들을 반환할 수 있을까? 여기에서 바로 Kotlin의 Flows가 등장한다.
+{% hint style="info" %}
+[페이지 편집](flow.md)
+{% endhint %}
+
+일시 중단 함수들은 비동기적으로 단일 값을 반환한다. 그렇다면 어떻게 비동기적으로 계산된 복수의 값들을 반환할 수 있을까? 여기에서 바로 Kotlin의 Flows가 등장한다.
 
 
 
@@ -34,7 +38,7 @@ fun main() {
 
 ### Sequences
 
-만약 CPU 리소스를 사용하면서 블로킹을 하는 코드\*1(각 연산은 100ms의 시간이 소요된다)로 숫자에 대한 연산을 한다면,  `Sequence`를 사용해 숫자를 나타낼 수 있다.
+만약 CPU 리소스를 사용하면서 블로킹을 하는 코드(각 연산은 100ms의 시간이 소요된다)로 숫자에 대한 연산을 한다면,  `Sequence`를 사용해 숫자를 나타낼 수 있다.
 
 ```kotlin
 fun simple(): Sequence<Int> = sequence { // sequence builder
@@ -124,10 +128,7 @@ I'm not blocked 3
 
 > 📖  `simple` 함수의 `flow { ... }` 블록 내부에서 delay를 `Thread.sleep`으로 교체하는 경우 메인 스레드가 블록되는 것을 볼 수 있다.&#x20;
 
-\
 
-
-***
 
 ## Flows는 차갑다
 
@@ -197,7 +198,7 @@ fun main() = runBlocking<Unit> {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-06.kt)에서 확인할 수 있습니다.
 
-`simple` 함수의 flow에서 2개의 숫자만 방출되고, 다음과 같은 출력\*1을 만드는 것에 주목하자 :
+`simple` 함수의 flow에서 2개의 숫자만 방출되고, 다음과 같은 출력을 만드는 것에 주목하자 :
 
 ```
 Emitting 1
@@ -323,9 +324,7 @@ fun main() = runBlocking<Unit> {
 Finally in numbers
 ```
 
-\
-Flow 터미널 연산자
-------------
+## Flow 터미널 연산자
 
 Flow의 터미널 연산자는 flow를 수집을 시작하는 **일시정지 함수**이다. [collect](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/collect.html) 연산자는 가장 기본 연산자이지만, 사용을 더 쉽게 만드는 다른 터미널 연산자들도 있다.
 
@@ -472,7 +471,6 @@ Exception in thread "main" java.lang.IllegalStateException: Flow invariant is vi
 	at ...
 ```
 
-\
 
 
 ### flowOn 연산자
@@ -621,9 +619,8 @@ Collected in 741 ms
 ```
 
 \
-
-
-## 여러 Flow 하나로 합치기
+여러 Flow 하나로 합치기
+---------------
 
 복수의 Flow를 합치는 다양한 방법이 있다.
 
@@ -698,11 +695,6 @@ nums.combine(strs) { a, b -> "$a -> $b" } // compose a single string with "combi
 3 -> three at 1256 ms from start
 ```
 
-\
-
-
-***
-
 ## Flow를 Flatten하기
 
 Flow는 비동기적으로 수신된 값의 시퀀스를 나타내고, 각 값이 다른 값들의 시퀀스에 대한 요청을 하기 매우 쉽다. 예를 들어, 두개의 문자열을 500ms 차이로 반환하는 다음의 함수가 있다고 해보자 :
@@ -723,7 +715,6 @@ fun requestFlow(i: Int): Flow<String> = flow {
 
 이는 추후 처리를 위해 단일 Flow로 **Flatten**해야 하는 flow의 flow(`Flow<Flow<String>>`)가 된다. Collection과 Sequence는 이런 상황을 위해 `flatten`과 `flatMap` 연산자가 있다. 하지만, Flow의 비동기 환경 때문에 Flow는 flattening을 위한 다른 **방법**이 필요하며, Flow에 대한 flattening 연산자의 집합이 존재한다.
 
-\
 
 
 ### flatMapConcat
@@ -986,9 +977,7 @@ Caught java.lang.IllegalStateException: Collected 2
 
 
 
-\
-Flow 수집 완료 처리하기
----------------
+## Flow 수집 완료 처리하기
 
 flow 수집이 완료되면(정상적으로 혹은 예외가 발생되어서), 완료에 따른 동작을 실행해야 할 수 있다. 이미 알 수도 있듯이, 이는 명령적인 방식 혹은 선언적인 방식 두가지 방식으로 실행될 수 있다.
 
@@ -1096,12 +1085,11 @@ Flow completed with java.lang.IllegalStateException: Collected 2
 Exception in thread "main" java.lang.IllegalStateException: Collected 2
 ```
 
-\
 
 
 ## 명령적으로 다루기 vs 선언적으로 다루기
 
-이제 우리는 어떻게 Flow를 수집하고, 명령적인 방식과 선언적인 방식으로 완료와 예외를 처리하는 방법을 안다. 자연적으로 어떤 접근 방식이 선호되고 왜 그런지에 대한 의문이 생길 것이다. 이에 대해 라이브러리적인 관점에서 특정한 접근 방식만을 옹호하지 않는다.\*1 두 접근 방식 모두 유효하며, 선호도와 코스 스타일에 따라 선택되어야 한다.
+이제 우리는 어떻게 Flow를 수집하고, 명령적인 방식과 선언적인 방식으로 완료와 예외를 처리하는 방법을 안다. 자연적으로 어떤 접근 방식이 선호되고 왜 그런지에 대한 의문이 생길 것이다. 이에 대해 라이브러리적인 관점에서 특정한 접근 방식만을 옹호하지 않는다. 두 접근 방식 모두 유효하며, 선호도와 코스 스타일에 따라 선택되어야 한다.
 
 
 
@@ -1253,12 +1241,10 @@ fun main() = runBlocking<Unit> {
 Exception in thread "main" kotlinx.coroutines.JobCancellationException: BlockingCoroutine was cancelled; job="coroutine#1":BlockingCoroutine{Cancelled}@5ec0a365
 ```
 
-***
-
 ## Flow와 Reactive Stream
 
 [리액티브 스트림](https://www.reactive-streams.org/)이나 Rxjava나 Project Reactor 같은 리액티브 프레임웍에 익숙한 사람들은 Flow를 설계 하는게 아주 익숙할 것이다.
 
 실제로, Flow의 설계는 리액티브 스트림과 그에 대한 다양한 구현체들에 영감을 받았다. 하지만, Flow의 주요 목표는 가능한 단순하게 디자인을 하는 것이며, Kotlin의 일시중단 친화적이고 구조적인 동시성을 존중하는 것이다. 이러한 목표를 이루는 것은 리액티브 선지자과 그들의 엄청난 작업들이 없으면 불가능할 것이다. 이에 대한 완전한 이야기는 [Reactive Streams and Kotlin Flows](https://medium.com/@elizarov/reactive-streams-and-kotlin-flows-bfd12772cda4) 기사에서 읽을 수 있다.
 
-개념적으로는 다르지만, Flow는 리액티브 스트림이며 Flow는 리액티브(사양과 TCK\*1에 대해 호환되는) 발행자 또는 그 반대로 변환될 수 있다. 이러한 변환기는 기본적으로 `kotlinx.coroutines` 패키지에 의해 제공되며, 다른 리액티브 모듈에 대한 변환기는 해당 리액티브 모듈에서 찾을 수 있다(리액티브 스트림을 위한 `kotlinx-coroutines-reactive`, Project Reactor을 위한 `kotlinx-coroutines-reactor` 과 RxJava2/RxJava3를 위한 `kotlinx-coroutines-rx2`/`kotlinx-coroutines-rx3`).
+개념적으로는 다르지만, Flow는 리액티브 스트림이며 Flow는 리액티브(사양과 TCK에 대해 호환되는) 발행자 또는 그 반대로 변환될 수 있다. 이러한 변환기는 기본적으로 `kotlinx.coroutines` 패키지에 의해 제공되며, 다른 리액티브 모듈에 대한 변환기는 해당 리액티브 모듈에서 찾을 수 있다(리액티브 스트림을 위한 `kotlinx-coroutines-reactive`, Project Reactor을 위한 `kotlinx-coroutines-reactor` 과 RxJava2/RxJava3를 위한 `kotlinx-coroutines-rx2`/`kotlinx-coroutines-rx3`).

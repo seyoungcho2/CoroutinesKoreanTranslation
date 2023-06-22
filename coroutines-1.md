@@ -4,6 +4,10 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutines 기초
 
+{% hint style="info" %}
+[페이지 편집](coroutines-1.md)
+{% endhint %}
+
 이 섹션에서는 Coroutine의 기본 개념에 대해 다룹니다.
 
 
@@ -213,12 +217,3 @@ fun main() = runBlocking {
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-basic-06.kt)에서 확인할 수 있습니다.
 
 만약 위와 같은 프로그램을 Thread들을 이용하여 작성한다면(runBlocking을 제거하고 launch를 thread로 대체하고, delay를 Thread.sleep으로 대체), 많은 메모리를 사용하게 된다. 실행되는 OS, JDK 버전, 설정에 따라 동시에 실행 중인 스레드가 너무 많지 않도록 out-of-memory error을 발생시키거나 스레드를 느리게 시작할 것이다.
-
-
-
-
-
-
-
-
-

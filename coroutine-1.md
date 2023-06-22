@@ -4,6 +4,10 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutine 공유 상태와 동시성
 
+{% hint style="info" %}
+[페이지 편집](coroutine-1.md)
+{% endhint %}
+
 Coroutine은 Dispatchers.Default와 같이 멀티 스레드를 관리하는 Dispatcher에 의해 병렬적으로 실행될 수 있다. 이는 병렬 실행 시 일어날 수 있는 일반적인 문제들을 모두 만들어낸다. 가장 주요한 문제는 변경 가능한 **공유 상태의 동기화**이다. Coroutine에서 이 문제에 대한 일부 해결 방식은 멀티 스레드 세계에서의 해결방식과 유사하지만, 다른 해결 방식들은 Coroutine에만 있다.
 
 
@@ -46,7 +50,7 @@ fun main() = runBlocking {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-sync-01.kt)에서 확인할 수 있습니다.
 
-마지막에 무엇이 출력될까? 이것이 “Counter = 100000”을 출력할 가능성은 거의 없다. 100개의 Coroutine이 동기화 없이 여러 스레드에서 `counter`을 동시에 증가시키기 때문이다.\*1
+마지막에 무엇이 출력될까? 이것이 “Counter = 100000”을 출력할 가능성은 거의 없다. 100개의 Coroutine이 동기화 없이 여러 스레드에서 `counter`을 동시에 증가시키기 때문이다.
 
 ***
 
@@ -70,7 +74,7 @@ fun main() = runBlocking {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-sync-02.kt)에서 확인할 수 있습니다.
 
-이 코드는 느리게 동작하지만, 여전히 마지막에 “Counter = 100000”을 얻기 못한다. volatile 변수가 선형화(기술적인 용어로 “원자성”이라 한다)된 읽기와 쓰기를 제공하지만, 값을 증가시키는 것과 같은 더 큰 동작\*1에 대해서는 원자성을 제공하지 않는다.
+이 코드는 느리게 동작하지만, 여전히 마지막에 “Counter = 100000”을 얻기 못한다. volatile 변수가 선형화(기술적인 용어로 “원자성”이라 한다)된 읽기와 쓰기를 제공하지만, 값을 증가시키는 것과 같은 더 큰 동작에 대해서는 원자성을 제공하지 않는다.
 
 
 
@@ -99,7 +103,7 @@ fun main() = runBlocking {
 
 ## 세밀하게 Thread 제한하기
 
-스레드 제한은 특정한 공유된 상태로의 접근이 단일 스레드로 제한된 공유 상태 문제에 대한 접근 방식이다. 이는 일반적으로 모든 UI 상태가 단일 이벤트 디스패처/어플리케이션 스레드로 제한된 UI가 있는 어플리케이션에 사용된다.\*1 단일 스레드를 관리하는 Context를 사용해 Coroutine을 적용하는 것은 쉽다.
+스레드 제한은 특정한 공유된 상태로의 접근이 단일 스레드로 제한된 공유 상태 문제에 대한 접근 방식이다. 이는 일반적으로 모든 UI 상태가 단일 이벤트 디스패처/어플리케이션 스레드로 제한된 UI가 있는 어플리케이션에 사용된다. 단일 스레드를 관리하는 Context를 사용해 Coroutine을 적용하는 것은 쉽다.
 
 ```kotlin
 val counterContext = newSingleThreadContext("CounterContext")
@@ -120,12 +124,11 @@ fun main() = runBlocking {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-sync-04.kt)에서 확인할 수 있습니다.
 
-이 코드는 세밀하게 스레드를 제한하기 때문에 아주 느리게 동작한다. 숫자를 증가시키는 각 동작은 멀티 스레드 디스패처인 `Dispatchers.Default` Context에서 `withContext(counterContext)` 블록을 사용해 단일 스레드 Context로 전환한다.\
-
+이 코드는 세밀하게 스레드를 제한하기 때문에 아주 느리게 동작한다. 숫자를 증가시키는 각 동작은 멀티 스레드 디스패처인 `Dispatchers.Default` Context에서 `withContext(counterContext)` 블록을 사용해 단일 스레드 Context로 전환한다.
 
 ## 굵게 Thread 제한하기
 
-실제로 스레드 제한은 큰 코드 덩어리에서 수행된다. 예를 들어, 큰 부분의 상태를 갱신하는 비즈니스 로직은 단일 스레드로 제한된다. 다음의 예제에서는 각 Coroutine을 단일 스레드 Context에서 실행되도록 함으로써 그렇게 한다.\*1
+실제로 스레드 제한은 큰 코드 덩어리에서 수행된다. 예를 들어, 큰 부분의 상태를 갱신하는 비즈니스 로직은 단일 스레드로 제한된다. 다음의 예제에서는 각 Coroutine을 단일 스레드 Context에서 실행되도록 함으로써 그렇게 한다.
 
 ```kotlin
 val counterContext = newSingleThreadContext("CounterContext")
@@ -173,7 +176,7 @@ fun main() = runBlocking {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-sync-06.kt)에서 확인할 수 있습니다.
 
-이 예에서 Lock을 거는 것은 세밀해서 비용이 든다. 하지만, 이는 주기적으로 공유 상태를 수정해야 하지만 상태를 제한시킬 수 있는 자연 스레드\*3가 없는 일부 상황에서 좋은 선택이 된다. 하지만,&#x20;
+이 예에서 Lock을 거는 것은 세밀해서 비용이 든다. 하지만, 이는 주기적으로 공유 상태를 수정해야 하지만 상태를 제한시킬 수 있는 자연 스레드가 없는 일부 상황에서 좋은 선택이 된다. 하지만,&#x20;
 
 \
 
@@ -233,9 +236,3 @@ fun main() = runBlocking<Unit> {
 Actor는 로드 시 Lock보다 효율적이다. 항상 해야 할 작업이 있으며, 다른 Context로의 전환이 전혀 필요없기 때문이다.
 
 > 📖  actor Coroutine 빌더는 produce Coroutine 빌더 두개라는 것을 명심하자. actor는 메세지를 수신하는 Channel과 연관되어 있고, producer는 메세지를 보내는 Channel과 연관되어 있다.
-
-***
-
-***
-
-\
