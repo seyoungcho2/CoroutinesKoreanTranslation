@@ -1,10 +1,12 @@
 ---
-description: '원문 최종 수정 :  2023년 6월 16일'
+description: '원문 최종 수정 :  2023년 6월 21일'
 ---
 
 # Coroutines 가이드
 
 > [페이지 편집](coroutines.md)
+>
+> [원문](https://kotlinlang.org/docs/coroutines-guide.html)
 
 
 

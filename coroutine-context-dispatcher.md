@@ -5,6 +5,8 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 # Coroutine Context와 Dispatcher
 
 > [페이지 편집](coroutine-context-dispatcher.md)
+>
+> [원문](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html)
 
 
 

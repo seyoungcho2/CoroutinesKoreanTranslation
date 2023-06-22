@@ -5,6 +5,8 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 # Tutorial: IntelliJ를 사용한 Kotlin Flow 디버깅
 
 > [페이지 편집](tutorial-intellij-kotlin-flow.md)
+>
+> [원문](https://kotlinlang.org/docs/debug-flow-with-idea.html)
 
 
 
