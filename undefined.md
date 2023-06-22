@@ -4,6 +4,8 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # 취소와 타임아웃
 
+> [페이지 편집](https://github.com/seyoungcho2/CoroutinesKoreanTranslation/edit/main/undefined.md)
+>
 > [원문](https://kotlinlang.org/docs/cancellation-and-timeouts.html)
 
 

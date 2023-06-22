@@ -4,6 +4,8 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # 일시중단 함수 구성하기
 
+> [페이지 편집](https://github.com/seyoungcho2/CoroutinesKoreanTranslation/edit/main/undefined-1.md)
+>
 > [원문](https://kotlinlang.org/docs/composing-suspending-functions.html)
 
 
