@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutine 예외 처리
 
-{% hint style="info" %}
-[페이지 편집](coroutine.md)
-{% endhint %}
+> [페이지 편집](coroutine.md)
+
+
 
 이 섹션에서는 예외 처리와 예외 발생 시 취소에 대해 다룬다. 우리는 취소된 Coroutine이 일시중단 지점에서 CancellationException을 발생시키고 이것이 Coroutine의 동작원리에 의해서 무시되는 것을 알고 있다. 이 장에서는 취소 도중 예외가 발생되거나 같은 Coroutine에서 복수의 자식 Coroutine이 예외를 발생시킬 경우 어떤 일이 일어나는지 살펴볼 것이다.
 

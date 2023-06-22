@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutines 가이드
 
-{% hint style="info" %}
-[페이지 편집](coroutines.md)
-{% endhint %}
+> [페이지 편집](coroutines.md)
+
+
 
 Kotlin은 다른 라이브러리들이 coroutines를 활용할 수 있도록 표준 라이브러리 상에서 최소한의 저수준 API들만을 제공한다.  비슷한 기능을 가진 다른 많은 언어들과 다르게, `async`와 `await`은 Kotlin의 키워드나 표준 라이브러리의 구성요소가 아니다. 또한 Kotlin의 일시 중단 함수는 다른 비동기 개념인 futures나 promises보다 안전하고 오류가 덜 발생할 수 있도록 추상화되어 있다.
 

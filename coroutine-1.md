@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutine 공유 상태와 동시성
 
-{% hint style="info" %}
-[페이지 편집](coroutine-1.md)
-{% endhint %}
+> [페이지 편집](coroutine-1.md)
+
+
 
 Coroutine은 Dispatchers.Default와 같이 멀티 스레드를 관리하는 Dispatcher에 의해 병렬적으로 실행될 수 있다. 이는 병렬 실행 시 일어날 수 있는 일반적인 문제들을 모두 만들어낸다. 가장 주요한 문제는 변경 가능한 **공유 상태의 동기화**이다. Coroutine에서 이 문제에 대한 일부 해결 방식은 멀티 스레드 세계에서의 해결방식과 유사하지만, 다른 해결 방식들은 Coroutine에만 있다.
 

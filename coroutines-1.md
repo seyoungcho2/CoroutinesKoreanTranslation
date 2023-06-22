@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutines 기초
 
-{% hint style="info" %}
-[페이지 편집](coroutines-1.md)
-{% endhint %}
+> [페이지 편집](coroutines-1.md)
+
+
 
 이 섹션에서는 Coroutine의 기본 개념에 대해 다룹니다.
 

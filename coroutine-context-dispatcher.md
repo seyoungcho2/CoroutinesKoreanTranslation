@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Coroutine Context와 Dispatcher
 
-{% hint style="info" %}
-[페이지 편집](coroutine-context-dispatcher.md)
-{% endhint %}
+> [페이지 편집](coroutine-context-dispatcher.md)
+
+
 
 Coroutines는 언제나 Kotlin 표준 라이브러리에 정의된 [CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/) 타입 값으로 표현되는 일부 Context 상에서 실행된다. Coroutine의 Context는 다양한 요소의 집합이다. 주요 요소는 이전 섹션에서 본 Coroutine의 [Job](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)과 이번 섹션에서 다룰 Dispatcher이다.
 

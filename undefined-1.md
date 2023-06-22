@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # 일시중단 함수 구성하기
 
-{% hint style="info" %}
-[페이지 편집](undefined-1.md)
-{% endhint %}
+> [페이지 편집](undefined-1.md)
+
+
 
 이 섹션은 일시 중단 함수를 구성하기 위한 다양한 접근 방식을 다룬다.
 

@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 16일'
 
 # Tutorial: IntelliJ를 사용한 Coroutines 디버깅
 
-{% hint style="info" %}
-[페이지 편집](tutorial-intellij-coroutines.md)
-{% endhint %}
+> [페이지 편집](tutorial-intellij-coroutines.md)
+
+
 
 이 튜토리얼은 IntelliJ IDEA를 사용해 Kotlin Coroutine을 만들고 디버깅하는 방법을 설명한다.
 

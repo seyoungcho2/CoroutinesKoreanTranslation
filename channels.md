@@ -4,9 +4,9 @@ description: '원문 최종 수정 :  2023년 6월 20일'
 
 # Channels
 
-{% hint style="info" %}
-[페이지 편집](channels.md)
-{% endhint %}
+> [페이지 편집](channels.md)
+
+
 
 Deffered 값은 두 코루틴 사이에 단일 값을 전달하는데 편리한 방법을 제공한다. Channel은 값의 스트림을 전달하는 방법을 제공한다.
 
