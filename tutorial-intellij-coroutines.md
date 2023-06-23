@@ -36,7 +36,7 @@ dependencies {
 
 3\. `src/main/kotlin` 속의 `Main.kt` 파일을 연다.
 
-&#x20; `src` 디렉토리에는 Kotlin 소스 파일고 리소스가 포함되어 있다. `Main.kt` 파일에서는 `Hello World!` 를 출력하는 샘플 코드가 들어 있다.
+&#x20; `src` 디렉토리에는 Kotlin 소스 파일과 리소스가 포함되어 있다. `Main.kt` 파일에서는 `Hello World!` 를 출력하는 샘플 코드가 들어 있다.
 
 4\. `main()`함수 속의 코드를 수정한다 :
 
