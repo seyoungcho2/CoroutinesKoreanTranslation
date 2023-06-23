@@ -477,7 +477,7 @@ Exception in thread "main" java.lang.IllegalStateException: Flow invariant is vi
 
 ### flowOn 연산자
 
-이 Exception은 Flow에서 값 방출을 위한 Context를 변경하는데 사용할 수 있는 `flowOn` 함수를 가리킨다. Flow의 Context를 변경하는 올바른 방법은 아래 예제에 나와있다. 또한 이는 해당 스레드들의 이름을 인쇄하여 이것이 어떻게 작동하는지를 보여준다.\`
+이 Exception은 Flow에서 값 방출을 위한 Context를 변경하는데 사용할 수 있는 `flowOn` 함수를 가리킨다. Flow의 Context를 변경하는 올바른 방법은 아래 예제에 나와있다. 또한 이는 해당 스레드들의 이름을 인쇄하여 이것이 어떻게 작동하는지를 보여준다.
 
 ```kotlin
 fun simple(): Flow<Int> = flow {
@@ -620,7 +620,6 @@ Done 3
 Collected in 741 ms
 ```
 
-\
 여러 Flow 하나로 합치기
 ---------------
 

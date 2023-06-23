@@ -280,7 +280,7 @@ Result is null
 
 `withTimeout`으로 발생되는 Timeout 이벤트는 현재 실행중인 블록의 코드와 비동기적으로 일어나며 언제든지 일어날 수 있다, 심지어 Timeout 블록에서 return이 일어나기 직전에서도 일어날 수 있다.\*1 만약 블록 외부에서 닫거나 해제되어야 하는 일부 리소스를 블록 내부에서 열거나 획득해야 하는 경우 이 점을 염두에 두어야 한다.
 
-닫을 수 있는 리소스를 `Resouce` 클래스를 사용하여 모방해보자. 이 클래스는 인스턴스화 될 때 `acquired` 의 숫자를 증가시키고 `close` 함수를 통해 이 숫자를 감소시킴으로써, 얼마나 많은 수의 인스턴스가 생성되었는지를 추적한다. 이제 withTimeout 마지막에 Resource를 생성하는 많은 Coroutine을 생성하자. 약간의 지연(delay)를 추가함으로써 `withTimeout` 블록이 이미 끝났을 때 실행되도록 만들어 리소스 누수가 일어나도록 한다.
+닫을 수 있는 리소스를 `Resource` 클래스를 사용하여 모방해보자. 이 클래스는 인스턴스화 될 때 `acquired` 의 숫자를 증가시키고 `close` 함수를 통해 이 숫자를 감소시킴으로써, 얼마나 많은 수의 인스턴스가 생성되었는지를 추적한다. 이제 withTimeout 마지막에 Resource를 생성하는 많은 Coroutine을 생성하자. 약간의 지연(delay)를 추가함으로써 `withTimeout` 블록이 이미 끝났을 때 실행되도록 만들어 리소스 누수가 일어나도록 한다.
 
 ```kotlin
 import kotlinx.coroutines.*

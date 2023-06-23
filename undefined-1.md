@@ -22,7 +22,7 @@ suspend fun doSomethingUsefulOne(): Int {
     return 13
 }
 
-suspend fun doSomethiKotlinngUsefulTwo(): Int {
+suspend fun doSomethingUsefulTwo(): Int {
     delay(1000L) // 여기서도 유용한 작업을 실행한다고 가정한다.
     return 29
 }
@@ -56,7 +56,7 @@ Completed in 2017 ms
 
 만약 `doSomethingUsefulOne`과 `doSomethingUsefulTwo`의 실행 사이에 종속성이 없고, 이 둘을 **동시**에 실행함으로써 응답을 더 빨리 얻고 싶다면 어떻게 해야할까? 여기에서 async가 사용될 수 있다.
 
-개념적으로 `async`는 `launch`와 같다. `async`는 다른 스레드들과 동시에 동작하는 별도의 경량 Thread인 Coroutine을 시작한다. 다른 점은 `launch`는 결과값을 전달하지 않는 Job을 return 하지만, `async`는 나중에 결과값을 반환할 것을 약속하는 경량이고 스레드 블로킹을 하지 않는 Future인 `Deffered`를 반환한다는 점이다. Deferred에 대해 `.await()` 함수를 사용해 결과값을 얻을 수 있지만, `Deffered` 또한 `Job`이라 필요할 때 취소될 수 있다.
+개념적으로 `async`는 `launch`와 같다. `async`는 다른 스레드들과 동시에 동작하는 별도의 경량 Thread인 Coroutine을 시작한다. 다른 점은 `launch`는 결과값을 전달하지 않는 Job을 return 하지만, `async`는 나중에 결과값을 반환할 것을 약속하는 경량이고 스레드 블로킹을 하지 않는 Future인 `Deferred`를 반환한다는 점이다. Deferred에 대해 `.await()` 함수를 사용해 결과값을 얻을 수 있지만, `Deferred` 또한 `Job`이라 필요할 때 취소될 수 있다.
 
 ```
 val time = measureTimeMillis {
@@ -115,7 +115,7 @@ Completed in 1017 ms
 
 ## 비동기 스타일 함수
 
-구조적인 동시성에서 벗어나기 위해 `GlobalScope`를 참조하는 `async` Coroutine Builder을 사용하여 `doSomethingUsefulOne` 및 `doSomethingUsefulTwo`을 실행하는 **비동기** 스타일의 함수를 정의할 수 있다. 이러한 함수들의 이름은 "...Async"를 접미사를 가지도록 하여, 함수들이 비동기 계산을 시작하기만 하고 결괏값을 얻기 위해 Deffered 값을 사용해야 한다는 것을 강조한다.
+구조적인 동시성에서 벗어나기 위해 `GlobalScope`를 참조하는 `async` Coroutine Builder을 사용하여 `doSomethingUsefulOne` 및 `doSomethingUsefulTwo`을 실행하는 **비동기** 스타일의 함수를 정의할 수 있다. 이러한 함수들의 이름은 "...Async"를 접미사를 가지도록 하여, 함수들이 비동기 계산을 시작하기만 하고 결괏값을 얻기 위해 Deferred 값을 사용해야 한다는 것을 강조한다.
 
 > 📖  GlobalScope는 사소하지 않은 역효과를 일으킬 수 있는 섬세하게 다뤄야 하는 API이다. 그 중 하나는 아래에서 설명될 것이며, 명시적으로 `GlobalScope`를 `@OptIn(DelicateCoroutinesApi::class)`과 함께 사용되도록 해야 한다.
 
