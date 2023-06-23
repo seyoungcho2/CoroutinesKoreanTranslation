@@ -152,7 +152,7 @@ fun main() = runBlocking<Unit> {
 
 디버그 툴 윈도우는 다음과 같이 나타난다.
 
-**Coroutines** 탭에는, 동시에 실행중이 두개의 Coroutine을 볼 수 있다. Flow 수집기와 방출기는 buffer() 함수 때문에 분리된 Coroutine에서 실행된다. buffer() 함수는 flow에서 방출된 값들을 버퍼에 저장한다. 방출기 Coroutine은 **RUNNING** 상태를 가지고, 수집기 Coroutine은 **SUSPENDED** 상태를 가진다.
+**Coroutines** 탭에는, 동시에 실행중인 두개의 Coroutine을 볼 수 있다. Flow 수집기와 방출기는 buffer() 함수 때문에 분리된 Coroutine에서 실행된다. buffer() 함수는 flow에서 방출된 값들을 버퍼에 저장한다. 방출기 Coroutine은 **RUNNING** 상태를 가지고, 수집기 Coroutine은 **SUSPENDED** 상태를 가진다.
 
 3\. 디버그 툴 윈도우의 **Resume Program**을 눌러서 디버거 세션을 재개한다.
 

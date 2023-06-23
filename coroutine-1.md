@@ -155,7 +155,7 @@ fun main() = runBlocking {
 
 ## 상호 배제
 
-문제에 대한 상호 배제 솔루션은 모든 모든 공유 상태에 대한 변경을 절대로 동시에 실행되지 않는 critical section으로 만들어 보호하는 것이다. 블로킹을 수행하기 위해서는 일반적으로 `synchronized`나 `ReentrantLock`을 사용한다. Coroutine의 대체제는 Mutex라 불린다. 이는 critical section을 구분하기 위한 `lock`과 `unlock` 함수를 가진다. 중요한 차이점은 `Mutext.lock()`이 일시중단 함수라는 것이다. 이는 Thread를 블록하지 않는다.
+문제에 대한 상호 배제 솔루션은 모든 공유 상태에 대한 변경을 절대로 동시에 실행되지 않는 critical section으로 만들어 보호하는 것이다. 블로킹을 수행하기 위해서는 일반적으로 `synchronized`나 `ReentrantLock`을 사용한다. Coroutine의 대체제는 Mutex라 불린다. 이는 critical section을 구분하기 위한 `lock`과 `unlock` 함수를 가진다. 중요한 차이점은 `Mutext.lock()`이 일시중단 함수라는 것이다. 이는 Thread를 블록하지 않는다.
 
 `mutex.lock(); try { ... } finally { mutex.unlock() }` 패턴을 나타내는 `withLock` 확장함수 또한 있다.
 
@@ -178,9 +178,7 @@ fun main() = runBlocking {
 
 > 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-sync-06.kt)에서 확인할 수 있습니다.
 
-이 예에서 Lock을 거는 것은 세밀해서 비용이 든다. 하지만, 이는 주기적으로 공유 상태를 수정해야 하지만 상태를 제한시킬 수 있는 자연 스레드가 없는 일부 상황에서 좋은 선택이 된다. 하지만,&#x20;
-
-\
+이 예에서 Lock을 거는 것은 세밀해서 비용이 든다. 하지만, 이는 주기적으로 공유 상태를 수정해야 하지만 상태를 제한시킬 수 있는 자연 스레드가 없는 일부 상황에서 좋은 선택이 된다.
 
 
 ## Actors
@@ -189,7 +187,7 @@ actor는 Coroutine의 조합으로 만들어진 엔티티이다. actor의 상태
 
 간단한 actor Coroutine 빌더를 통해서 actor의 수신 Channel을  Scope에 편리하게 결합해서 메세지를 수신할수 있다. 또한 발신 Channel을 결과 Job 객체에 결합함으로써 actor에 대한 단일 참조를 통해 제어할 수 있다.
 
-actor을 사용하는 첫 단계는 actor가 처리할 메세지의 class를 정의하는 것이다. Kotlin의 sealed class는 이 목적으로 아주 적합하다. 우리는 `sealed class`로 `CounterMsg`를 정의하고, `IncCounter` 메세지를  counter을 증가시키는데 사용하고 `GetCounter` 메세지를 값을 가져오는데 사용한다. 후자(GetCounter)는 응답을 보내는 것이 필요하다. 미래에 알려질(통신될) 단일 값을 나타내는 통신 원시값(primitive)인 CompletableDeffered이 이를 위해 사용된다.
+actor을 사용하는 첫 단계는 actor가 처리할 메세지의 class를 정의하는 것이다. Kotlin의 sealed class는 이 목적으로 아주 적합하다. 우리는 `sealed class`로 `CounterMsg`를 정의하고, `IncCounter` 메세지를  counter을 증가시키는데 사용하고 `GetCounter` 메세지를 값을 가져오는데 사용한다. 후자(GetCounter)는 응답을 보내는 것이 필요하다. 미래에 알려질(통신될) 단일 값을 나타내는 통신 원시값(primitive)인 CompletableDeferred이 이를 위해 사용된다.
 
 ```kotlin
 // Message types for counterActor

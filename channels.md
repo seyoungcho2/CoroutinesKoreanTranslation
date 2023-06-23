@@ -10,7 +10,7 @@ description: '원문 최종 수정 :  2023년 6월 20일'
 
 
 
-Deffered 값은 두 코루틴 사이에 단일 값을 전달하는데 편리한 방법을 제공한다. Channel은 값의 스트림을 전달하는 방법을 제공한다.
+Deferred 값은 두 코루틴 사이에 단일 값을 전달하는데 편리한 방법을 제공한다. Channel은 값의 스트림을 전달하는 방법을 제공한다.
 
 
 
@@ -69,7 +69,7 @@ println("Done!")
 
 Coroutine이 원소들의 시퀀스를 생성하는 패턴은 매우 일반적이다. 이는 동시성 코드에서 자주 발견되는 **생산자-소비자 패턴**의 일부이다. 생산자를 채널을 파라미터로 받는 함수로 추상화 할 수 있지만, 이는 함수로부터 결과가 반환되어야 한다는 상식과 맞지 않는다.
 
-생산자측에서는 `producer`라는 이름을 가진 편리한 코루틴 빌더를 통해 이를 간단하게 할 수 있고, 소비자측의 for 루프를 `consumeEach` 확장 함수를 사용해 대체할 수 있다.
+생산자측에서는 `produce`라는 이름을 가진 편리한 코루틴 빌더를 통해 이를 간단하게 할 수 있고, 소비자측의 for 루프를 `consumeEach` 확장 함수를 사용해 대체할 수 있다.
 
 ```kotlin
 fun CoroutineScope.produceSquares(): ReceiveChannel<Int> = produce {
@@ -184,9 +184,6 @@ coroutineContext.cancelChildren() // cancel all children to let main finish
 
 어쨌든, 이것은 소수를 찾는 매우 비현실적인 방법이다. 실제로 파이프라인은 다른 원격 서비스에 대한 비동기 호출과 같은 일시중단 호출이 포함되며, 이 파이프라인은 `sequence` / `iterator` 을 사용해서 만들어질 수 없다. 완전히 비동기적인 `produce`와 달리 임의의 일시 중단을 포함할 수 없기 때문이다.
 
-\
-
-
 ## Fan-out
 
 복수의 Coroutine은 같은 채널로부터 수신하면서, 그들간에 작업을 분산할 수 있다. 1초에 10개의 숫자를 주기적으로 정수를 생성하는 생산자 Coroutine으로 시작하자 :
@@ -237,7 +234,7 @@ Processor #1 received 9
 Processor #3 received 10
 ```
 
-생산자 Coroutine을 취소하는 것은 생산자 Coroutine의 채널을 닫는다. 그러므로 실제로 프로세서 Coroutine이 수행하는 채널의 반복을 종료한다.
+생산자 Coroutine을 취소하면 생산자 Coroutine의 채널은 닫힌다. 그러므로 실제로 프로세서 Coroutine이 수행하는 채널의 반복이 종료된다.
 
 또한, `launchProcessor` 코드에서 Fan-out을 수행하기 위해 명시적으로 `for` 루프를 사용해서 채널에 대해 반복을 수행한 방법에 주목하자. 이 `for` 루프 패턴은 `consumeEach`와 다르게 복수의 Coroutine에 사용하기 완전히 안전하다. 만약 하나의 프로세서 Coroutine이 실패하면 다른 Coroutine이 채널에 대한 처리를 할 것이다. 반면에, `consumerEach`를 사용해 작성된 프로세서는 정상적으로 혹은 비정상적으로 완료될 때 언제나 해당 채널을 소비(취소)한다.
 
@@ -281,9 +278,6 @@ foo
 BAR!
 ```
 
-\
-
-
 ## Buffered channels
 
 지금까지 보여진 Channel에는 Buffer가 없다. Buffer되지 않은 채널은 발신자와 수신자가 서로 만날 때 값을 전송한다. 이는 랑데뷰라고도 불린다. 만약 send가 먼저 실행되면, receive가 실행될 때까지 일시 중단된다. 만약 receive가 먼저 실행되면, send가 실행될 때까지 일시 중단된다.
@@ -318,12 +312,6 @@ Sending 4
 ```
 
 첫 4개의 원소는 buffer에 추가되고, 발신자는 5번째 것을 보내려고 할 때 일시 중단 한다.
-
-\
-
-
-\
-
 
 ***
 
@@ -365,9 +353,6 @@ pong Ball(hits=4)
 ```
 
 때때로 채널은 사용중인 실행기의 특성으로 인해 불공평해보이게 실행될 수 있다. 자세한 사항은 [이 이슈](https://github.com/Kotlin/kotlinx.coroutines/issues/111)에서 확인하자.&#x20;
-
-\
-
 
 ## Ticker channels
 
@@ -419,7 +404,3 @@ Next element is ready in 50ms after consumer pause in 150ms: kotlin.Unit
 `ticker`는 소비자가 일시중지 하는 것을 알고, 기본 동작으로 일시중지가 발생하면 다음 원소가 생산되는 것을 지연시켜, 원소가 일정 비율로 생성되도록 유지한다.
 
 선택적으로 `mode` 매개변수를 `TickerMode.FIXED_DELAY` 로 설정해서 두 원소 간에 일정한 지연이 발생하도록 할 수 있다.
-
-
-
-\

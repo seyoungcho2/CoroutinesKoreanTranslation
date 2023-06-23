@@ -62,7 +62,7 @@ Caught ArithmeticException
 
 ## CoroutineExceptionHandler 사용해 전파된 예외 처리하기
 
-잡히지 않은 예외를 콘솔에 출력하도록 기본 동작을 커스터마이징 할 수 있다. root Coroutine 상의 Context의 요소인 `CoroutineExceptionHandler`는, root Coroutine과 모든 자식 Coroutine들에 대해 커스텀한 예외 처리가 필요한 경우, 일반 catch 블록으로 사용될 수 있다. 이는 [Thread.uncaughtExceptionHandler](https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#setUncaughtExceptionHandler\(java.lang.Thread.UncaughtExceptionHandler\))와 비슷하다. `CoroutineExceptionHandler` 을 사용해서 예외를 복구 하지는 못한다. Coroutine은 Handler가 호출되었을 때 이미 해당 Exception에 대한 처리를 완료했기 때문이다. 일반적으로 `CoroutineExceptionHandler`는 오류를 로깅하거나, 애러 메세지를 보여주거나, 어플리케이션을 종료하거나 다시 시작하기 위해 사용된다.
+잡히지 않은 예외를 콘솔에 출력하도록 기본 동작을 커스터마이징 할 수 있다. root Coroutine 상의 Context의 요소인 `CoroutineExceptionHandler`는, root Coroutine과 모든 자식 Coroutine들에 대해 커스텀한 예외 처리가 필요한 경우, 일반 catch 블록으로 사용될 수 있다. 이는 [Thread.uncaughtExceptionHandler](https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#setUncaughtExceptionHandler(java.lang.Thread.UncaughtExceptionHandler))와 비슷하다. `CoroutineExceptionHandler` 을 사용해서 예외를 복구 하지는 못한다. Coroutine은 Handler가 호출되었을 때 이미 해당 Exception에 대한 처리를 완료했기 때문이다. 일반적으로 `CoroutineExceptionHandler`는 오류를 로깅하거나, 에러 메세지를 보여주거나, 어플리케이션을 종료하거나 다시 시작하기 위해 사용된다.
 
 `CoroutineExceptionHandler`는 잡히지 않은 예외에 대해서만 실행된다 - 다른 어떠한 방식으로도 처리되지 않은 예외. 특히, 모든 자식 Coroutine들(다른 Job의 Context로 만들어진 Coroutines)은 그들의 예외를 부모 Coroutine에서 처리하도록 위임하는데, 그 부모 또한 부모에게 위임해서 root Coroutine까지 올라간다. 따라서 그들의 Context에 추가된 `CoroutineExceptionHandler`는 절대 사용되지 않는다. 추가적으로 async 빌더는 모든 예외를 잡아 Deferred 객체에 나타내므로, CoroutineExceptionHandler가 아무런 효과가 없음은 마찬가지이다.
 
@@ -257,7 +257,7 @@ CoroutineExceptionHandler got java.io.IOException
 
 ### Supervision job
 
-`SupervisorJob`이 이 복적을 위해 사용될 수 있다. 이는 취소가 아래 방향으로 전파되는 것만 제외하면 일반적인 `Job`과 비슷하다. 이는 다음 예제를 통해 설명될 수 있다.
+`SupervisorJob`이 이 목적을 위해 사용될 수 있다. 이는 취소가 아래 방향으로 전파되는 것만 제외하면 일반적인 `Job`과 비슷하다. 이는 다음 예제를 통해 설명될 수 있다.
 
 ```kotlin
 val supervisor = SupervisorJob()
@@ -338,7 +338,7 @@ Caught an assertion error
 
 #### **Supervise가 사용된  Coroutine에서의 예외**
 
-Job과 SupervisorJob의 또다른 중요한 차이는 예외 처리이다. 모든 자식은 자신의 예외를 예외 처리 메커지니즘에 따라 직접 처리해야 한다. 이 다른점은 자식의 실패가 부모에게 전파되지 않는다는 점이다. 이는 `supervisorScope` 내부에서 직접 실행된 Coroutine은 root Coroutine과 비슷하게 그들의 Scope내부에 설치된 `CoroutineExceptionHandler`를 쓰는 것을 뜻한다.(자세한 것은 [CoroutineExceptionHandler](https://translatordev.com/66) 섹션을 참조) &#x20;
+Job과 SupervisorJob의 또다른 중요한 차이는 예외 처리이다. 모든 자식은 자신의 예외를 예외 처리 매커니즘에 따라 직접 처리해야 한다. 이 다른점은 자식의 실패가 부모에게 전파되지 않는다는 점이다. 이는 `supervisorScope` 내부에서 직접 실행된 Coroutine은 root Coroutine과 비슷하게 그들의 Scope내부에 설치된 `CoroutineExceptionHandler`를 쓰는 것을 뜻한다.(자세한 것은 [CoroutineExceptionHandler](https://translatordev.com/66) 섹션을 참조) &#x20;
 
 ```kotlin
 val handler = CoroutineExceptionHandler { _, exception -> 
@@ -364,8 +364,3 @@ The child throws an exception
 CoroutineExceptionHandler got java.lang.AssertionError
 The scope is completed
 ```
-
-\
-
-
-\

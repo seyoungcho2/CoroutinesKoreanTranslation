@@ -477,7 +477,7 @@ Exception in thread "main" java.lang.IllegalStateException: Flow invariant is vi
 
 ### flowOn 연산자
 
-이 Exception은 Flow에서 값 방출을 위한 Context를 변경하는데 사용할 수 있는 `flowOn` 함수를 가리킨다. Flow의 Context를 변경하는 올바른 방법은 아래 예제에 나와있다. 또한 이는 해당 스레드들의 이름을 인쇄하여 이것이 어떻게 작동하는지를 보여준다.\`
+이 Exception은 Flow에서 값 방출을 위한 Context를 변경하는데 사용할 수 있는 `flowOn` 함수를 가리킨다. Flow의 Context를 변경하는 올바른 방법은 아래 예제에 나와있다. 또한 이는 해당 스레드들의 이름을 인쇄하여 이것이 어떻게 작동하는지를 보여준다.
 
 ```kotlin
 fun simple(): Flow<Int> = flow {
@@ -620,7 +620,6 @@ Done 3
 Collected in 741 ms
 ```
 
-\
 여러 Flow 하나로 합치기
 ---------------
 
@@ -886,15 +885,11 @@ Caught java.lang.IllegalStateException: Crashed on 2
 
 ***
 
-
-
-***
-
 ## 예외 투명성(Exception Transparency)
 
 그러면 어떻게 방출기의 코드가 예외 처리 동작을 캡슐화 할 수 있을까?
 
-Flow는 예외에 투명해야 하고, `try/catch` 블록 내부에서 `flow { ... }` 빌더의 값을 방출하는 것은 예외 투명성을 위반하는 것이다. 이렇게 하면 예외를 발생시키는 수집기 이전 예제와 같이 언제나 `try/catch`를 사용해 예외를 잡아낼 수 있다.
+Flow는 예외에 투명해야 하고, `try/catch` 블록 내부에서 `flow { ... }` 빌더의 값을 방출하는 것은 예외 투명성을 위반하는 것이다. 이렇게 하면 예외를 발생시키는 수집기가 이전 예제와 같이 언제나 `try/catch`를 사용해 예외를 잡아낼 수 있다.
 
 방출기는 `catch` 연산자를 사용해 예외 투명성을 유지시키고 예외 처리를 캡슐화 할 수 있다. `catch` 연산자의 body는 예외를 분석하고, 잡은 예외에 따라 다른 방식으로 대응할 수 있다.
 
@@ -1091,7 +1086,7 @@ Exception in thread "main" java.lang.IllegalStateException: Collected 2
 
 ## 명령적으로 다루기 vs 선언적으로 다루기
 
-이제 우리는 어떻게 Flow를 수집하고, 명령적인 방식과 선언적인 방식으로 완료와 예외를 처리하는 방법을 안다. 자연적으로 어떤 접근 방식이 선호되고 왜 그런지에 대한 의문이 생길 것이다. 이에 대해 라이브러리적인 관점에서 특정한 접근 방식만을 옹호하지 않는다. 두 접근 방식 모두 유효하며, 선호도와 코스 스타일에 따라 선택되어야 한다.
+이제 우리는 어떻게 Flow를 수집하고, 명령적인 방식과 선언적인 방식으로 완료와 예외를 처리하는 방법을 안다. 자연적으로 어떤 접근 방식이 선호되고 왜 그런지에 대한 의문이 생길 것이다. 이에 대해 라이브러리적인 관점에서 특정한 접근 방식만을 옹호하지 않는다. 두 접근 방식 모두 유효하며, 선호도와 코드 스타일에 따라 선택되어야 한다.
 
 
 
@@ -1150,9 +1145,9 @@ Event: 2
 Event: 3
 ```
 
-`launchIn`에서 필요로 하는 `CoroutineScope` 파라미터는 CoroutineScope을 특정해 Flow가 실행되면 어떤 Coroutine이 수집을 할지를 결정하도록 한다. 위의 예제에서 이 Scope는 `runBlocking` Coroutine 빌더로부터 와서, flow가 실행되는 동안 runBlocking Scope가 자식 코루틴이 완료될 때까지 기다리도록 하고 main 함수를 반환하는 것을 방지해서 예제가 종료되지 않도록 한다.
+`launchIn`에서 필요로 하는 `CoroutineScope` 파라미터는 CoroutineScope을 특정해 Flow가 실행되면 어떤 Coroutine이 수집할 지 결정하도록 한다. 위의 예제에서 이 Scope는 `runBlocking` Coroutine 빌더로부터 와서, flow가 실행되는 동안 runBlocking Scope가 자식 코루틴이 완료될 때까지 기다리도록 하고 main 함수를 반환하는 것을 방지해서 예제가 종료되지 않도록 한다.
 
-실제 어플리케이션들에서는 한정된 생애를 가진 엔티티로부터 Scope를 가져온다 엔터티의 생애가 종료되는 순간 해당 Scope는 취소되며, 해당 Flow의 수집은 중단된다. 이러한 방식으로 `onEach { ... }.launchIn(scope)` 쌍은 `addEventListener`과 같이 동작한다. 하지만, 취소와 구조화된 동시성이 `removeEventListener` 함수에 해당하는 역할을 대신 수행해주기 때문에 필요 없다.
+실제 어플리케이션들에서는 한정된 생애를 가진 엔터티로부터 Scope를 가져온다 엔터티의 생애가 종료되는 순간 해당 Scope는 취소되며, 해당 Flow의 수집은 중단된다. 이러한 방식으로 `onEach { ... }.launchIn(scope)` 쌍은 `addEventListener`과 같이 동작한다. 하지만, 취소와 구조화된 동시성이 `removeEventListener` 함수에 해당하는 역할을 대신 수행해주기 때문에 필요 없다.
 
 `launchIn` 또한 전체 Scope을 `cancel`하거나 `join`하지 않고 해당 Flow를 수집하는 Coroutine만을 `cancel`하기 위해 사용할 수 있는 `Job`을 반환한다는 점을 명심하자.
 
@@ -1245,7 +1240,7 @@ Exception in thread "main" kotlinx.coroutines.JobCancellationException: Blocking
 
 ## Flow와 Reactive Stream
 
-[리액티브 스트림](https://www.reactive-streams.org/)이나 Rxjava나 Project Reactor 같은 리액티브 프레임웍에 익숙한 사람들은 Flow를 설계 하는게 아주 익숙할 것이다.
+[리액티브 스트림](https://www.reactive-streams.org/)이나 RxJava나 Project Reactor 같은 리액티브 프레임웍에 익숙한 사람들은 Flow를 설계 하는게 아주 익숙할 것이다.
 
 실제로, Flow의 설계는 리액티브 스트림과 그에 대한 다양한 구현체들에 영감을 받았다. 하지만, Flow의 주요 목표는 가능한 단순하게 디자인을 하는 것이며, Kotlin의 일시중단 친화적이고 구조적인 동시성을 존중하는 것이다. 이러한 목표를 이루는 것은 리액티브 선지자과 그들의 엄청난 작업들이 없으면 불가능할 것이다. 이에 대한 완전한 이야기는 [Reactive Streams and Kotlin Flows](https://medium.com/@elizarov/reactive-streams-and-kotlin-flows-bfd12772cda4) 기사에서 읽을 수 있다.
 
