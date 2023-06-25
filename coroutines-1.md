@@ -118,7 +118,7 @@ suspend fun doWorld() = coroutineScope {  // this: CoroutineScope
 }
 ```
 
-> 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-basic-01.kt)에서 확인할 수 있습니다.
+> 📌 전체 코드는 [이곳](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-basic-03.kt)에서 확인할 수 있습니다.
 
 이 코드 또한 다음과 같이 출력된다.
 
