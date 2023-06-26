@@ -1,0 +1,15 @@
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val job = launch {
+        repeat(1000) { i ->
+            println("job: I'm sleeping $i ...")
+            delay(500L)
+        }
+    }
+    delay(1300L) // 약간의 시간 동안 delay 한다.
+    println("main: I'm tired of waiting!")
+    job.cancel() // Job을 cancel한다.
+    job.join() // Job의 실행이 완료될 때까지 기다린다.
+    println("main: Now I can quit.")
+}
