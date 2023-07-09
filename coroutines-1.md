@@ -201,7 +201,7 @@ Done
 
 ## Coroutines는 경량(light-weight) 이다
 
-Coroutines는 JVM의 Thread들보다 덜 리소스 집약적이다. Thread를 사용할 때 JVM의 가용 메모리를 소진시키지는 코드는 Coroutine을 사용하여 리소스의 제한치에 도달하지 않도록 표현될 수 있다. 예를 들어, 다음의 코드는 각각이 5초간 기다린 후 마침표('.)를 출력하는 50,000개의 별개의 Coroutine을 실행하면서도 매우 적은 메모리만을 사용한다:
+Coroutines는 JVM의 Thread들보다 덜 리소스 집약적이다. Thread를 사용할 때 JVM의 가용 메모리를 소진시키지는 코드는 Coroutine을 사용하여 리소스의 제한치에 도달하지 않도록 표현될 수 있다. 예를 들어, 다음의 코드는 각각이 5초간 기다린 후 마침표('.')를 출력하는 50,000개의 별개의 Coroutine을 실행하면서도 매우 적은 메모리만을 사용한다:
 
 ```
 import kotlinx.coroutines.*
