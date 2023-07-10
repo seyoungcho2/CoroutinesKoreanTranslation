@@ -161,7 +161,7 @@ fun main() = runBlocking<Unit> {
 
 > 📖 디버깅 모드는 JVM이 `-ea` 옵션이 포함된 채로 실행될 때 켜진다. 디버깅 기능들에 대한 추가적인 것들은 [DEBUG\_PROPERTY\_NAME](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-d-e-b-u-g\_-p-r-o-p-e-r-t-y\_-n-a-m-e.html) 프로퍼티에 대한 문서에서 확인할 수 있다.
 
-\
+
 
 
 ## Thread 전환 하기
@@ -360,7 +360,7 @@ JVM Option에 `-Dkotlinx.coroutines.debug` 을 추가한 코드의 결과값은 
 I'm working in thread DefaultDispatcher-worker-1 @test#2
 ```
 
-\
+
 Coroutine Scope
 ---------------
 
