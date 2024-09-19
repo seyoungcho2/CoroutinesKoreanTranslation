@@ -16,7 +16,7 @@ Coroutines는 언제나 Kotlin 표준 라이브러리에 정의된 [CoroutineCon
 
 ## Dispatchers와 Threads
 
-Coroutine Context에는 해당 Coroutine의 실행에 사용되는 단일 스레드나 복수의 스레드를 결정하는 **Coroutine Dispatcher**([CoroutineDispatcher](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/) 문서를 확인)가 포함 된다. Coroutine Dispatcher은 Coroutine의 실행될 사용될 스레드를 특정 스레드로 제한하거나 스레드풀에 분배하거나, 제한 없이 실행 되도록 할 수 있다.
+Coroutine Context에는 해당 Coroutine의 실행에 사용되는 단일 스레드나 복수의 스레드를 결정하는 **Coroutine Dispatcher**([CoroutineDispatcher](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/) 문서를 확인)가 포함 된다. Coroutine Dispatcher은 Coroutine이 실행될 스레드를 특정 스레드로 제한하거나 스레드풀에 분배하거나, 제한 없이 실행 되도록 할 수 있다.
 
 `launch`나 `async` 같은 모든 Coroutine Builder들은 새로운 Coroutine을 위해 Dispatcher나 다른 Context 요소들을 명시적으로 지정하는데 사용할 수 있는 `CoroutineContext` 파라미터를 선택적으로 받을 수 있다.&#x20;
 
