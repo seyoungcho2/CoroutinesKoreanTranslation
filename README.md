@@ -43,3 +43,14 @@ Coroutines에 대한 배경 지식이 없는 분들을 위해 [역주가 포함�
 [LinkedIn](https://www.linkedin.com/in/seyoungcho/)
 
 Email : seyoungcho2@gmail.com
+
+### **Contributors**
+이 프로젝트에 기여해주신 분들께 감사드립니다.
+
+- [@mangbaam](https://github.com/mangbaam)
+- [@onseok](https://github.com/onseok)
+- [@waterfogSW](https://github.com/waterfogSW)
+- [@jaehyun0122](https://github.com/jaehyun0122)
+- [@ghdcksgml1](https://github.com/ghdcksgml1)
+
+기여자 목록은 [여기](https://github.com/seyoungcho2/CoroutinesKoreanTranslation/graphs/contributors)에서 확인할 수 있습니다.
